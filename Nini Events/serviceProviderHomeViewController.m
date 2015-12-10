@@ -1,0 +1,2105 @@
+//
+//  serviceProviderHomeViewController.m
+//  Nini Events
+//
+//  Created by Krishna_Mac_1 on 11/26/14.
+//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
+//
+
+#import "serviceProviderHomeViewController.h"
+#import "JSON.h"
+#import "SBJson.h"
+#import "ASIHTTPRequest.h"
+#import "UIBubbleTableView.h"
+#import "UIBubbleTableViewDataSource.h"
+#import "NSBubbleData.h"
+#import "loginViewController.h"
+#import "spRequestAssistanceViewController.h"
+#import "spPingAssistanceViewController.h"
+#import "gettingCountViewController.h"
+@interface serviceProviderHomeViewController ()
+{
+    IBOutlet UIBubbleTableView *bubbleTable;
+}
+@end
+
+@implementation serviceProviderHomeViewController
+
+- (void)viewDidLoad {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CompareDate"];
+    orderIdtempArray=[[NSMutableArray alloc]init];
+    savDataArray=[[NSMutableArray alloc]init];
+    NSLog(@"Name%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"Service Provider Name"]);
+    NSLog(@"role%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"Role"]);
+    NSString *serviceProviderName = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"Service Provider Name"]];
+    serviceProviderName = [serviceProviderName uppercaseString];
+    NSString *serviceProviderRole = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"Role"]];
+    serviceProviderRole = [serviceProviderRole uppercaseString];
+    nameLbl.text=serviceProviderName;
+    roleLbl.text=serviceProviderRole;
+    nameLbl.font = [UIFont fontWithName:@"Helvetica-Condensed" size:18];
+    roleLbl.font = [UIFont fontWithName:@"Helvetica-Light" size:18];
+    NSString*picUrl=[[NSUserDefaults standardUserDefaults ]valueForKey:@"Service Provider image"];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int updatedChatCount = [[[NSUserDefaults standardUserDefaults ]valueForKey:@"UpdatedChat Count"]intValue];
+    if (updatedChatCount != 0) {
+        self.chatNotificationBadgeImg.hidden = NO;
+        self.chatNotificationBageLbl.hidden = NO;
+        self.chatNotificationBageLbl.text = [NSString stringWithFormat:@"%d",updatedChatCount];
+    }else{
+        self.chatNotificationBadgeImg.hidden = YES;
+        self.chatNotificationBageLbl.hidden = YES;
+    }
+
+    [defaults setValue:@"0" forKey:@"Order Count"];
+    self.orderNotificationBadgeImg.hidden = YES;
+    self.orderNotificationBadgeLbl.hidden = YES;
+    providerImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    providerImageView.layer.borderWidth = 2.5;
+    providerImageView.layer.cornerRadius = 10.0;
+    [providerImageView setClipsToBounds:YES];
+//    
+//    self.spDisplayLbl.layer.borderColor = [UIColor whiteColor].CGColor;
+//    self.spDisplayLbl.layer.borderWidth = 2.5;
+//    self.spDisplayLbl.layer.cornerRadius = 10.0;
+//    [self.spDisplayLbl setClipsToBounds:YES];
+    
+    
+    if (picUrl.length==0) {
+        providerImageView.image = [UIImage imageNamed:@"dummy_user.png"];
+    }
+    else{
+        
+        UIActivityIndicatorView *objactivityindicator=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        objactivityindicator.center = CGPointMake((providerImageView.frame.size.width/2),(providerImageView.frame.size.height/2));
+        [providerImageView addSubview:objactivityindicator];
+        [objactivityindicator startAnimating];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+            NSURL *imageURL=[NSURL URLWithString:[picUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            NSData *tempData=[NSData dataWithContentsOfURL:imageURL];
+            UIImage *imgData=[UIImage imageWithData:tempData];
+            dispatch_async(dispatch_get_main_queue(), ^
+                           {
+                               if (tempData!=nil && [imgData isKindOfClass:[UIImage class]])
+                               {
+                                   [providerImageView setImage:imgData];
+                                   //  [UserImageDict setObject:imgData forKey:UrlString];
+                                   [objactivityindicator stopAnimating];
+                                   
+                               }
+                               else
+                               {
+                                   //[self.imageview setImage:[UIImage imageNamed:@"dummy_user.png"]];
+                                   [objactivityindicator stopAnimating];
+                                   
+                               }
+                           });
+        });
+    }
+    
+    
+    originalPt.x = self.chatView.frame.origin.x;
+    originalPt.y = self.chatView.frame.origin.y;
+    StatusTag =[NSString stringWithFormat:@"Open"];
+    NSString *str = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"isCoutFetched"]];
+    if ([str isEqualToString:@"(null)"]) {
+        str = [NSString stringWithFormat:@"0"];
+    }
+//    if ([str isEqualToString:@"1"]) {
+//        [self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+//    }else{
+    
+        [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:@"isCoutFetched"];
+        [self chatTableCount];
+//    }
+    
+    chatArray = [[NSMutableArray alloc]init];
+    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
+    activityIndicator.center = CGPointMake(512, 374);
+    
+    activityIndicator.color=[UIColor whiteColor];
+    [self.view addSubview:activityIndicator];
+    
+    //    NSMutableArray *chatMessages = [[NSMutableArray alloc]initWithObjects:@"hi",@"Hello",@"How are you?",@"I am good thanks",@"U tell", nil];
+    //    NSMutableArray *chatTime = [[NSMutableArray alloc]initWithObjects:@"12:03",@"12:04",@"12:05",@"12:06",@"12:07", nil];
+    //    NSMutableArray *chatuser = [[NSMutableArray alloc]initWithObjects:@"1",@"2",@"1",@"2",@"2", nil];
+    //    NSMutableArray *chatSender = [[NSMutableArray alloc]initWithObjects:@"1",@"2",@"1",@"2",@"2", nil];
+    //    chatDictionary = [[NSMutableDictionary alloc]initWithObjectsAndKeys:chatMessages,@"messages",chatTime,@"time",chatuser,@"user",chatSender,@"sender",nil];
+    //
+    //    NSLog(@"Chat Dictionary %@",chatDictionary);
+    //    allChatMessages = [[NSMutableArray alloc]init];
+    //
+    //    for (int i = 0; i < [chatMessages count]; i++) {
+    //        chatObj = [[chatOC alloc]init];
+    //        chatObj.chatMessage = [[chatDictionary valueForKey:@"messages"] objectAtIndex:i];
+    //        chatObj.chatTime = [[chatDictionary valueForKey:@"time"] objectAtIndex:i];
+    //        chatObj.chatUser = [[chatDictionary valueForKey:@"user"] objectAtIndex:i];
+    //        chatObj.chatSender = [[chatDictionary valueForKey:@"sender"] objectAtIndex:i];
+    //        [chatArray addObject:chatObj];
+    //
+    //        NSBubbleData *Bubble;
+    //
+    //        if([chatObj.chatSender isEqualToString:@"1"]){
+    //           Bubble = [NSBubbleData dataWithText:chatObj.chatMessage date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeMine];
+    //           Bubble.avatar = [UIImage imageNamed:@"avatar1.png"];
+    //        }else{
+    //            Bubble = [NSBubbleData dataWithText:chatObj.chatMessage date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];
+    //            Bubble.avatar = nil;
+    //        }
+    //
+    //        [allChatMessages addObject:Bubble];
+    //    }
+    //
+    //    self.chatTableView.bubbleDataSource = self;
+    //
+    //    self.chatTableView.snapInterval = 120;
+    //
+    //    self.chatTableView.showAvatars = YES;
+    //
+    //    self.chatTableView.typingBubble = NSBubbleTypingTypeSomebody;
+    //
+    //    [self.chatTableView reloadData];
+    //
+    //    self.chatTableView.bubbleDataSource = self;
+    //
+    //    self.chatTableView.snapInterval = 120;
+    //
+    //
+    //    self.chatTableView.typingBubble = NSBubbleTypingTypeSomebody;
+    //    NSLog(@"CHAT Array %@",chatObj);
+    //    [self.chatTableView reloadData];
+    //[self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    // observe keyboard hide and show notifications to resize the text view appropriately
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    // start editing the UITextView (makes the keyboard appear when the application launches)
+    // [self editAction:self];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillChangeFrameNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+-(void)chatTableCount
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.tablesAllotedArray = [[NSMutableArray alloc]initWithObjects:[defaults valueForKey:@"Alloted Tables"], nil];
+    NSMutableArray *tempArray = [self.tablesAllotedArray objectAtIndex:0];
+    NSLog(@"Tables... %d",self.tablesAllotedArray.count);
+    tableAllotedIdsArray = [[NSMutableArray alloc] init];
+    assignedTablesArray = [[NSMutableArray alloc] init];
+    for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
+        tableAllotedObj = [[tableAllotedOC alloc]init];
+        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"id"] objectAtIndex:i]];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@")" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSLog(@"Table ID %@",tableIdStr);
+        tableAllotedObj.tableId = [tableIdStr intValue];
+        NSLog(@"Table ID %d",tableAllotedObj.tableId);
+        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"name"] objectAtIndex:i]];
+        
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSLog(@"Table ID %@",tableIdStr);
+        NSLog(@"Table Name %@",tableNameStr);
+        tableAllotedObj.tableName = [NSString stringWithFormat:@"%@",tableNameStr];
+        [tableAllotedIdsArray addObject:tableAllotedObj];
+        [assignedTablesArray addObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]];
+    }
+    [self.allotedTablesTableView reloadData];
+    NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+    [self fetchMessageCount:assignedTables];
+    
+    
+    
+}
+-(void)chatTable
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.tablesAllotedArray = [[NSMutableArray alloc]initWithObjects:[defaults valueForKey:@"Alloted Tables"], nil];
+    NSLog(@"Tables... %lu",(unsigned long)self.tablesAllotedArray.count);
+    tableAllotedIdsArray = [[NSMutableArray alloc] init];
+    assignedTablesArray = [[NSMutableArray alloc] init];
+    for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
+        tableAllotedObj = [[tableAllotedOC alloc]init];
+        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"id"] objectAtIndex:i]];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@")" withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSLog(@"Table ID %@",tableIdStr);
+        tableAllotedObj.tableId = [tableIdStr intValue];
+        NSLog(@"Table ID %d",tableAllotedObj.tableId);
+        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"name"] objectAtIndex:i]];
+        
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSLog(@"Table ID %@",tableIdStr);
+        NSLog(@"Table Name %@",tableNameStr);
+        tableAllotedObj.tableName = [NSString stringWithFormat:@"%@",tableNameStr];
+        [tableAllotedIdsArray addObject:tableAllotedObj];
+        [assignedTablesArray addObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]];
+    }
+    [self.allotedTablesTableView reloadData];
+    NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+    
+    
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+
+
+- (IBAction)chatCloseBtn:(id)sender {
+    self.chatView.hidden=YES;
+}
+
+- (IBAction)menuOrdersBtn:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:@"0" forKey:@"Order Count"] ;
+    self.pingNotificationBadgeImg.hidden = YES;
+    self.pingNotificationBadgeImg.hidden = YES;
+    serviceProviderHomeViewController *spRequestVC = [[serviceProviderHomeViewController alloc] initWithNibName:@"serviceProviderHomeViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:spRequestVC animated:NO];
+    //    [self.orders setBackgroundColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.2]];
+    //    [self.pings setBackgroundColor:[UIColor clearColor]];
+    //    [self.myStats setBackgroundColor:[UIColor clearColor]];
+    //    [self.exit setBackgroundColor:[UIColor clearColor]];
+}
+
+- (IBAction)menuPings:(id)sender {
+    //    [self.orders setBackgroundColor:[UIColor clearColor]];
+    //    [self.pings setBackgroundColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.2]];
+    //    [self.myStats setBackgroundColor:[UIColor clearColor]];
+    //    [self.exit setBackgroundColor:[UIColor clearColor]];
+    if(self.chatView.hidden==YES)
+    {
+        [self.view bringSubviewToFront:self.chatView];
+        self.chatView.hidden=NO;
+        //[self fetchHelpMessage];
+        
+    }
+}
+
+- (IBAction)myStatsBtn:(id)sender {
+    
+    self.pingMessageView.hidden = NO;
+    letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
+    letterTapRecognizer.numberOfTapsRequired = 1;
+    [self.gestureView addGestureRecognizer:letterTapRecognizer];
+    [self.sideScroller bringSubviewToFront:self.gestureView];
+}
+
+
+- (IBAction)menuExit:(id)sender {
+    [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    [self.view addSubview:self.exitPopUpView];
+    
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (alertView.tag == 1000 && buttonIndex == 1)
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults removeObjectForKey:@"Service Provider ID"];
+        [defaults removeObjectForKey:@"Service Provider Name"];
+        [defaults removeObjectForKey:@"Service Provider image"];
+        [defaults removeObjectForKey:@"Role"];
+        
+        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+}
+
+
+
+
+
+#pragma mark -Menu Button
+- (IBAction)menuBtn:(id)sender {
+    if (self.pingMessageView.hidden==NO)
+    {
+        self.pingMessageView.hidden = YES;
+        [self.sideScroller sendSubviewToBack:self.gestureView];
+    }
+ 
+
+    CGPoint pt;
+    CGRect rc = [self.sideScroller bounds];
+    rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
+    pt = rc.origin;
+    if (pt.x == 0) {
+        pt.x -= 267;
+        int pingCount =[[[NSUserDefaults standardUserDefaults ]valueForKey:@"Ping Count"]intValue];
+        if (pingCount != 0) {
+            self.pingNotificationBadgeImg.hidden = NO;
+            self.pingNotificationBadgeLbl.hidden = NO;
+            self.pingNotificationBadgeLbl.text = [NSString stringWithFormat:@"%d",pingCount];
+        }else{
+            self.pingNotificationBadgeImg.hidden = YES;
+            self.pingNotificationBadgeLbl.hidden = YES;
+        }
+        
+    }else{
+        pt.x = 0;
+        
+    }
+    
+    pt.y =0;
+    [self.sideScroller setContentOffset:pt animated:YES];
+}
+#pragma mark -Fetch Open Orders List
+- (IBAction)openOrdersBtn:(id)sender {
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    self.requestCancellation.hidden = NO;
+    self.requestModification.hidden = NO;
+    self.orderDeliveredTick.hidden = YES;
+    self.arrow1.hidden = NO;
+    self.arrow2.hidden = NO;
+    [self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+    StatusTag =[NSString stringWithFormat:@"Open"];
+    self.orderStatus.hidden = NO;
+    self.arrow3.hidden = NO;
+}
+
+#pragma mark -Fetch Delivered Orders List
+- (IBAction)deliveredOrderBtn:(id)sender {
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    self.requestCancellation.hidden = YES;
+    self.requestModification.hidden = YES;
+    self.arrow1.hidden = YES;
+    self.arrow2.hidden = YES;
+    [self pendingPlacedOrder:[NSString stringWithFormat:@"delivered"]];
+    
+    StatusTag =[NSString stringWithFormat:@"delivered"];
+    self.orderStatus.hidden = YES;
+    self.arrow3.hidden = YES;
+}
+
+#pragma mark -Fetch Processing Orders List
+- (IBAction)processingOrderBtn:(id)sender {
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    self.requestCancellation.hidden = NO;
+    self.requestModification.hidden = YES;
+    self.orderDeliveredTick.hidden = YES;
+    self.arrow1.hidden = NO;
+    self.arrow2.hidden = NO;
+    [self pendingPlacedOrder:[NSString stringWithFormat:@"processing"]];
+    StatusTag =[NSString stringWithFormat:@"processing"];
+    self.orderStatus.hidden = YES;
+    self.arrow3.hidden = YES;
+    
+}
+#pragma mark -Fetch Requests
+
+- (IBAction)btnRequest:(id)sender {
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    self.requestCancellation.hidden = YES;
+    self.requestModification.hidden = YES;
+    self.orderDeliveredTick.hidden = YES;
+    self.arrow1.hidden = NO;
+    self.arrow2.hidden = NO;
+    [self pendingPlacedOrder:[NSString stringWithFormat:@"request"]];
+    StatusTag =[NSString stringWithFormat:@"request"];
+    self.orderStatus.hidden = YES;
+//    self.orderTime.hidden = YES;
+//    self.orderStatusLbl.hidden = YES;
+//    self.orderNumberLbl.hidden = YES;
+    self.arrow3.hidden = YES;
+}
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+    
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == self.orderListPopUpTableView){
+        return [pendingOrderItemNameArray count];
+    }else if (tableView == self.allotedTablesTableView)
+    {
+        return [tableAllotedIdsArray count];
+    }
+    else{
+//        if([StatusTag isEqualToString:@"request"])
+//        {
+//            return savDataArray.count;
+//        }
+        return [orderList count];
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView * headerView              = [[UIView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 80)];
+    headerView.tag                  = section;
+    headerView.backgroundColor      = [UIColor clearColor];
+    return headerView;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSLog(@"Tabke view name %ld",(long)tableView.tag);
+    UIView *headerView;
+    //    if (tableView == self.menuTableView) {
+    headerView              = [[UIView alloc] initWithFrame:CGRectMake(0, 30, self.orderTableView.frame.size.width, 80)];
+    headerView.tag                  = section;
+    headerView.backgroundColor      = [UIColor clearColor];
+    
+    return headerView;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.orderListPopUpTableView){
+        return 68;
+    }else if(tableView == self.allotedTablesTableView)
+    {
+        return 40;
+    }
+    else{
+        return 50;
+    }
+}
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    //    priceLabel= [[UILabel alloc]initWithFrame:CGRectMake(340, 5, 150, 80)];
+    //    priceLabel.textColor= [UIColor whiteColor];
+    //    priceLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    priceLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    //    priceLabel.numberOfLines = 2;
+    //    [cell.contentView addSubview:priceLabel];
+    //
+    //    itemImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 60, 60)];
+    //    [cell.contentView addSubview:itemImage];
+    //
+    //    deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 10, 60, 35)];
+    //    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
+    //
+    //    deleteBtn.tintColor = [UIColor whiteColor];
+    //    deleteBtn.tag =indexPath.row;
+    //    if (tableView == self.ordersTableView) {
+    //        deleteBtn.hidden = NO;
+    //    }else{
+    //        deleteBtn.hidden = YES;
+    //    }
+    //    [deleteBtn addTarget:self action:@selector(deleteOrderItem:)  forControlEvents:UIControlEventTouchUpInside];
+    //    [cell.contentView addSubview:deleteBtn];
+    //
+    //    placedorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
+    //    placedorderName.textColor= [UIColor blackColor];
+    //    placedorderName.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    placedorderName.lineBreakMode = NSLineBreakByCharWrapping;
+    //    placedorderName.numberOfLines = 2;
+    //    [cell.contentView addSubview:placedorderName];
+    //
+    //    placeOrderquantity= [[UILabel alloc]initWithFrame:CGRectMake(20, 10, 150, 80)];
+    //    placeOrderquantity.textColor= [UIColor blackColor];
+    //    placeOrderquantity.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    placeOrderquantity.lineBreakMode = NSLineBreakByCharWrapping;
+    //    placeOrderquantity.numberOfLines = 2;
+    //    [cell.contentView addSubview:placeOrderquantity];
+    //
+    //    placedOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(220, 0, 150, 80)];
+    //    placedOrderPrice.textColor= [UIColor blackColor];
+    //    placedOrderPrice.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    placedOrderPrice.lineBreakMode = NSLineBreakByCharWrapping;
+    //    placedOrderPrice.numberOfLines = 2;
+    //    [cell.contentView addSubview:placedOrderPrice];
+    //
+    //    pendingOrderIDLbl= [[UILabel alloc]initWithFrame:CGRectMake(20, -28, 150, 80)];
+    //    pendingOrderIDLbl.textColor= [UIColor whiteColor];
+    //    pendingOrderIDLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    pendingOrderIDLbl.lineBreakMode = NSLineBreakByCharWrapping;
+    //    pendingOrderIDLbl.numberOfLines = 2;
+    //    [cell.contentView addSubview:pendingOrderIDLbl];
+    //
+    //    pendingOrderStatusLbl= [[UILabel alloc]initWithFrame:CGRectMake(20, -8, 150, 80)];
+    //    pendingOrderStatusLbl.textColor= [UIColor whiteColor];
+    //    pendingOrderStatusLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    pendingOrderStatusLbl.lineBreakMode = NSLineBreakByCharWrapping;
+    //    pendingOrderStatusLbl.numberOfLines = 2;
+    //    [cell.contentView addSubview:pendingOrderStatusLbl];
+    //
+    
+    
+    //
+    //    pendingOrderTime = [[UILabel alloc]initWithFrame:CGRectMake(220, 0, 150, 80)];
+    //    pendingOrderTime.textColor= [UIColor blackColor];
+    //    pendingOrderTime.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+    //    pendingOrderTime.lineBreakMode = NSLineBreakByCharWrapping;
+    //    pendingOrderTime.numberOfLines = 2;
+    //    [cell.contentView addSubview:pendingOrderTime];
+    
+    if (tableView == self.orderTableView)
+    {
+        
+        
+        timeLbl= [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 180, 50)];
+        timeLbl.textColor= [UIColor blackColor];
+        timeLbl.textAlignment      = NSTextAlignmentLeft;
+        timeLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        timeLbl.lineBreakMode = NSLineBreakByCharWrapping;
+        [cell.contentView addSubview:timeLbl];
+        
+        
+        tableNoLbl= [[UILabel alloc]initWithFrame:CGRectMake(200, -15, 80, 80)];
+        tableNoLbl.textColor= [UIColor blackColor];
+        tableNoLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        tableNoLbl.lineBreakMode = NSLineBreakByCharWrapping;
+        tableNoLbl.numberOfLines = 2;
+        [cell.contentView addSubview:tableNoLbl];
+        
+        orderIdLbl= [[UILabel alloc]initWithFrame:CGRectMake(330, -15, 70, 80)];
+        orderIdLbl.textColor= [UIColor blackColor];
+        orderIdLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        orderIdLbl.lineBreakMode = NSLineBreakByCharWrapping;
+        orderIdLbl.numberOfLines = 2;
+        [cell.contentView addSubview:orderIdLbl];
+        
+        statusLbl= [[UILabel alloc]initWithFrame:CGRectMake(402,-15, 200, 80)];
+        statusLbl.textColor= [UIColor blackColor];
+        statusLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        statusLbl.textAlignment = NSTextAlignmentCenter;
+        statusLbl.lineBreakMode = NSLineBreakByCharWrapping;
+        statusLbl.numberOfLines = 2;
+        [cell.contentView addSubview:statusLbl];
+        
+        // cell.backgroundColor = [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.1];
+        cell.backgroundColor=[UIColor clearColor];
+        
+        
+        
+        
+        
+        pendingOrderObj = [orderList objectAtIndex:indexPath.row];
+//        NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+//        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+//        NSDate *date = [dateFormat dateFromString:time];
+        NSString *orderVip = [NSString stringWithFormat:@"%@",pendingOrderObj.tableType];
+                if ([orderVip isEqualToString:@"VIP"]) {
+                    UIImageView *vipImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.orderTableView.frame.size.width-60, 0, 60, 60)];
+                    vipImg.image = [UIImage imageNamed:@"VIP.png"];
+                    [cell.contentView addSubview:vipImg];
+                }
+//        // Convert date object to desired output format
+//        [dateFormat setDateFormat:@"HH:mm"];
+//        NSString *dateStr = [dateFormat stringFromDate:date];
+//        NSLog(@"Current TIME %@",dateStr);
+        NSString *orderNumber = [NSString stringWithFormat:@"%@",self.orderNumberLbl.text];
+        NSLog(@"Index path ... %lu",(unsigned long)[orderIdsArray indexOfObject:orderNumber]);
+        orderNumberIndex = [NSIndexPath indexPathForRow:[orderIdsArray indexOfObject:orderNumber] inSection:0];
+        NSLog(@"Index Path .. %ld",(long)orderNumberIndex.row);
+        
+        
+        if ( indexPath.row == orderNumberIndex.row) {
+            
+//            [self.orderTableView selectRowAtIndexPath:0 animated:NO scrollPosition:indexPath.row];
+            NSLog(@"INDEX PATH %ld",(long)indexPath.row);
+            
+            [cell setBackgroundColor:[UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.2]];
+            selectedIndex = indexPath;
+            
+        }
+        firstline= [[UILabel alloc]initWithFrame:CGRectMake(130, 0, 2, 50)];
+        firstline.backgroundColor= [UIColor blackColor];
+        firstline.alpha = 0.3;
+        [cell.contentView addSubview:firstline];
+        
+        secondLine= [[UILabel alloc]initWithFrame:CGRectMake(300, 0, 2,50)];
+        secondLine.backgroundColor= [UIColor blackColor];
+        secondLine.alpha = 0.3;
+        [cell.contentView addSubview:secondLine];
+        
+        thirdLine= [[UILabel alloc]initWithFrame:CGRectMake(400, 0, 2, 50)];
+        thirdLine.backgroundColor= [UIColor blackColor];
+        thirdLine.alpha = 0.3;
+        [cell.contentView addSubview:thirdLine];
+        
+        bottomLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 668, 2)];
+        bottomLine.backgroundColor= [UIColor blackColor];
+        bottomLine.alpha = 0.3;
+        [cell.contentView addSubview:bottomLine];
+        
+        
+        NSDate *startTime;
+        
+        startTime = [NSDate date];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+        NSString *curruntTime = [ dateFormat stringFromDate:startTime];
+        
+        NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+        NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+        
+        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+        NSDate *date = [dateFormat dateFromString:time];
+        
+        // Convert date object to desired output format
+        //    [dateFormat setDateFormat:@"HH:mm"];
+        NSString *dateStr = [dateFormat stringFromDate:date];
+        NSDate *date1=[dateFormat dateFromString:dateStr];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
+        NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
+        timeDelay = [timeDelay
+                     stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        int timeINteger = [timeDelay integerValue];
+        int minutes = timeINteger / 60;
+        int hours = timeINteger / 3600;
+        int days = timeINteger / 86400;
+        NSLog(@"interval %d",minutes);
+        NSLog(@"interval %d",hours);
+        NSLog(@"interval %d",days);
+        
+        NSString *timeStr;
+        if (days > 0) {
+            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+        }else if (hours > 0){
+            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+        }else{
+            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+        }
+        
+//        if([StatusTag isEqualToString:@"request"])
+//        {
+//            timeLbl.text =@"S. No.";
+//            tableNoLbl.text = @"Request Status";
+//            orderIdLbl.text = @"Completed";
+//            statusLbl.text = @"Comments";
+//            
+//            pendingOrderObj = [[pendingOrdersOC alloc]init];
+//            pendingOrderObj = [savDataArray objectAtIndex:indexPath.row];
+//            
+//            CGRect frame = tableNoLbl.frame;
+//            frame.origin.x = frame.origin.x-20;
+//            tableNoLbl.frame = frame;
+//            
+//            CGRect frame1 = timeLbl.frame;
+//            frame1.origin.x = frame1.origin.x+30;
+//            timeLbl.frame = frame1;
+//            
+//            CGRect frame2 = tableNoLbl.frame;
+//            frame2.origin.x = frame2.origin.x+15;
+//            tableNoLbl.frame = frame2;
+//            
+//            tableNoLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+//            
+//            NSInteger a = indexPath.row+1;
+//            timeLbl.text =[NSString stringWithFormat:@"%ld",(long)a];
+//            tableNoLbl.text =[NSString stringWithFormat:@"%@",pendingOrderObj.requestid];
+//            orderIdLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.isCompleted];
+//            statusLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.comments];
+//            return cell;
+//        }else{
+        NSString *commentStr = [NSString stringWithFormat:@"%@",[pendingOrderObj.requestData valueForKey:@"RequestType"]];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@")" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSLog(@"%@", commentStr);
+        timeLbl.text =[NSString stringWithFormat:@"%@",timeStr];
+        tableNoLbl.text =[NSString stringWithFormat:@"%@",pendingOrderObj.TableId];
+        orderIdLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
+        if (![commentStr isEqualToString:@"<null>"]) {
+            if ([commentStr isEqualToString:@"cancellation"]) {
+                statusLbl.text = [NSString stringWithFormat:@"Cancelation Requested"];
+            }else{
+                statusLbl.text = [NSString stringWithFormat:@"Modification Requested"];
+            }
+        }else{
+        statusLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.Status];
+        }
+        NSLog(@"TABLE TYPE..... %@",pendingOrderObj.tableType);
+        
+        //        [self.orderTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        
+        
+    }
+    else if (tableView == self.orderListPopUpTableView){
+        cell.backgroundColor = [UIColor clearColor];
+        
+        UIImageView *cellBackGroundImage = [[UIImageView alloc]init];
+        cellBackGroundImage.frame = CGRectMake(5, 5, 290, 68);
+        cellBackGroundImage.image = [UIImage imageNamed:@"box.png"];
+        [cell.contentView addSubview:cellBackGroundImage];
+        
+        pendingorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
+        pendingorderName.textColor= [UIColor blackColor];
+        pendingorderName.font = [UIFont fontWithName:@"Helvetica-Condensed" size:18];
+        pendingorderName.lineBreakMode = NSLineBreakByCharWrapping;
+        pendingorderName.numberOfLines = 2;
+        [cell.contentView addSubview:pendingorderName];
+        
+        pendingOrderquantity= [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 150, 80)];
+        pendingOrderquantity.textColor= [UIColor blackColor];
+        pendingOrderquantity.font = [UIFont fontWithName:@"Bebas Neue" size:15];
+        pendingOrderquantity.lineBreakMode = NSLineBreakByCharWrapping;
+        pendingOrderquantity.numberOfLines = 2;
+        [cell.contentView addSubview:pendingOrderquantity];
+        
+        pendingOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(250, 0, 150, 80)];
+        pendingOrderPrice.textColor= [UIColor blackColor];
+        pendingOrderPrice.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        pendingOrderPrice.lineBreakMode = NSLineBreakByCharWrapping;
+        pendingOrderPrice.numberOfLines = 2;
+        [cell.contentView addSubview:pendingOrderPrice];
+        
+        //        bottomOrderPopUpLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 74, self.orderListPopUpTableView.frame.size.width, 1)];
+        //        bottomOrderPopUpLine.backgroundColor= [UIColor blackColor];
+        //        bottomOrderPopUpLine.alpha = 0.3;
+        //        [cell.contentView addSubview:bottomOrderPopUpLine];
+        
+        NSLog(@"OrderList %@",orderList);
+        
+        
+        pendingorderName.text =[[NSString stringWithFormat:@"%@",[pendingOrderItemNameArray objectAtIndex:indexPath.row]] uppercaseString];;
+        
+        
+        NSString *priceStr = [NSString stringWithFormat:@"%@",[pendingOrderItemPriceArray objectAtIndex:indexPath.row]];
+        
+        AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
+        int p = [priceStr intValue];
+        pendingOrderquantity.text =[NSString stringWithFormat:@"QUANTITY: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
+        pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        
+    }else if (tableView == self.allotedTablesTableView)
+    {
+        tableAllotedObj = [tableAllotedIdsArray objectAtIndex:indexPath.row];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel * TablesID= [[UILabel alloc]initWithFrame:CGRectMake(0, -20, 150, 80)];
+        TablesID.textColor= [UIColor blackColor];
+        TablesID.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
+        TablesID.lineBreakMode = NSLineBreakByCharWrapping;
+        TablesID.numberOfLines = 2;
+        TablesID.textAlignment = NSTextAlignmentCenter;
+        TablesID.text = [NSString stringWithFormat:@"%@",tableAllotedObj.tableName];
+        [cell.contentView addSubview:TablesID];
+        
+        if ([tableAllotedObj.tableType isEqualToString:@"VIP"]) {
+            UIImageView *vipImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.allotedTablesTableView.frame.size.width-48, 0, 48, 48)];
+            vipImg.image = [UIImage imageNamed:@"VIP.png"];
+            [cell.contentView addSubview:vipImg];
+        }
+        
+        UILabel* bottomLineAlloted= [[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.height - 4, self.allotedTablesTableView.frame.size.width, 2)];
+        bottomLineAlloted.backgroundColor= [UIColor blackColor];
+        bottomLineAlloted.alpha = 0.3;
+        [cell.contentView addSubview:bottomLineAlloted];
+        cell.backgroundColor = [UIColor clearColor];
+        
+        
+    }
+    
+    
+    return cell;
+}
+#pragma mark - UIBubbleTableViewDataSource implementation
+
+- (NSInteger)rowsForBubbleTable:(UIBubbleTableView *)tableView
+{
+    return [allChatMessages count];
+}
+
+- (NSBubbleData *)bubbleTableView:(UIBubbleTableView *)tableView dataForRow:(NSInteger)row
+{
+    NSLog(@"All Mesages %@",allChatMessages);
+    return [allChatMessages objectAtIndex:row];
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (tableView == self.orderTableView) {
+        //        [[self.orderListPopUpTableView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+        //        [[self.orderListPopUpTableView layer] setBorderWidth:1.0];
+        //        [[self.orderListPopUpTableView layer] setCornerRadius:5];
+        NSLog(@"INDEX PAth ..... %ld",(long)indexPath.row);
+        [self showOrder:indexPath];
+        
+    }else if (tableView == self.allotedTablesTableView)
+    {
+        tableAllotedObj = [tableAllotedIdsArray objectAtIndex:indexPath.row];
+        
+        [self.view bringSubviewToFront:self.chatView];
+        self.chatView.hidden=NO;
+        self.tableNumberChatLbl.text = [NSString stringWithFormat:@"%@",tableAllotedObj.tableName];
+        NSLog(@"Tables Alloted.... %d",tableAllotedObj.tableId);
+        if ([assignedTablesArray containsObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]]) {
+            tableSelected = [NSString stringWithFormat:@"%d", tableAllotedObj.tableId];
+            
+            
+            
+            
+        }
+    }
+    
+    
+    
+    UITableViewCell *cell1;
+    if (selectedIndex != Nil) {
+        cell1 = [tableView cellForRowAtIndexPath:selectedIndex];
+        [cell1 setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    
+    if ([cell selectionStyle] == UITableViewCellSelectionStyleNone) {
+        [cell setBackgroundColor:[UIColor clearColor]];
+        [cell setBackgroundColor:[UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.2]];
+    }
+    
+    //    UITableViewCell *cell2;
+    //    if (orderIndex != Nil) {
+    //        cell2 = [tableView cellForRowAtIndexPath:orderIndex];
+    //        [cell2 setBackgroundColor:[UIColor clearColor]];
+    //    }
+    
+    selectedIndex = indexPath;
+    
+}
+-(void)goToBottom
+{
+    NSIndexPath *lastIndexPath = [self lastIndexPath];
+    
+    [self.chatTableView scrollToRowAtIndexPath:lastIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+-(NSIndexPath *)lastIndexPath
+{
+    NSInteger lastSectionIndex = MAX(0, [self.chatTableView numberOfSections] - 1);
+    NSInteger lastRowIndex = MAX(0, [self.chatTableView numberOfRowsInSection:lastSectionIndex] - 1);
+    return [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+}
+#pragma mark -Fetch PopUp Orders
+-(void)pendingOrderItems:(int)index
+{
+    pendingOrderObj = [orderList objectAtIndex:index];
+    
+    pendingOrderItemNameArray = [[NSMutableArray alloc] initWithArray:[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"]];
+    pendingOrderItemPriceArray = [[NSMutableArray alloc] initWithArray:[pendingOrderObj.pendingOrderDetails valueForKey:@"price"]];
+    pendingOrderItemQuantityArray = [[NSMutableArray alloc]initWithArray:[pendingOrderObj.pendingOrderDetails valueForKey:@"quantity"]];
+    pendingOrderTimeOfDeliveryArray = [[NSMutableArray alloc]initWithArray:[pendingOrderObj.pendingOrderDetails valueForKey:@"TimeOfDelivery"]];
+    NSLog(@"Pending Order Items %@",pendingOrderItemNameArray);
+    NSLog(@"Pending Order Item Price %@",pendingOrderItemPriceArray);
+    NSLog(@"Pending Order Item Quantity %@",pendingOrderItemQuantityArray);
+    NSLog(@"Pending Order Total Price %@",pendingOrderObj.TotalBill);
+    NSLog(@"Pending Order TimeOfDelivery%@",pendingOrderTimeOfDeliveryArray);
+    [self.orderListPopUpTableView reloadData];
+    
+    
+}
+#pragma mark -Fetch orders
+-(void)pendingPlacedOrder: (NSString *)ordertype
+{
+    [self disabled];
+    [activityIndicator startAnimating];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *staffId;
+    NSString *tableId;
+    NSString *OrderType;
+    NSString *TriggerValue;
+    
+    if (staffId == nil) {
+        staffId = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Service Provider ID"]];
+    }
+    if (tableId == nil) {
+        tableId = [NSString stringWithFormat:@""];
+    }
+    if (OrderType == nil) {
+        OrderType = [NSString stringWithFormat:@"%@",ordertype];
+    }
+    if (TriggerValue == nil) {
+        TriggerValue = [NSString stringWithFormat:@"serviceprovider"];
+    }
+    NSString *timeStamp = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"fetchOrderTimeStamp"]];
+//    if ([timeStamp isEqualToString:@"(null)"]) {
+        timeStamp = [NSString stringWithFormat:@""];
+//    }
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:staffId,@"StaffId",tableId, @"TableId",OrderType,@"OrderType",TriggerValue, @"Trigger",timeStamp,@"timestamp",[defaults valueForKey:@"Event ID"],@"EventId",nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/FetchOrders",Kwebservices]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode =1;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+}
+#pragma mark - Change Status
+
+-(void) changeStatus:(NSString *)pendingOrdersIDS: (NSString *)changingOrderStatus
+{
+    [self disabled];
+    [activityIndicator startAnimating];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *startTime;
+    
+    startTime = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *curruntTime = [ dateFormat stringFromDate:startTime];
+    
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:pendingOrdersIDS,@"OrderId",changingOrderStatus, @"Status",curruntTime,@"Datetime", nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/ChangeOrderStatus",Kwebservices]];
+  
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode =2;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+}
+
+-(void) fetchStats: (NSString *)spId
+{
+    
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:spId,@"serviceproviderid", nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/GetMyStats",Kwebservices]];
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode =5;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+    
+}
+-(void)requestModification:(NSString*)requestType:(NSString*)commentText
+{
+    [self disabled];
+    [activityIndicator startAnimating];
+    NSString *orderid;
+    NSString *requesttype;
+    NSString *comments;
+    
+    if (orderid == nil) {
+        orderid = [NSString stringWithFormat:@"%@",self.orderNumberLbl.text];
+    }
+    if (requesttype == nil) {
+        requesttype = [NSString stringWithFormat:@"%@",requestType];
+    }
+    if (comments == nil) {
+        comments = [NSString stringWithFormat:@"%@",commentText];
+    }
+    
+    NSDateFormatter *dateformate=[[NSDateFormatter alloc]init];
+    
+    [dateformate setDateFormat:@"YYYYMMddHHmmss"];
+    
+    NSString *date_String=[dateformate stringFromDate:[NSDate date]];
+    
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:orderid,@"orderid",requesttype, @"requesttype",comments,@"comments",[[NSUserDefaults standardUserDefaults] valueForKey:@"Event ID"],@"EventId",date_String,@"datetimeoforder", nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/RequestModification",Kwebservices]];
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode =6;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+}
+
+#pragma mark -Json Delegate
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    NSLog(@"Received Response");
+    [webData setLength: 0];
+    
+}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [self enable];
+    [activityIndicator stopAnimating];
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Please Check the Internet Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    NSLog(@"ERROR with the Connection ");
+    webData =nil;
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [webData appendData:data];
+}
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    if (webServiceCode == 1) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        [savDataArray removeAllObjects];
+        orderList = [[NSMutableArray alloc]init];
+        orderIdsArray = [[NSMutableArray alloc] init];
+        
+        NSMutableArray *pendingOrdersList;
+        pendingOrdersList = [[NSMutableArray alloc]initWithArray:[userDetailDict valueForKey:@"ListPendingOrder"]];
+        
+//        
+//        NSMutableArray *requestArray;
+//        if ([StatusTag isEqualToString:@"request"])
+//        {
+//           requestArray = [[NSMutableArray alloc]initWithArray:[userDetailDict valueForKey:@"ModificationData"]];
+//        }
+//        
+//        for (int j=0; j<requestArray.count; j++) {
+//            pendingOrderObj = [[pendingOrdersOC alloc] init];
+//            pendingOrderObj.comments = [[requestArray valueForKey:@"comments"]objectAtIndex:j];
+//            pendingOrderObj.isCompleted = [[requestArray valueForKey:@"isCompleted"]objectAtIndex:j];
+//            pendingOrderObj.requestid = [[requestArray valueForKey:@"requestid"]objectAtIndex:j];
+//            [orderList addObject:pendingOrderObj];
+//            [savDataArray addObject:pendingOrderObj];
+//        }
+//        [self.orderTableView reloadData];
+        
+        if(pendingOrdersList.count != 0){
+            NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"maxtimestamp"]];
+            [defaults setObject:resultStr forKey:@"fetchOrderTimeStamp"];
+            
+        for (int i = 0; i < [pendingOrdersList count]; i ++) {
+            pendingOrderObj = [[pendingOrdersOC alloc] init];
+            pendingOrderObj.DateTimeOfOrder = [[pendingOrdersList valueForKey:@"DateTimeOfOrder"] objectAtIndex:i];
+            pendingOrderObj.LastUpdate = [[pendingOrdersList valueForKey:@"LastUpdate"] objectAtIndex:i];
+            pendingOrderObj.OrderId = [[pendingOrdersList valueForKey:@"OrderId"]objectAtIndex:i];
+            pendingOrderObj.RestaurantId = [[pendingOrdersList valueForKey:@"RestaurantId"] objectAtIndex:i];
+            pendingOrderObj.Status = [[pendingOrdersList valueForKey:@"Status"]objectAtIndex:i];
+            pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableId"] objectAtIndex:i];
+            pendingOrderObj.TimeOfDelivery = [[pendingOrdersList valueForKey:@"TimeOfDelivery"]objectAtIndex:i];
+            pendingOrderObj.TotalBill = [[pendingOrdersList valueForKey:@"TotalBill"]objectAtIndex:i];
+            pendingOrderObj.pendingOrderDetails = [[pendingOrdersList valueForKey:@"ListOrderDetails"] objectAtIndex:i];
+            pendingOrderObj.lastUpdatedTime = [[pendingOrdersList valueForKey:@"LastUpdate"]objectAtIndex:i];
+            pendingOrderObj.tableType = [[pendingOrdersList valueForKey:@"TableType"]objectAtIndex:i];
+            pendingOrderObj.note = [[pendingOrdersList valueForKey:@"Notes"]objectAtIndex:i];
+            pendingOrderObj.requestData = [[pendingOrdersList valueForKey:@"ChangeRequestData"]objectAtIndex:i];
+            NSLog(@"TABLE TYPE.... %@",pendingOrderObj.tableType);
+            
+            [orderList addObject:pendingOrderObj];
+            [orderIdsArray addObject:pendingOrderObj.OrderId];
+            
+            [savDataArray addObject:pendingOrderObj];
+        }
+            
+            
+           
+            
+            
+            }
+        if ([orderList count] != 0) {
+            self.orderNumberLbl.hidden = NO;
+            self.spNotesTextView.hidden = NO;
+            [self showOrder:0];
+        }else{
+             pendingOrderObj = [[pendingOrdersOC alloc] init];
+            self.orderTime.hidden = YES;
+            self.orderDeliveredTick.hidden = YES;
+            self.orderStatusLbl.hidden = YES;
+            self.orderNumberLbl.hidden = YES;
+            pendingOrderItemNameArray = [[NSMutableArray alloc] init];
+            pendingOrderItemPriceArray = [[NSMutableArray alloc] init];
+            pendingOrderItemQuantityArray = [[NSMutableArray alloc]init];
+            pendingOrderTimeOfDeliveryArray = [[NSMutableArray alloc]init];
+            
+             [self.orderListPopUpTableView reloadData];
+           
+                self.orderStatus.hidden = YES;
+                self.requestCancellation.hidden = YES;
+                self.requestModification.hidden = YES;
+            self.spNotesTextView.hidden = YES;
+            
+        }
+        [self scrollToTop];
+        
+        [self chatTable];
+        NSLog(@"Order List %@",orderList);
+        
+         [self.orderTableView reloadData];
+        NSString *serviceProviderId = [defaults valueForKey:@"Service Provider ID"];
+        [self fetchStats:serviceProviderId];
+        //        else if ([StatusTag isEqualToString:@"processing"] || [StatusTag isEqualToString:@"delivered"])
+        //        {
+        //            orderList = [[[orderList reverseObjectEnumerator] allObjects] mutableCopy];
+        //            orderIdsArray = [[[orderIdsArray reverseObjectEnumerator] allObjects] mutableCopy];
+        //        }
+        
+        
+    }else if (webServiceCode == 2){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
+        NSDate *startTime;
+        
+        startTime = [NSDate date];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"HH:mm"];
+        NSString *curruntTime = [ dateFormat stringFromDate:startTime];
+        
+        NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+        
+        NSString *orderTime = [NSString stringWithFormat:@"%@",pendingOrderObj.TimeOfDelivery];
+        NSDate *date1 = [dateFormat dateFromString:orderTime];
+        NSLog(@"date1 : %@", date1);
+        NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
+        NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
+        timeDelay = [timeDelay
+                     stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        int timeINteger = [timeDelay integerValue];
+        int minutes = timeINteger / 60;
+        NSLog(@"interval %d",minutes);
+        int hours = timeINteger / 3600;
+        int days = timeINteger / 86400;
+        NSLog(@"interval %d",minutes);
+        NSLog(@"interval %d",hours);
+        NSLog(@"interval %d",days);
+        
+        NSString *timeStr;
+        if (days > 0) {
+            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+        }else if (hours > 0){
+            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+        }else{
+            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+        }
+        
+        if ([StatusTag isEqualToString:@"Open"]) {
+            [self pendingPlacedOrder:[NSString stringWithFormat:@"processing"]];
+            StatusTag =[NSString stringWithFormat:@"processing"];
+            [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+            [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+            [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+            self.orderStatus.hidden = YES;
+            self.requestCancellation.hidden = NO;
+            self.requestModification.hidden = NO;
+            self.orderDeliveredTick.hidden = YES;
+            self.arrow1.hidden = NO;
+            self.arrow2.hidden = NO;
+            self.arrow3.hidden = YES;
+            self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED!!"];
+            self.orderTime.text = [NSString stringWithString:timeStr];
+        }
+    
+//                }else if([StatusTag isEqualToString:@"processing"])
+//                {
+        //            [self.orderStatus setTitle:@"ReOpen" forState:UIControlStateNormal];
+        //            self.requestCancellation.hidden = YES;
+        //            self.requestModification.hidden = YES;
+        //            self.arrow1.hidden = YES;
+        //            self.arrow2.hidden = YES;
+        //            self.orderDeliveredTick.hidden = NO;
+        //            self.orderStatusLbl.text = [NSString stringWithFormat:@"Order Delivered"];
+        //            self.orderTime.text = [NSString stringWithFormat:@"at %@",curruntTime];
+        //            [self.orderStatusLbl setFont:[UIFont fontWithName:@"Helvetica Neue" size:22]];
+        //            [self.orderTime setFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
+        //            [self.openBtn setBackgroundColor:[UIColor clearColor]];
+        //            [self.processingBtn setBackgroundColor:[UIColor clearColor]];
+        //            [self.deliveredbtn setBackgroundColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.1]];
+        //            [self pendingPlacedOrder:[NSString stringWithFormat:@"delivered"]];
+        //            StatusTag =[NSString stringWithFormat:@"delivered"];
+        //
+        //        }else if ([StatusTag isEqualToString:@"delivered"])
+        //        {
+        //            [self.deliveredbtn setBackgroundColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.1]];
+        //            [self pendingPlacedOrder:orderTypeStr];
+        //        }
+        
+    }else if (webServiceCode == 3){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        //        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
+        //        [self pendingPlacedOrder:orderTypeStr];
+    }else if (webServiceCode == 4){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        [self chatTable];
+        
+    }else if (webServiceCode == 13){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        fetchedChatData = [[NSMutableArray alloc]init];
+        tablesList = [[NSMutableArray alloc]init];
+        tablesList = [[NSMutableArray alloc]init];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        //        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
+        //        [self pendingPlacedOrder:orderTypeStr];
+        NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"maxtimestamp"]];
+        [defaults setObject:resultStr forKey:@"Service Provider Incoming Chat Timestamp"];
+        fetchingChat = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"MessageList"]];
+        NSMutableArray *tablesOfSP = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"TableList"]];
+        for (int i = 0; i < [tablesOfSP count]; i ++) {
+            tableAllotedObj = [[tableAllotedOC alloc]init];
+            tableAllotedObj.tableId = [[tablesOfSP valueForKey:@"TableList"] objectAtIndex:i];
+            [tablesList addObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]];
+        }
+        NSString *serviceProviderId = [defaults valueForKey:@"Service Provider ID"];
+        [self fetchStats:serviceProviderId];
+    }
+    
+    else if (webServiceCode == 5){
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        if (self.statsPopUpView.hidden == YES) {
+            self.statsPopUpView.hidden = NO;
+        }else{
+            self.statsPopUpView.hidden = YES;
+        }
+        
+        self.deliveredStatLbl.text = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderdeliverd"]];
+        self.inProcessStatLbl.text = [NSString stringWithFormat:@"%@", [ userDetailDict valueForKey:@"orderinprocess"]];
+        self.pendingStatLbl.text = [NSString stringWithFormat:@"%@", [ userDetailDict valueForKey:@"orderpending"]];
+        self.deliveredStatLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        self.inProcessStatLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        self.pendingStatLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        self.orderDeliveryTitleLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        self.orderInProcessTitleLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        self.orderPendingTitleLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderdeliverd"]] forKey:@"Delivery Stats"];
+        [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderinprocess"]] forKey:@"Process Stats"];
+        [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderpending"]] forKey:@"Pending Stats"];
+        NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+        
+    }else if (webServiceCode == 6){
+        [self.view endEditing:YES];
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        NSString *successResult = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
+        if ([successResult isEqualToString:@"0"]) {
+            NSString *alertMessage;
+           
+            if (isCancellation) {
+                alertMessage = [NSString stringWithFormat:@"YOUR REQUEST FOR CANCELLATION HAS BEEN SUBMITTED."];
+            }else if (isModification){
+                alertMessage = [NSString stringWithFormat:@"YOUR REQUEST FOR MODIFICATION HAS BEEN SUBMITTED."];
+            }
+            self.requestMessage.text = [NSString stringWithString:alertMessage];
+            [self.requestPopUpView setFrame:CGRectMake(0, 0, self.requestPopUpView.frame.size.width, self.requestPopUpView.frame.size.height)];
+            [self.view addSubview:self.requestPopUpView];
+        }
+        isCancellation = NO;
+        isModification = NO;
+        [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+        [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+        [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+        [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+        self.requestCancellation.hidden = YES;
+        self.requestModification.hidden = YES;
+        self.orderDeliveredTick.hidden = YES;
+        self.arrow1.hidden = NO;
+        self.arrow2.hidden = NO;
+        [self pendingPlacedOrder:[NSString stringWithFormat:@"request"]];
+        StatusTag =[NSString stringWithFormat:@"request"];
+        self.orderStatus.hidden = YES;
+        //    self.orderTime.hidden = YES;
+        //    self.orderStatusLbl.hidden = YES;
+        //    self.orderNumberLbl.hidden = YES;
+        self.arrow3.hidden = YES;
+        
+    }else if (webServiceCode == 9){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        int chatCount = 0;
+        int updatedChatCount = 0;
+        [defaults setValue:[userDetailDict valueForKey:@"ordercount"] forKey:@"Order Count"];
+        [defaults setValue:[userDetailDict valueForKey:@"pingcount"] forKey:@"Ping Count"];
+        [defaults setValue:[userDetailDict valueForKey:@"tableListCount"] forKey:@"SPChat Count"];
+        NSLog(@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"SPChat Count"]);
+        NSString *chatCountStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"SPChat Count"]];
+        NSArray *chatCountArray = [chatCountStr componentsSeparatedByString:@","];
+        for (int k = 0; k < [chatCountArray count]; k++) {
+             chatCount= [[chatCountArray objectAtIndex:k] intValue];
+            updatedChatCount = updatedChatCount + chatCount;
+            
+        }
+        [defaults setValue:[NSString stringWithFormat:@"%d",updatedChatCount] forKey:@"UpdatedChat Count"];
+        if (updatedChatCount != 0) {
+            self.chatNotificationBadgeImg.hidden = NO;
+            self.chatNotificationBageLbl.hidden = NO;
+            self.chatNotificationBageLbl.text = [NSString stringWithFormat:@"%d",updatedChatCount];
+        }else{
+            self.chatNotificationBadgeImg.hidden = YES;
+            self.chatNotificationBageLbl.hidden = YES;
+        }
+
+        int pingCount =[[[NSUserDefaults standardUserDefaults ]valueForKey:@"Ping Count"]intValue];
+        if (pingCount != 0) {
+            self.pingNotificationBadgeImg.hidden = NO;
+            self.pingNotificationBadgeLbl.hidden = NO;
+            self.pingNotificationBadgeLbl.text = [NSString stringWithFormat:@"%d",pingCount];
+        }else{
+            self.pingNotificationBadgeImg.hidden = YES;
+            self.pingNotificationBadgeLbl.hidden = YES;
+        }
+        int orderCount =[[[NSUserDefaults standardUserDefaults ]valueForKey:@"Order Count"]intValue];
+        if (orderCount != 0) {
+            self.orderNotificationBadgeImg.hidden = NO;
+            self.orderNotificationBadgeLbl.hidden = NO;
+            self.orderNotificationBadgeLbl.text = [NSString stringWithFormat:@"%d",orderCount];
+        }else{
+            self.orderNotificationBadgeImg.hidden = YES;
+            self.orderNotificationBadgeLbl.hidden = YES;
+        }
+        [self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+    }
+    if (tableSelected != nil) {
+        
+    }
+    
+    [self enable];
+    [activityIndicator stopAnimating];
+}
+- (void)highlightLetter:(UITapGestureRecognizer*)sender
+{
+    self.pingMessageView.hidden = YES;
+    [self.sideScroller sendSubviewToBack:self.gestureView];
+    
+}
+
+#pragma mark -Process Indicators
+- (void) disabled
+{
+    self.view.userInteractionEnabled = NO;
+    self.disabledImgView.hidden = NO;
+    [self.view sendSubviewToBack:self.disabledImgView];
+}
+- (void) enable
+{
+    self.view.userInteractionEnabled = YES;
+    self.disabledImgView.hidden = YES;
+    [self.view bringSubviewToFront:self.disabledImgView];
+}
+#pragma mark - Confirm Order Button
+- (IBAction)confirmOrderBtn:(id)sender {
+    NSString *orderIdStr = [NSString stringWithFormat:@"%@",self.orderNumberLbl.text];
+    if ([StatusTag isEqualToString:@"Open"]) {
+        NSString *orderStatus = [NSString stringWithFormat:@"processing"];
+        [self changeStatus:orderIdStr :orderStatus];
+    }else if ([StatusTag isEqualToString:@"processing"])
+    {
+        NSString *orderStatus = [NSString stringWithFormat:@"delivered"];
+        [self changeStatus:orderIdStr :orderStatus];
+    }
+    
+    
+    
+}
+- (IBAction)orderListPopUpcloseBtn:(id)sender {
+    self.orderListPopUp.hidden = YES;
+}
+
+#pragma mark - Send Button
+- (IBAction)sendChatMessage:(id)sender {
+    
+    [self.chatMessageTxtView resignFirstResponder];
+}
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    if (textView == self.chatMessageTxtView) {
+        CGPoint pt;
+        
+        pt.x = self.chatView.frame.origin.x;
+        pt.y = self.chatView.frame.origin.y - 385;
+        [self.chatView setFrame:CGRectMake(pt.x, pt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    }
+    return YES;
+}
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if (textView== self.chatMessageTxtView)
+    {
+        [self.chatView setFrame:CGRectMake(originalPt.x, originalPt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    }
+    [textView resignFirstResponder];
+    
+}
+
+- (BOOL) textViewShouldEndEditing:(UITextView *)textView
+{
+    if (textView== self.chatMessageTxtView)
+    {
+        [self.chatView setFrame:CGRectMake(originalPt.x, originalPt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    }
+    [textView resignFirstResponder];
+    return YES;
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSLog(@"user editing");
+    if([text isEqualToString:@"\n"])
+    {
+        [self.chatView setFrame:CGRectMake(originalPt.x, originalPt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+        [textView resignFirstResponder];
+    }
+    return YES;
+}
+- (void)keyboardWillShow:(NSNotification *)notification {
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    [self.chatView setFrame:CGRectMake(originalPt.x, originalPt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    
+}
+
+- (IBAction)minimizeBtn:(id)sender {
+    if (isMinimized) {
+        isMinimized = NO;
+        [self.chatView setFrame:CGRectMake(originalPt.x, originalPt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    }else{
+        CGPoint pt;
+        isMinimized = YES;
+        NSLog(@"Height of View .... %f", self.chatView.frame.size.height);
+        pt.x = self.chatView.frame.origin.x;
+        pt.y = self.chatView.frame.origin.y + self.chatView.frame.size.height - 33;
+        [self.chatView setFrame:CGRectMake(pt.x, pt.y, self.chatView.frame.size.width, self.chatView.frame.size.height)];
+    }
+}
+
+- (IBAction)doneBtn:(id)sender {
+    self.statsPopUpView.hidden = YES;
+}
+#pragma mark - Text field Delegates
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    
+    [textField resignFirstResponder];
+    
+    return  YES;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+}
+
+- (BOOL) textField: (UITextField *)theTextField shouldChangeCharactersInRange: (NSRange)range replacementString: (NSString *)string
+{
+    // orderList=[savDataArray mutableCopy];
+    NSString *substring;
+    substring = [NSString stringWithString:searchOrdrTxt.text];
+    substring = [substring stringByReplacingCharactersInRange:range withString:string];
+    
+    
+    if (substring.length==0)
+    {
+        orderList=[savDataArray mutableCopy];
+    }
+    
+    [self searchAutocompleteEntriesWithSubstring:substring];
+    
+    
+    
+    return  YES;
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+}
+
+
+- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
+    
+    
+    [orderIdtempArray removeAllObjects];
+    
+    for(pendingOrderObj in savDataArray)
+    {
+        
+        NSString *orderIdStr = pendingOrderObj.OrderId ;
+        NSString *tableIdStr = pendingOrderObj.TableId ;
+        
+        NSRange orderIdStringRange = [orderIdStr rangeOfString:substring];
+        NSRange tableIdStringRange = [tableIdStr rangeOfString:substring];
+        
+        if (orderIdStringRange.location == 0 ||  tableIdStringRange.location==0)
+        {
+            
+            [orderIdtempArray addObject:pendingOrderObj];
+        }
+    }
+    
+    if (substring.length>0) {
+        [orderList removeAllObjects];
+        orderList =[orderIdtempArray mutableCopy];
+    }
+    
+    
+    
+    [self.orderTableView reloadData];
+}
+- (IBAction)cancelationBtn:(id)sender
+{
+    if (self.orderNumberLbl.text == nil) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR CANCELLATION." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        if (self.modificationPopUpView.hidden == YES) {
+            self.modificationPopUpView.hidden = NO;
+            [self.view bringSubviewToFront:self.modificationPopUpView];
+            [self.sideScroller setUserInteractionEnabled:NO];
+            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Cancellation."];
+            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+            [[self.modificationTextView layer] setBorderWidth:1.0];
+            [[self.modificationTextView layer] setCornerRadius:5];
+            isCancellation = YES;
+            [self.confirmModification setTitle:@"Request Cancellation" forState:UIControlStateNormal];
+        }else{
+            self.modificationPopUpView.hidden = YES;
+            [self.view sendSubviewToBack:self.modificationPopUpView];
+        }
+    }
+}
+- (IBAction)modificationBtn:(id)sender
+{
+    if (self.orderNumberLbl.text == nil) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR MODIFICATION" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }else{
+        if (self.modificationPopUpView.hidden == YES) {
+            self.modificationPopUpView.hidden = NO;
+            [self.view bringSubviewToFront:self.modificationPopUpView];
+            [self.sideScroller setUserInteractionEnabled:NO];
+            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Modification."];
+            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+            [[self.modificationTextView layer] setBorderWidth:1.0];
+            [[self.modificationTextView layer] setCornerRadius:5];
+            isModification = YES;
+            [self.confirmModification setTitle:@"Request Modification" forState:UIControlStateNormal];
+        }else{
+            self.modificationPopUpView.hidden = YES;
+            [self.view sendSubviewToBack:self.modificationPopUpView];
+        }
+    }
+}
+- (IBAction)confirmModificationBtn:(id)sender {
+    [self.view endEditing:YES];
+    if ([self.modificationTextView.text isEqualToString:@""]) {
+        self.enterReasonLbl.hidden = NO;
+    }else{
+    if (isCancellation) {
+        [self requestModification:[NSString stringWithFormat:@"cancellation"] :[NSString stringWithFormat:@"%@",self.modificationTextView.text]];
+        
+    }else if (isModification){
+        [self requestModification:[NSString stringWithFormat:@"modification"] :[NSString stringWithFormat:@"%@",self.modificationTextView.text]];
+    }
+        self.enterReasonLbl.hidden = YES;
+     self.modificationTextView.text = @"";
+    self.modificationPopUpView.hidden = YES;
+    [self.view sendSubviewToBack:self.modificationPopUpView];
+    }
+}
+- (IBAction)requestPopUpClose:(id)sender {
+    [self enable];
+    [activityIndicator stopAnimating];
+    self.enterReasonLbl.hidden = YES;
+    self.modificationPopUpView.hidden = YES;
+    [self.sideScroller setUserInteractionEnabled:YES];
+    self.modificationTextView.text = @"";
+    [self.modificationTextView resignFirstResponder];
+    [self.view sendSubviewToBack:self.modificationPopUpView];
+}
+- (IBAction)requestAssistance:(id)sender {
+    spRequestAssistanceViewController *spRequestVC = [[spRequestAssistanceViewController alloc] initWithNibName:@"spRequestAssistanceViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:spRequestVC animated:NO];
+}
+- (IBAction)pingAssistance:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:@"0" forKey:@"Ping Count"] ;
+    self.pingNotificationBadgeImg.hidden = YES;
+    self.pingNotificationBadgeImg.hidden = YES;
+    spPingAssistanceViewController *spRequestVC = [[spPingAssistanceViewController alloc] initWithNibName:@"spPingAssistanceViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:spRequestVC animated:NO];
+}
+-(void)showOrder:(NSIndexPath *)indexPath
+{
+    NSLog(@"INDEX PAth on show Order ..... %ld",(long)indexPath.row);
+    pendingOrderObj = [orderList objectAtIndex:indexPath.row];
+    self.orderListPopUp.hidden = NO;
+    NSString *totalStr = [NSString stringWithFormat:@"%@",pendingOrderObj.TotalBill];
+    int p = [totalStr intValue];
+    AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
+
+    self.orderPopUpTotalBill.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+    self.orderNumberLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
+    self.spNotesTextView.text = [NSString stringWithFormat:@"%@",pendingOrderObj.note];
+    NSDate *startTime;
+    
+    startTime = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *curruntTime = [ dateFormat stringFromDate:startTime];
+    
+    NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+    NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+    NSLog(@"Order time %@",pendingOrderObj.lastUpdatedTime);
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSDate *date = [dateFormat dateFromString:time];
+    
+    // Convert date object to desired output format
+    //[dateFormat setDateFormat:@"HH:mm"];
+    NSString *dateStr = [dateFormat stringFromDate:date];
+    NSDate *date1=[dateFormat dateFromString:dateStr];
+    NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
+    NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
+    timeDelay = [timeDelay
+                 stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    int timeINteger = [timeDelay integerValue];
+    int minutes = timeINteger / 60;
+    NSLog(@"interval %d",minutes);
+    int hours = timeINteger / 3600;
+    int days = timeINteger / 86400;
+    NSLog(@"interval %d",minutes);
+    NSLog(@"interval %d",hours);
+    NSLog(@"interval %d",days);
+    
+    NSString *timeStr;
+    if (days > 0) {
+        timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+    }else if (hours > 0){
+        timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+    }else{
+        timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+    }
+    
+    if ([StatusTag isEqualToString:@"Open"]) {
+        [self.orderStatus setTitle:@"MARK IN PROCESS" forState:UIControlStateNormal];
+        self.requestCancellation.hidden = NO;
+        self.requestModification.hidden = NO;
+        self.orderDeliveredTick.hidden = YES;
+        self.arrow1.hidden = NO;
+        self.arrow2.hidden = NO;
+        requestLbl.hidden = YES;
+        self.orderStatusLbl.hidden = NO;
+        self.orderTime.hidden = NO;
+        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS PLACED!!"];
+        self.orderTime.text = [NSString stringWithString:timeStr];
+    }else if([StatusTag isEqualToString:@"processing"])
+    {
+        [self.orderStatus setTitle:@"Mark As Delivered" forState:UIControlStateNormal];
+        self.requestCancellation.hidden = NO;
+        self.requestModification.hidden = YES;
+        self.orderDeliveredTick.hidden = YES;
+        self.arrow1.hidden = NO;
+        self.arrow2.hidden = NO;
+        requestLbl.hidden = YES;
+        self.orderStatusLbl.hidden = NO;
+        self.orderTime.hidden = NO;
+        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED!!"];
+        self.orderTime.text = [NSString stringWithString:timeStr];
+    }else if ([StatusTag isEqualToString:@"delivered"])
+    {
+        [self.orderStatus setTitle:@"ReOpen" forState:UIControlStateNormal];
+        self.requestCancellation.hidden = YES;
+        self.requestModification.hidden = YES;
+        self.arrow1.hidden = YES;
+        self.arrow2.hidden = YES;
+        requestLbl.hidden = YES;
+        self.orderDeliveredTick.hidden = NO;
+        self.orderStatusLbl.hidden = NO;
+        self.orderTime.hidden = NO;
+        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER DELIVERED"];
+        
+        self.orderTime.text = [NSString stringWithFormat:@"%@",timeStr];
+        
+        
+    }
+    else if ([StatusTag isEqualToString:@"request"])
+    {
+        self.orderStatus.hidden = YES;
+        self.requestCancellation.hidden = YES;
+        self.requestModification.hidden = YES;
+        self.arrow1.hidden = YES;
+        self.arrow2.hidden = YES;
+        self.orderDeliveredTick.hidden = YES;
+        self.orderStatusLbl.hidden = YES;
+        self.orderTime.hidden = YES;
+        self.orderStatusLbl.hidden = YES;
+        NSLog(@"%@",[pendingOrderObj.requestData valueForKey:@"Comments"]);
+        NSString *commentStr = [NSString stringWithFormat:@"%@",[pendingOrderObj.requestData valueForKey:@"Comments"]];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@")" withString:@""];
+        commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        requestLbl.hidden = NO;
+        requestLbl.text = commentStr;
+    }
+    [self pendingOrderItems:indexPath.row];
+    
+}
+-(void) scrollToTop
+{
+    if ([self numberOfSectionsInTableView:self.orderTableView] > 0)
+    {
+        NSIndexPath* top = [NSIndexPath indexPathForRow:NSNotFound inSection:0];
+        [self.orderTableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+-(void) fetchMessageCount:(NSString *) assignedTable
+{
+    //    [self disabled];
+    //    [activityIndicator startAnimating];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    assignedTableTimestampsArray = [[NSMutableArray alloc] init];
+    NSString *timeStamp;
+    for(int i = 0; i < [assignedTablesArray count]; i++){
+        timeStampKey = [NSString stringWithFormat:@"%@_TimeStamp",[assignedTablesArray objectAtIndex:i]];
+        timeStamp = [NSString stringWithFormat:@"%@",[defaults objectForKey:timeStampKey]];
+        if ([timeStamp isEqualToString:@"(null)"]) {
+            timeStamp = [NSString stringWithFormat:@""];
+        }
+        [assignedTableTimestampsArray addObject:timeStamp];
+    }
+    NSString *assignedTableList = [NSString stringWithFormat:@"%@",assignedTable];
+    assignedTableList = [assignedTableList stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    assignedTableList = [assignedTableList stringByReplacingOccurrencesOfString:@" " withString:@""];
+    assignedTableList = [assignedTableList stringByReplacingOccurrencesOfString:@"(" withString:@""];
+    assignedTableList = [assignedTableList stringByReplacingOccurrencesOfString:@")" withString:@""];
+    
+    NSString *timeStampList = [NSString stringWithFormat:@"%@",assignedTableTimestampsArray];
+    timeStampList = [timeStampList stringByReplacingOccurrencesOfString:@"\n"withString:@""];
+    timeStampList = [timeStampList stringByReplacingOccurrencesOfString:@"\\"withString:@""];
+    timeStampList = [timeStampList stringByReplacingOccurrencesOfString:@"\""withString:@""];
+    timeStampList = [timeStampList stringByReplacingOccurrencesOfString:@")"withString:@""];
+    timeStampList = [timeStampList stringByReplacingOccurrencesOfString:@"("withString:@""];
+    timeStampList = [timeStampList stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    NSString *orderTimeStamp = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"fetchOrderTimeStamp"]];
+    if ([orderTimeStamp isEqualToString:@"(null)"]) {
+        orderTimeStamp = [NSString stringWithFormat:@""];
+    }
+    NSString *ids = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Service Provider ID"]];
+    NSString *user =[NSString stringWithFormat:@"serviceprovider"];
+    NSString *pingTimeStamp = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"pingTimeStamp"]];
+    if ([pingTimeStamp isEqualToString:@"(null)"]) {
+        pingTimeStamp = [NSString stringWithFormat:@""];
+    }
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:assignedTableList,@"assignedTableList",timeStampList,@"timestampConversation",user, @"trigger",ids, @"id",orderTimeStamp, @"timestampOrder",pingTimeStamp,@"pingTimeStamp", nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/FetchPingOrderCount",Kwebservices]];
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode = 9;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+    
+}
+- (IBAction)exitYesAction:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"Service Provider ID"];
+    [defaults removeObjectForKey:@"Service Provider Name"];
+    [defaults removeObjectForKey:@"Service Provider image"];
+    [defaults removeObjectForKey:@"Role"];
+    
+    [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
+    [self.navigationController pushViewController:loginVC animated:YES];
+   
+}
+
+- (IBAction)exitNoAction:(id)sender {
+    [self.exitPopUpView removeFromSuperview];
+}
+
+- (IBAction)OkAction:(id)sender {
+    [self.requestPopUpView removeFromSuperview];
+    [self.sideScroller setUserInteractionEnabled:YES];
+}
+@end
