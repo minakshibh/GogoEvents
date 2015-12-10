@@ -37,7 +37,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="PzF-PC-SmG">
-                    <rect key="frame" x="0.0" y="0.0" width="1026" height="769"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1026" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cOO-PH-8fv">

@@ -69,7 +69,7 @@
     scr.autoresizingMask=UIViewAutoresizingNone;
     [self.view addSubview:scr];
     [self setupScrollView:scr];
-    pgCtr = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 600, 1024, 150)];
+    pgCtr = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 1024, 150)];
     [pgCtr setTag:12];
     [pgCtr setBackgroundColor:[UIColor clearColor]];
     pgCtr.autoresizingMask=UIViewAutoresizingNone;
@@ -105,43 +105,34 @@
         // apply tag to access in future
         imgV.tag=i+1;
         
-        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 600, 50)];
-        paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [imgV addSubview:paddingView];
-        
-        UILabel *lbldesc = [[UILabel alloc]initWithFrame:CGRectMake(20,50, 560, 30)];
+        UILabel *lbldesc = [[UILabel alloc]initWithFrame:CGRectMake(20,655, scrMain.frame.size.width-40, 115.000000)];
         
         lbldesc.numberOfLines = 4;
-        lbldesc.font = [UIFont fontWithName:@"Helvetica-Light" size:28];
+        lbldesc.font = [UIFont fontWithName:@"Helvetica-Condensed" size:23];
         lbldesc.text = [NSString stringWithFormat:@"%@",[imgDesc objectAtIndex:i]];
         lbldesc.textColor = [UIColor whiteColor];
         lbldesc.textAlignment = NSTextAlignmentLeft;
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineHeightMultiple = 30.0f;
+        paragraphStyle.maximumLineHeight = 30.0f;
+        paragraphStyle.minimumLineHeight = 30.0f;
+        
+        NSString *string = lbldesc.text;
+        NSDictionary *ats = @{
+                              NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Condensed" size:23.0f],
+                              NSParagraphStyleAttributeName : paragraphStyle,
+                              };
+        
+        lbldesc.attributedText = [[NSAttributedString alloc] initWithString:string attributes:ats];
         lbldesc.backgroundColor = [UIColor clearColor];
-        UIEdgeInsets insets = {0, 5, 0, 5};
+        lbldesc.lineBreakMode = NSLineBreakByWordWrapping;
+        lbldesc.numberOfLines = 0;
+        [lbldesc sizeToFit];
         
-        [lbldesc drawTextInRect:UIEdgeInsetsInsetRect(lbldesc.frame, insets)];
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 658 - 25, scrMain.frame.size.width, 135.0)];
+        paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [imgV addSubview:paddingView];
         [imgV addSubview:lbldesc];
-        
-        
-        CGSize constrainedSize = CGSizeMake(lbldesc.frame.size.width  , 9999999999999);
-        
-        NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [UIFont fontWithName:@"Helvetica-Light" size:28], NSFontAttributeName,
-                                              nil];
-        
-        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[imgDesc objectAtIndex:i] attributes:attributesDictionary];
-        
-        CGRect requiredHeight = [string boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-        
-        if (requiredHeight.size.width > lbldesc.frame.size.width) {
-            requiredHeight = CGRectMake(0,0, lbldesc.frame.size.width, requiredHeight.size.height);
-        }
-        CGRect newFrame = lbldesc.frame;
-        newFrame.size.height = requiredHeight.size.height;
-        lbldesc.frame = newFrame;
-        CGRect newViewFrame = paddingView.frame;
-        newViewFrame.size.height = requiredHeight.size.height+20;
-        paddingView.frame = newViewFrame;
         
         
         // add to scrollView

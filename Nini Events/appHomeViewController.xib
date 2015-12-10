@@ -51,7 +51,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="J5W-hR-ahb">
-                    <rect key="frame" x="0.0" y="0.0" width="1027" height="769"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1025" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="eUK-jY-eo5">
@@ -902,7 +902,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu.png" id="Vfh-Tw-vHt">
-                    <rect key="frame" x="15" y="14" width="30" height="25"/>
+                    <rect key="frame" x="15" y="15" width="30" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
