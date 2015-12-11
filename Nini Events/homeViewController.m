@@ -3105,9 +3105,11 @@ static int curveValues[] = {
         [self.pingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         [self.otherMenuPingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         self.pingMessageView.hidden = NO;
+        [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
         self.pingMessageView.alpha= 1.0;
+        [self.sideScroller addSubview:self.pingMessageView];
+        [self.sideScroller bringSubviewToFront:self.pingMessageView];
         hideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(FadeView) userInfo:nil repeats:NO];
-        
     }
     else{
         
@@ -3244,7 +3246,7 @@ static int curveValues[] = {
     
     
     // Menu Bar...............
-    [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
     [self.sideScroller addSubview:self.bottomMenuView];
     
     if (isPingActive) {
