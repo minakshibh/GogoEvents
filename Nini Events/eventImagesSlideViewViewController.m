@@ -199,14 +199,23 @@
         paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [imgV addSubview:paddingView];
         [imgV addSubview:lbldesc];
-        
+//        lbldesc .hidden=YES;
+        lbldesc.alpha = 0.0;
+        [UIView animateWithDuration:2.0
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             lbldesc.alpha = 1.0;
+                         }
+                         completion:^(BOOL finished){
+                         }];
         // add to scrollView
         [scrMain addSubview:imgV];
     }
     // set the content size to 10 image width
     [scrMain setContentSize:CGSizeMake(scrMain.frame.size.width * [imageNameStringsArray count], scrMain.frame.size.height)];
     // enable timer after each 2 seconds for scrolling.
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
 }
 
 - (void)scrollingTimer {
@@ -221,12 +230,39 @@
     // if page is not 10, display it
     if( nextPage!=[imageNameStringsArray count] )  {
         [scrMain scrollRectToVisible:CGRectMake(nextPage*scrMain.frame.size.width, 0, scrMain.frame.size.width, scrMain.frame.size.height) animated:YES];
+      
+        
         pgCtr1.currentPage=nextPage;
         // else start sliding form 1 :)
     } else {
+        
         [scrMain scrollRectToVisible:CGRectMake(0, 0, scrMain.frame.size.width, scrMain.frame.size.height) animated:YES];
         pgCtr1.currentPage=0;
     }
+    for (id subView in scrMain.subviews){
+        
+        UIImageView*imgView=subView;
+        for (id subLblView in imgView.subviews)
+        {
+            if ([subLblView isKindOfClass:[UILabel class]])
+            {
+                
+                UILabel*lbldesc=subLblView;
+                lbldesc.hidden=NO;
+                lbldesc.alpha = 0.0;
+                [UIView animateWithDuration:2.0
+                                      delay:0.0
+                                    options: UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                                     lbldesc.alpha = 1.0;
+                                 }
+                                 completion:^(BOOL finished){
+                                 }];
+                
+            }
+        }
+    }
+
 }
 
 

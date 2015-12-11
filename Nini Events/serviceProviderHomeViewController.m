@@ -409,6 +409,7 @@
     StatusTag =[NSString stringWithFormat:@"Open"];
     self.orderStatus.hidden = NO;
     self.arrow3.hidden = NO;
+    editOrderImage.hidden = NO;
 }
 
 #pragma mark -Fetch Delivered Orders List
@@ -426,6 +427,7 @@
     StatusTag =[NSString stringWithFormat:@"delivered"];
     self.orderStatus.hidden = YES;
     self.arrow3.hidden = YES;
+    editOrderImage.hidden = YES;
 }
 
 #pragma mark -Fetch Processing Orders List
@@ -434,7 +436,7 @@
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    self.requestCancellation.hidden = NO;
+    self.requestCancellation.hidden = YES;
     self.requestModification.hidden = YES;
     self.orderDeliveredTick.hidden = YES;
     self.arrow1.hidden = NO;
@@ -443,6 +445,7 @@
     StatusTag =[NSString stringWithFormat:@"processing"];
     self.orderStatus.hidden = YES;
     self.arrow3.hidden = YES;
+    editOrderImage.hidden = YES;
     
 }
 #pragma mark -Fetch Requests
@@ -457,6 +460,7 @@
     self.orderDeliveredTick.hidden = YES;
     self.arrow1.hidden = NO;
     self.arrow2.hidden = NO;
+    editOrderImage.hidden = YES;
     [self pendingPlacedOrder:[NSString stringWithFormat:@"request"]];
     StatusTag =[NSString stringWithFormat:@"request"];
     self.orderStatus.hidden = YES;
@@ -1537,6 +1541,7 @@
         self.requestCancellation.hidden = YES;
         self.requestModification.hidden = YES;
         self.orderDeliveredTick.hidden = YES;
+        editOrderImage.hidden = YES;
         self.arrow1.hidden = NO;
         self.arrow2.hidden = NO;
         [self pendingPlacedOrder:[NSString stringWithFormat:@"request"]];
@@ -1771,11 +1776,13 @@
         
         NSString *orderIdStr = pendingOrderObj.OrderId ;
         NSString *tableIdStr = pendingOrderObj.TableId ;
-        
+        NSString *itemPlaced = [[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"] componentsJoinedByString:@", "];
+        NSLog(@"ItemName = %@",itemPlaced);
         NSRange orderIdStringRange = [orderIdStr rangeOfString:substring];
         NSRange tableIdStringRange = [tableIdStr rangeOfString:substring];
+        NSRange itemNameStringRange = [itemPlaced rangeOfString:substring];
         
-        if (orderIdStringRange.location == 0 ||  tableIdStringRange.location==0)
+        if (orderIdStringRange.location == 0 ||  tableIdStringRange.location==0 || itemNameStringRange.location == 0)
         {
             
             [orderIdtempArray addObject:pendingOrderObj];
@@ -1793,48 +1800,92 @@
 }
 - (IBAction)cancelationBtn:(id)sender
 {
-    if (self.orderNumberLbl.text == nil) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR CANCELLATION." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }else{
-        if (self.modificationPopUpView.hidden == YES) {
-            self.modificationPopUpView.hidden = NO;
-            [self.view bringSubviewToFront:self.modificationPopUpView];
-            [self.sideScroller setUserInteractionEnabled:NO];
-            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Cancellation."];
-            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
-            [[self.modificationTextView layer] setBorderWidth:1.0];
-            [[self.modificationTextView layer] setCornerRadius:5];
-            isCancellation = YES;
-            [self.confirmModification setTitle:@"Request Cancellation" forState:UIControlStateNormal];
-        }else{
-            self.modificationPopUpView.hidden = YES;
-            [self.view sendSubviewToBack:self.modificationPopUpView];
-        }
+    NSArray * arr = [[NSArray alloc] init];
+    arr = [NSArray arrayWithObjects:@"Request Cancelation", @"Request Modification", @"Mark In Process",nil];
+    if(dropDown == nil) {
+        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 15, 9)];
+        editOrderImage.image = [UIImage imageNamed:@"dropdown-downWhite.png"];
+        CGFloat f = arr.count * 40;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :@"down"];
+        dropDown.delegate = self;
+    }
+    else {
+        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+        editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
+        [dropDown hideDropDown:sender];
+        [self rel];
     }
 }
-- (IBAction)modificationBtn:(id)sender
-{
-    if (self.orderNumberLbl.text == nil) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR MODIFICATION" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }else{
-        if (self.modificationPopUpView.hidden == YES) {
-            self.modificationPopUpView.hidden = NO;
-            [self.view bringSubviewToFront:self.modificationPopUpView];
-            [self.sideScroller setUserInteractionEnabled:NO];
-            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Modification."];
-            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
-            [[self.modificationTextView layer] setBorderWidth:1.0];
-            [[self.modificationTextView layer] setCornerRadius:5];
-            isModification = YES;
-            [self.confirmModification setTitle:@"Request Modification" forState:UIControlStateNormal];
+
+- (void) niDropDownDelegateMethod: (NIDropDown *) sender :(NSString *)buttonTitle {
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
+    NSLog(@"%@",buttonTitle);
+    if ([buttonTitle isEqualToString:@"REQUEST MODIFICATION"]||[buttonTitle isEqualToString:@"REQUEST CANCELATION"]) {
+        if (self.orderNumberLbl.text == nil) {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR MODIFICATION" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }else{
-            self.modificationPopUpView.hidden = YES;
-            [self.view sendSubviewToBack:self.modificationPopUpView];
+            if (self.modificationPopUpView.hidden == YES) {
+                modificationRequestCloseBtn.layer.borderColor = [UIColor blackColor].CGColor;
+                modificationRequestCloseBtn.layer.borderWidth = 1.0;
+                modificationRequestCloseBtn.layer.cornerRadius = 12.0;
+                self.modificationPopUpView.hidden = NO;
+                [self.view bringSubviewToFront:self.modificationPopUpView];
+                [self.sideScroller setUserInteractionEnabled:NO];
+                [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+                [[self.modificationTextView layer] setBorderWidth:1.0];
+                [[self.modificationTextView layer] setCornerRadius:5];
+                
+                if ([buttonTitle isEqualToString:@"REQUEST MODIFICATION"]) {
+                    isModification = YES;
+                    self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Modification."];
+                    [self.confirmModification setTitle:@"Request Modification" forState:UIControlStateNormal];
+                }else{
+                    isCancellation = YES;
+                    self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Cancelation."];
+                    [self.confirmModification setTitle:@"Request Cancelation" forState:UIControlStateNormal];
+                }
+            }else{
+                self.modificationPopUpView.hidden = YES;
+                [self.view sendSubviewToBack:self.modificationPopUpView];
+            }
+        }
+    }else{
+        NSString *orderIdStr = [NSString stringWithFormat:@"%@",self.orderNumberLbl.text];
+        if ([StatusTag isEqualToString:@"Open"]) {
+            NSString *orderStatus = [NSString stringWithFormat:@"processing"];
+            [self changeStatus:orderIdStr :orderStatus];
         }
     }
+    [self rel];
 }
+
+-(void)rel{
+    //    [dropDown release];
+    dropDown = nil;
+}
+
+//    if (self.orderNumberLbl.text == nil) {
+//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR CANCELLATION." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alert show];
+//    }else{
+//        if (self.modificationPopUpView.hidden == YES) {
+//            self.modificationPopUpView.hidden = NO;
+//            [self.view bringSubviewToFront:self.modificationPopUpView];
+//            [self.sideScroller setUserInteractionEnabled:NO];
+//            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Cancellation."];
+//            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
+//            [[self.modificationTextView layer] setBorderWidth:1.0];
+//            [[self.modificationTextView layer] setCornerRadius:5];
+//            isCancellation = YES;
+//            [self.confirmModification setTitle:@"Request Cancellation" forState:UIControlStateNormal];
+//        }else{
+//            self.modificationPopUpView.hidden = YES;
+//            [self.view sendSubviewToBack:self.modificationPopUpView];
+//        }
+//    }
+
 - (IBAction)confirmModificationBtn:(id)sender {
     [self.view endEditing:YES];
     if ([self.modificationTextView.text isEqualToString:@""]) {
@@ -1937,12 +1988,13 @@
         requestLbl.hidden = YES;
         self.orderStatusLbl.hidden = NO;
         self.orderTime.hidden = NO;
+        editOrderImage.hidden = NO;
         self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS PLACED!!"];
         self.orderTime.text = [NSString stringWithString:timeStr];
     }else if([StatusTag isEqualToString:@"processing"])
     {
         [self.orderStatus setTitle:@"Mark As Delivered" forState:UIControlStateNormal];
-        self.requestCancellation.hidden = NO;
+        self.requestCancellation.hidden = YES;
         self.requestModification.hidden = YES;
         self.orderDeliveredTick.hidden = YES;
         self.arrow1.hidden = NO;
@@ -1950,6 +2002,7 @@
         requestLbl.hidden = YES;
         self.orderStatusLbl.hidden = NO;
         self.orderTime.hidden = NO;
+        editOrderImage.hidden = YES;
         self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED!!"];
         self.orderTime.text = [NSString stringWithString:timeStr];
     }else if ([StatusTag isEqualToString:@"delivered"])
@@ -1963,6 +2016,7 @@
         self.orderDeliveredTick.hidden = NO;
         self.orderStatusLbl.hidden = NO;
         self.orderTime.hidden = NO;
+        editOrderImage.hidden = YES;
         self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER DELIVERED"];
         
         self.orderTime.text = [NSString stringWithFormat:@"%@",timeStr];
@@ -1980,6 +2034,7 @@
         self.orderStatusLbl.hidden = YES;
         self.orderTime.hidden = YES;
         self.orderStatusLbl.hidden = YES;
+        editOrderImage.hidden = YES;
         NSLog(@"%@",[pendingOrderObj.requestData valueForKey:@"Comments"]);
         NSString *commentStr = [NSString stringWithFormat:@"%@",[pendingOrderObj.requestData valueForKey:@"Comments"]];
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];

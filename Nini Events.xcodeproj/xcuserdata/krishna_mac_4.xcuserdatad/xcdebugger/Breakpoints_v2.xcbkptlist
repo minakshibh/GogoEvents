@@ -137,13 +137,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nini Events/loginViewController.m"
-            timestampString = "471354627.854423"
+            filePath = "Nini Events/screenSaverViewController.m"
+            timestampString = "471525495.160937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-loginWebservice::"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "-setupScrollView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,13 +153,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nini Events/loginViewController.m"
-            timestampString = "471354627.854423"
+            filePath = "Nini Events/serviceProviderHomeViewController.m"
+            timestampString = "471525322.621158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
-            landmarkName = "-connectionDidFinishLoading:"
+            startingLineNumber = "1160"
+            endingLineNumber = "1160"
+            landmarkName = "-requestModification::"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,45 +169,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nini Events/loginViewController.m"
-            timestampString = "471354627.854423"
+            filePath = "Nini Events/serviceProviderHomeViewController.m"
+            timestampString = "471528000.953072"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "-connectionDidFinishLoading:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nini Events/loginViewController.m"
-            timestampString = "471354627.854423"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "-connection:didReceiveData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nini Events/loginViewController.m"
-            timestampString = "471354627.854423"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "-connection:didReceiveResponse:"
+            startingLineNumber = "1780"
+            endingLineNumber = "1780"
+            landmarkName = "-searchAutocompleteEntriesWithSubstring:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -448,6 +448,11 @@
 		D959CE141BFDDF1700CE4BC4 /* user-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D959CE0C1BFDDF1600CE4BC4 /* user-icon@2x.png */; };
 		D99C10A11BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png in Resources */ = {isa = PBXBuildFile; fileRef = D99C10A01BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png */; };
 		F965EAE81C15C10A006621F0 /* orderhistory.png in Resources */ = {isa = PBXBuildFile; fileRef = F965EAE71C15C10A006621F0 /* orderhistory.png */; };
+		F96A10C41C1A9DA1005C58E7 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */; };
+		F96A10C71C1AACE5005C58E7 /* dropdown-right.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C51C1AACE5005C58E7 /* dropdown-right.png */; };
+		F96A10C81C1AACE5005C58E7 /* dropdown-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C61C1AACE5005C58E7 /* dropdown-right@2x.png */; };
+		F96A10CB1C1AB193005C58E7 /* dropdown-downWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C91C1AB193005C58E7 /* dropdown-downWhite.png */; };
+		F96A10CC1C1AB193005C58E7 /* dropdown-downWhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10CA1C1AB193005C58E7 /* dropdown-downWhite@2x.png */; };
 		F96CFA971C18524400B70FCC /* ophemy-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F96CFA951C18524400B70FCC /* ophemy-logo.png */; };
 		F96CFA981C18524400B70FCC /* ophemy-logo2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F96CFA961C18524400B70FCC /* ophemy-logo2x.png */; };
 		F97194261BB9196000682684 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F97194251BB9196000682684 /* libsqlite3.0.tbd */; };
@@ -999,6 +1004,12 @@
 		D959CE0C1BFDDF1600CE4BC4 /* user-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon@2x.png"; sourceTree = "<group>"; };
 		D99C10A01BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2015-11-18 at 10.00.14 am.png"; sourceTree = "<group>"; };
 		F965EAE71C15C10A006621F0 /* orderhistory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orderhistory.png; sourceTree = "<group>"; };
+		F96A10C21C1A9DA1005C58E7 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
+		F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
+		F96A10C51C1AACE5005C58E7 /* dropdown-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-right.png"; sourceTree = "<group>"; };
+		F96A10C61C1AACE5005C58E7 /* dropdown-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-right@2x.png"; sourceTree = "<group>"; };
+		F96A10C91C1AB193005C58E7 /* dropdown-downWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-downWhite.png"; sourceTree = "<group>"; };
+		F96A10CA1C1AB193005C58E7 /* dropdown-downWhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-downWhite@2x.png"; sourceTree = "<group>"; };
 		F96CFA951C18524400B70FCC /* ophemy-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ophemy-logo.png"; sourceTree = "<group>"; };
 		F96CFA961C18524400B70FCC /* ophemy-logo2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ophemy-logo2x.png"; sourceTree = "<group>"; };
 		F97194251BB9196000682684 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -2208,6 +2219,8 @@
 		97D973D61A19FF8F0093056E = {
 			isa = PBXGroup;
 			children = (
+				F96A10C21C1A9DA1005C58E7 /* NIDropDown.h */,
+				F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */,
 				D99D61851C0326B000786E38 /* New Group */,
 				F97194271BB9196B00682684 /* libz.tbd */,
 				F97194251BB9196000682684 /* libsqlite3.0.tbd */,
@@ -2491,8 +2504,12 @@
 				D959CDEC1BFDB79D00CE4BC4 /* right-arrow@2x.png */,
 				D959CDF11BFDCD1200CE4BC4 /* dropdown-down.png */,
 				D959CDF21BFDCD1200CE4BC4 /* dropdown-down@2x.png */,
+				F96A10C91C1AB193005C58E7 /* dropdown-downWhite.png */,
+				F96A10CA1C1AB193005C58E7 /* dropdown-downWhite@2x.png */,
 				D959CDF31BFDCD1200CE4BC4 /* dropdown-up.png */,
 				D959CDF41BFDCD1200CE4BC4 /* dropdown-up@2x.png */,
+				F96A10C51C1AACE5005C58E7 /* dropdown-right.png */,
+				F96A10C61C1AACE5005C58E7 /* dropdown-right@2x.png */,
 			);
 			name = icon;
 			sourceTree = "<group>";
@@ -2629,9 +2646,11 @@
 				9732228E1A78BDED00728CE4 /* homeViewController_1.xib in Resources */,
 				97AE8B391A88B1D2007862C3 /* food@2x.png in Resources */,
 				97AE04FC1A3B229400A137DB /* chat-box_03.png in Resources */,
+				F96A10C81C1AACE5005C58E7 /* dropdown-right@2x.png in Resources */,
 				97AE8BC01A88B1D2007862C3 /* checkoutselect@2x.png in Resources */,
 				97AE04F11A3B1D3D00A137DB /* icon-center-big.png in Resources */,
 				97AE8B0F1A88B1D2007862C3 /* cart.png in Resources */,
+				F96A10CB1C1AB193005C58E7 /* dropdown-downWhite.png in Resources */,
 				9783C69F1A89CE7F0030CA45 /* OrderListTableViewCell.xib in Resources */,
 				979DEBBE1A2D915900834F42 /* drinkMenu-icon.png in Resources */,
 				97D220841AE8C04200B3477C /* ahronbd.ttf in Resources */,
@@ -2747,6 +2766,7 @@
 				97AE8BA01A88B1D2007862C3 /* quantity@2x.png in Resources */,
 				97392DFA1A1B4FFE00E4BB2B /* slider_bullet@2x.png in Resources */,
 				97AE8B421A88B1D2007862C3 /* sendicon@2x.png in Resources */,
+				F96A10C71C1AACE5005C58E7 /* dropdown-right.png in Resources */,
 				97D5CBCE1A44307800EBAEF2 /* place_Order_button_big.png in Resources */,
 				9796A5881A3722A40070F874 /* niniEvent_1024-768.png in Resources */,
 				979DEBBF1A2D915900834F42 /* edit-icon.png in Resources */,
@@ -2837,6 +2857,7 @@
 				97AE8B111A88B1D2007862C3 /* dotselect@2x.png in Resources */,
 				97AE8BF21A88B21A007862C3 /* box.png in Resources */,
 				97D579B61AA72ADF00C06EB3 /* 76@2x.png in Resources */,
+				F96A10CC1C1AB193005C58E7 /* dropdown-downWhite@2x.png in Resources */,
 				97AE8BBB1A88B1D2007862C3 /* eleteselect.png in Resources */,
 				97AE8BE41A88B1F3007862C3 /* sidebar_02.png in Resources */,
 				97D973F31A19FF8F0093056E /* Images.xcassets in Resources */,
@@ -3004,6 +3025,7 @@
 				97392D891A1B309600E4BB2B /* SBJsonTokeniser.m in Sources */,
 				97F189AA1A39C37100A8E5D1 /* UIBubbleTypingTableViewCell.m in Sources */,
 				97392D7C1A1B309600E4BB2B /* ASINetworkQueue.m in Sources */,
+				F96A10C41C1A9DA1005C58E7 /* NIDropDown.m in Sources */,
 				97392D7A1A1B309600E4BB2B /* ASIHTTPRequest.m in Sources */,
 				97392E0F1A1B60C800E4BB2B /* FMDatabaseAdditions.m in Sources */,
 				97392D781A1B309600E4BB2B /* ASIDownloadCache.m in Sources */,
@@ -3092,7 +3114,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "13b59a29-215c-4e3f-b08d-98fe99ef1d84";
+				PROVISIONING_PROFILE = "aec28993-e796-410c-9f0f-2b262d5f319c";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -3142,8 +3164,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rocky Uppal (3R7VB3H8QT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rocky Uppal (3R7VB3H8QT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -3154,7 +3176,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Nini Events";
-				PROVISIONING_PROFILE = "13b59a29-215c-4e3f-b08d-98fe99ef1d84";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nini Events-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3167,8 +3189,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rocky Uppal (T5DY39F2BR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rocky Uppal (T5DY39F2BR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;

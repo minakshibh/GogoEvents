@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="helvetica-condensed-bold.ttf">
@@ -20,6 +20,7 @@
                 <outlet property="deliveredStatLbl" destination="bZc-Ro-CGW" id="hmD-6W-p0P"/>
                 <outlet property="deliveredbtn" destination="HJi-hN-7ET" id="Znd-kL-DCM"/>
                 <outlet property="disabledImgView" destination="xEH-Y3-kdS" id="Ivz-bm-uEe"/>
+                <outlet property="editOrderImage" destination="srs-Gr-aTI" id="xjj-BX-PEc"/>
                 <outlet property="enterReasonLbl" destination="sjp-gM-pUt" id="lqg-9X-dhp"/>
                 <outlet property="exit" destination="I8b-Yq-CO4" id="A8B-zp-SgQ"/>
                 <outlet property="exitPopUpView" destination="VqV-Aj-DXa" id="MBR-aa-G3u"/>
@@ -28,6 +29,7 @@
                 <outlet property="modificationComment" destination="4mQ-ry-N2w" id="TV0-KH-6cF"/>
                 <outlet property="modificationPopUpTitle" destination="jqL-Ss-eOE" id="J8H-5a-4SJ"/>
                 <outlet property="modificationPopUpView" destination="jei-ZI-dZq" id="xB0-e8-IM7"/>
+                <outlet property="modificationRequestCloseBtn" destination="82B-fV-9RU" id="7vL-mN-kfG"/>
                 <outlet property="modificationTextView" destination="4mQ-ry-N2w" id="J26-bv-6G5"/>
                 <outlet property="nameLbl" destination="1K6-cI-IeA" id="dlM-PJ-rr9"/>
                 <outlet property="openBtn" destination="FLH-vg-hRX" id="A7I-bk-Btr"/>
@@ -36,7 +38,6 @@
                 <outlet property="orderNotificationBadgeImg" destination="ZgM-vk-ZzB" id="NOf-xa-Y4g"/>
                 <outlet property="orderNotificationBadgeLbl" destination="zAt-NU-8EQ" id="Zud-3L-S5Y"/>
                 <outlet property="orderNumberLbl" destination="qow-GK-Bha" id="Mu0-rK-P0p"/>
-                <outlet property="orderStatus" destination="1Lq-fZ-ebK" id="Vl3-o2-xHx"/>
                 <outlet property="orderStatusLbl" destination="G3i-vy-y8Y" id="pJ4-xb-Jrg"/>
                 <outlet property="orderTableView" destination="lie-6H-P0p" id="b1A-Qo-xLe"/>
                 <outlet property="orderTime" destination="smo-fq-c0C" id="vRP-af-v7W"/>
@@ -50,7 +51,6 @@
                 <outlet property="requestCancellation" destination="Xxq-ri-wbb" id="icE-8B-Jbk"/>
                 <outlet property="requestLbl" destination="f1j-CZ-mb0" id="oFk-Lu-kN3"/>
                 <outlet property="requestMessage" destination="CZm-yi-zYj" id="usW-ai-Mqj"/>
-                <outlet property="requestModification" destination="t72-qg-oJJ" id="vA5-uI-lYb"/>
                 <outlet property="requestPopUpView" destination="jRy-bu-9VZ" id="NaQ-cj-se6"/>
                 <outlet property="roleLbl" destination="VJo-oE-iVk" id="NcR-qC-6YY"/>
                 <outlet property="searchOrdrTxt" destination="TQ6-hh-voX" id="78o-Fb-83N"/>
@@ -382,41 +382,22 @@
                                     </connections>
                                 </tableView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xxq-ri-wbb">
-                                    <rect key="frame" x="92" y="327" width="218" height="37"/>
+                                    <rect key="frame" x="13" y="327" width="297" height="37"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                    <state key="normal" title="REQUEST CANCELLATION" backgroundImage="checkout.png">
+                                    <state key="normal" title="EDIT ORDER" backgroundImage="checkout.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="cancelationBtn:" destination="-1" eventType="touchUpInside" id="ati-SS-vJD"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t72-qg-oJJ">
-                                    <rect key="frame" x="92" y="372" width="218" height="30"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown-right.png" id="srs-Gr-aTI">
+                                    <rect key="frame" x="286" y="338" width="9" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                    <state key="normal" title="REQUEST MODIFICATION" backgroundImage="checkout.png">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="modificationBtn:" destination="-1" eventType="touchUpInside" id="gLp-Pc-nIj"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Lq-fZ-ebK">
-                                    <rect key="frame" x="132" y="411" width="178" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                    <state key="normal" title="MARK IN PROCESS" backgroundImage="checkout.png">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="confirmOrderBtn:" destination="-1" eventType="touchUpInside" id="MYj-P0-AyD"/>
-                                    </connections>
-                                </button>
+                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G3i-vy-y8Y">
                                     <rect key="frame" x="92" y="254" width="218" height="29"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -626,10 +607,6 @@
                                 <outlet property="delegate" destination="-1" id="7GI-uJ-L44"/>
                             </connections>
                         </tableView>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disable568.png" id="xEH-Y3-kdS">
-                            <rect key="frame" x="4" y="-10" width="1024" height="767"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
@@ -692,6 +669,10 @@
                             <color key="textColor" red="0.67843137249999996" green="0.1450980392" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disable568.png" id="xEH-Y3-kdS">
+                            <rect key="frame" x="-339" y="-221" width="1024" height="767"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
@@ -834,6 +815,7 @@
         <image name="close_03.png" width="18" height="18"/>
         <image name="deliveredorderTick.png" width="28" height="23"/>
         <image name="disable568.png" width="320" height="568"/>
+        <image name="dropdown-right.png" width="9" height="15"/>
         <image name="exit.png" width="71" height="68"/>
         <image name="header-contain-box.png" width="525" height="86"/>
         <image name="menu.png" width="34" height="36"/>

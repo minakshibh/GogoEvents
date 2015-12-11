@@ -133,7 +133,16 @@
         paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [imgV addSubview:paddingView];
         [imgV addSubview:lbldesc];
-        
+       
+        lbldesc.alpha = 0.0;
+        [UIView animateWithDuration:1.0
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             lbldesc.alpha = 1.0;
+                         }
+                         completion:^(BOOL finished){
+                         }];
         
         // add to scrollView
         [scrMain addSubview:imgV];
@@ -163,6 +172,30 @@
         [scrMain scrollRectToVisible:CGRectMake(0, 0, scrMain.frame.size.width, scrMain.frame.size.height) animated:YES];
         pgCtr1.currentPage=0;
     }
+    for (id subView in scrMain.subviews){
+        
+        UIImageView*imgView=subView;
+        for (id subLblView in imgView.subviews)
+        {
+            if ([subLblView isKindOfClass:[UILabel class]])
+            {
+                
+                UILabel*lbldesc=subLblView;
+                lbldesc.hidden=NO;
+                lbldesc.alpha = 0.0;
+                [UIView animateWithDuration:1.0
+                                      delay:0.0
+                                    options: UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                                     lbldesc.alpha = 1.0;
+                                 }
+                                 completion:^(BOOL finished){
+                                 }];
+                
+            }
+        }
+    }
+
 }
 
 

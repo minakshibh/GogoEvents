@@ -12,8 +12,10 @@
 #import "UIBubbleTableViewDataSource.h"
 #import "tableAllotedOC.h"
 #import "fetchChatOC.h"
-@interface serviceProviderHomeViewController : UIViewController<UIBubbleTableViewDataSource, UITextViewDelegate>
+#import "NIDropDown.h"
+@interface serviceProviderHomeViewController : UIViewController<UIBubbleTableViewDataSource, UITextViewDelegate, NIDropDownDelegate>
 {
+     NIDropDown *dropDown;
     NSMutableData *webData;
     tableAllotedOC *tableAllotedObj;
     fetchChatOC *fetchChatObj;
@@ -47,6 +49,8 @@
     IBOutlet UILabel *requestLbl;
     
     
+    IBOutlet UIButton *modificationRequestCloseBtn;
+    IBOutlet UIImageView *editOrderImage;
     IBOutlet UIButton *btnRequest;
 }
 - (IBAction)btnRequest:(id)sender;
