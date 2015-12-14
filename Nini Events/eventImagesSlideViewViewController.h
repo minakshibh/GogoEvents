@@ -70,6 +70,7 @@
 - (IBAction)ophemyAction:(id)sender;
 - (IBAction)Slideshow:(id)sender;
 
+
 @property (strong, nonatomic) IBOutlet UIView *footerwithoutPING;
 @property (strong, nonatomic) IBOutlet UIView *footerwithoutSLIDESHOW;
 @property (strong, nonatomic) IBOutlet UIView *footerwithoutEVENTDETAILS;

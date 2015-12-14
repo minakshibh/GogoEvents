@@ -23,3 +23,12 @@
 #define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
 
 #define PdfWebUrl @"http://112.196.24.205:1071/EventPdf"
+
+#pragma mark Device frame check
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPAD_Pro (IS_IPAD && SCREEN_MAX_LENGTH == 1366.0)

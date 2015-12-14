@@ -29,7 +29,15 @@
     NSURL *urlString = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"output_U78sIP" ofType:@"mp4"]];
     _moviePlayer =  [[MPMoviePlayerController alloc]
                      initWithContentURL:urlString];
-    [_moviePlayer.view setFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y-20,self.view.frame.size.width,self.view.frame.size.height+40)];
+    double width = [[UIScreen mainScreen] bounds].size.width;
+    double height = [[UIScreen mainScreen] bounds].size.height;
+    if (IS_IPAD_Pro) {
+        NSLog(@"Ipad PRo screen");
+        [_moviePlayer.view setFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y-20,width,height+40)];
+    }else{
+    NSLog(@"Width = %f, HEight = %f",self.view.frame.size.width,self.view.frame.size.height);
+    [_moviePlayer.view setFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y-20,width,height+40)];
+    }
     _moviePlayer.fullscreen = YES;
     _moviePlayer.controlStyle = MPMovieControlStyleNone;
     [self.view addSubview:_moviePlayer.view];

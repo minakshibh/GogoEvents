@@ -185,7 +185,12 @@
     }else{
         count = count/2;
     }
-    self.scrollerimage.contentSize = CGSizeMake(150,(count *  350)+5);
+    if (IS_IPAD_Pro) {
+        self.scrollerimage.contentSize = CGSizeMake(150,(count *  430)+3);
+    }else{
+        self.scrollerimage.contentSize = CGSizeMake(150,(count *  350)+3);
+    }
+    
     _scrollerimage.showsHorizontalScrollIndicator = NO;
     _scrollerimage.showsVerticalScrollIndicator = NO;
     
@@ -198,33 +203,24 @@
         imageTapRecognizer.numberOfTapsRequired = 1;
         if (i %2 == 0 || i == 0) {
             UIImageView *page = [[UIImageView alloc] init];
-//            NSData *data = [[NSData alloc] initWithData:[NSData
-//                                                         dataFromBase64String:[NSString stringWithFormat:@"%@",[itemImageUrlArray objectAtIndex:i]]]];
-//            
-//            UIImage *itemImage = [UIImage imageWithData:data];
-            
-//            UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-//                                                      [NSURL URLWithString:[itemImageUrlArray objectAtIndex:i]]]];
-//            NSData *data = [[NSData alloc] initWithData:[NSData
-//                                                         dataFromBase64String:[NSString stringWithFormat:@"%@",[itemImageUrlArray objectAtIndex:i]]]];
-//            
-//            UIImage *itemsImage = [UIImage imageWithData:data];
-            
-            
-            NSData* data = [[NSData alloc] initWithBase64EncodedString:[itemImageUrlArray objectAtIndex:i] options:0];
-            // UIImage* img1 = [UIImage imageWithData:data];
-            page.image = [UIImage imageWithData:data];
 
+            NSData* data = [[NSData alloc] initWithBase64EncodedString:[itemImageUrlArray objectAtIndex:i] options:0];
+            page.image = [UIImage imageWithData:data];
+            UILabel *pageName = [[UILabel alloc] init];
+            if (IS_IPAD_Pro) {
+                page.frame = CGRectMake(0, y, 679, 430);
+                pageName.frame = CGRectMake(0,380 ,679, 50);
+            }else{
+                page.frame = CGRectMake(0, y, 510, 350);
+                pageName.frame = CGRectMake(0,300 ,510, 50);
+            }
             
-            
-            //page.image = itemsImage;
-            page.frame = CGRectMake(0, y, 510, 350);
             //page.contentMode = UIViewContentModeScaleAspectFill;
             page.tag = i;
             page.userInteractionEnabled = YES;
             page.multipleTouchEnabled = YES;
             [_scrollerimage addSubview:page];
-            UILabel *pageName = [[UILabel alloc] initWithFrame:CGRectMake(0,300 ,510, 50)];
+            
             NSString *pageNameString = [NSString stringWithFormat:@"%@",[itemNameArray objectAtIndex:i]];
             pageNameString = [pageNameString uppercaseString];
             pageName.text = pageNameString;
@@ -237,28 +233,28 @@
             
         }else{
             UIImageView *page = [[UIImageView alloc] init];
-//            NSData *data = [[NSData alloc] initWithData:[NSData
-//                                                         dataFromBase64String:[NSString stringWithFormat:@"%@",[itemImageUrlArray objectAtIndex:i]]]];
-//            
-//            UIImage *itemImage = [UIImage imageWithData:data];
             NSData* data = [[NSData alloc] initWithBase64EncodedString:[itemImageUrlArray objectAtIndex:i] options:0];
-            // UIImage* img1 = [UIImage imageWithData:data];
             page.image = [UIImage imageWithData:data];
-            
-//            
-//            UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-//                                                           [NSURL URLWithString:[itemImageUrlArray objectAtIndex:i]]]];
-//            
-//            page.image = itemsImage;
-            page.frame = CGRectMake(511, y, 510, 350);
-            //page.contentMode = UIViewContentModeScaleAspectFill;
+
+            UILabel *pageName = [[UILabel alloc] init];
+            if (IS_IPAD_Pro) {
+                page.frame = CGRectMake(681, y, 679, 430);
+                pageName.frame = CGRectMake(0,380 ,679, 50);
+                y=y+431;
+            }else{
+                page.frame = CGRectMake(0, y, 510, 350);
+                pageName.frame = CGRectMake(0,300 ,510, 50);
+                y=y+351;
+            }
+
+           
             page.tag = i;
             page.userInteractionEnabled = YES;
             page.multipleTouchEnabled = YES;
             [_scrollerimage addSubview:page];
-            y=y+351;
-        //    NSLog(@"%@",[itemNameArray objectAtIndex:2]);
-            UILabel *pageName = [[UILabel alloc] initWithFrame:CGRectMake(0, 300, 510,50)];
+            
+        
+        
             NSString *pageNameString = [NSString stringWithFormat:@"%@",[itemNameArray objectAtIndex:i]];
             pageNameString = [pageNameString uppercaseString];
             pageName.text = pageNameString;
@@ -368,7 +364,11 @@
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
     pt = rc.origin;
     if (pt.x == 0) {
-        pt.x -= 265;
+        if (IS_IPAD_Pro) {
+            pt.x -= 356;
+        }else{
+            pt.x -= 265;
+        }
     }else{
         pt.x = 0;
     }
@@ -636,7 +636,8 @@
     [self.exitPopUpView removeFromSuperview];
 }
 
--(void)createMenu{
+-(void)createMenu
+{
     BOOL isEventDetailActive;
     BOOL isPingActive;
     BOOL isSlideShowActive;
@@ -665,7 +666,12 @@
     
     
     // Menu Bar...............
-    [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-12, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }else{
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }
+    
     [self.sideScroller addSubview:self.bottomMenuView];
     
     if (isPingActive) {
@@ -676,13 +682,19 @@
         //Ping Button Image...............
         [self.otherMenuPingBulbImg setFrame:CGRectMake(self.pingBtn.frame.size.width/4, self.pingBtn.frame.size.height/4-4, self.otherMenuPingBulbImg.frame.size.width, self.otherMenuPingBulbImg.frame.size.height)];
         [self.pingBtn addSubview:self.otherMenuPingBulbImg];
-        
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+ 105 ,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
+        
         //OphemyLogo View.....
         [self.ophemyLogoView setFrame:CGRectMake(self.pingBtn.frame.origin.x + self.pingBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
+        NSLog(@"Left Width = %f", self.slideMenuBtn.frame.size.width);
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }else{
         self.pingBtn.hidden = YES;
@@ -691,8 +703,13 @@
         [self.ophemyLogoView setFrame:CGRectMake(self.slideMenuBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }
+    int leftWidth;
+    if (IS_IPAD_Pro) {
+        leftWidth = 930;
+    }else{
+        leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+    }
     
-    int leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     NSLog(@"Left Width = %d",leftWidth);
     
     NSMutableArray *buttonsArray = [[NSMutableArray alloc] initWithObjects:@"Slide Show",@"Event Detail",@"Menu",@"View Order", nil];
@@ -707,8 +724,14 @@
     for (int j = 0; j < buttonsArray.count; j++) {
         
         NSLog(@"Value of i ...... %d",j);
-        UIButton *bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        UIButton *bottomBarBtn;
+        if (IS_IPAD_Pro) {
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+        }else{
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        }
         
+        NSLog(@"%f,%f,%f,%f",bottomBarBtn.frame.origin.x,bottomBarBtn.frame.origin.y,bottomBarBtn.frame.size.width,bottomBarBtn.frame.size.height);
         NSString * title = [NSString stringWithFormat:@"%@",[buttonsArray objectAtIndex:j]];
         [bottomBarBtn setTitle:[title uppercaseString] forState:UIControlStateNormal];
         [bottomBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal] ;
@@ -736,12 +759,18 @@
         [bottomBarBtn addTarget:self action:@selector(bottomBarBtns:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomMenuView addSubview:bottomBarBtn];
         
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
         
     }
+    
 }
 
 -(IBAction)bottomBarBtns:(UIButton*)sender{

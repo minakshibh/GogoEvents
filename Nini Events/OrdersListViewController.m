@@ -600,7 +600,11 @@
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
     pt = rc.origin;
     if (pt.x == 0) {
-        pt.x -= 265;
+        if (IS_IPAD_Pro) {
+            pt.x -= 356;
+        }else{
+            pt.x -= 265;
+        }
     }else{
         pt.x = 0;
     }
@@ -757,7 +761,8 @@
     [self.exitPopUpView removeFromSuperview];
 }
 
--(void)createMenu{
+-(void)createMenu
+{
     BOOL isEventDetailActive;
     BOOL isPingActive;
     BOOL isSlideShowActive;
@@ -786,7 +791,12 @@
     
     
     // Menu Bar...............
-    [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-12, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }else{
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }
+    
     [self.sideScroller addSubview:self.bottomMenuView];
     
     if (isPingActive) {
@@ -797,13 +807,19 @@
         //Ping Button Image...............
         [self.otherMenuPingBulbImg setFrame:CGRectMake(self.pingBtn.frame.size.width/4, self.pingBtn.frame.size.height/4-4, self.otherMenuPingBulbImg.frame.size.width, self.otherMenuPingBulbImg.frame.size.height)];
         [self.pingBtn addSubview:self.otherMenuPingBulbImg];
-        
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+ 105 ,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
+        
         //OphemyLogo View.....
         [self.ophemyLogoView setFrame:CGRectMake(self.pingBtn.frame.origin.x + self.pingBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
+        NSLog(@"Left Width = %f", self.slideMenuBtn.frame.size.width);
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }else{
         self.pingBtn.hidden = YES;
@@ -812,8 +828,13 @@
         [self.ophemyLogoView setFrame:CGRectMake(self.slideMenuBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }
+    int leftWidth;
+    if (IS_IPAD_Pro) {
+        leftWidth = 930;
+    }else{
+        leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+    }
     
-    int leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     NSLog(@"Left Width = %d",leftWidth);
     
     NSMutableArray *buttonsArray = [[NSMutableArray alloc] initWithObjects:@"Slide Show",@"Event Detail",@"Menu",@"View Order", nil];
@@ -828,8 +849,14 @@
     for (int j = 0; j < buttonsArray.count; j++) {
         
         NSLog(@"Value of i ...... %d",j);
-        UIButton *bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        UIButton *bottomBarBtn;
+        if (IS_IPAD_Pro) {
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+        }else{
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        }
         
+        NSLog(@"%f,%f,%f,%f",bottomBarBtn.frame.origin.x,bottomBarBtn.frame.origin.y,bottomBarBtn.frame.size.width,bottomBarBtn.frame.size.height);
         NSString * title = [NSString stringWithFormat:@"%@",[buttonsArray objectAtIndex:j]];
         [bottomBarBtn setTitle:[title uppercaseString] forState:UIControlStateNormal];
         [bottomBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal] ;
@@ -837,7 +864,7 @@
         [bottomBarBtn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         bottomBarBtn.titleLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:20];
         [bottomBarBtn setImageEdgeInsets:UIEdgeInsetsMake(0, bottomBarBtn.titleLabel.bounds.size.width-10, 0, 0)];
-        if ([title isEqualToString:@"Slide Show"]) {
+        if ([title isEqualToString:@"View Order"]) {
             [bottomBarBtn setBackgroundColor:[UIColor colorWithRed:194/255.0f green:57/255.0f blue:11/255.0f alpha:1.0]];
         }
         if ([title isEqualToString:@"View Order"]) {
@@ -857,14 +884,19 @@
         [bottomBarBtn addTarget:self action:@selector(bottomBarBtns:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomMenuView addSubview:bottomBarBtn];
         
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+           seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
         
     }
+    
 }
-
 -(IBAction)bottomBarBtns:(UIButton*)sender{
     NSLog(@"%@",sender.titleLabel.text);
     if ([sender.titleLabel.text isEqualToString:@"EVENT DETAIL"]){

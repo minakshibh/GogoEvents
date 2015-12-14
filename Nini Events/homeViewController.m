@@ -358,7 +358,13 @@ static int curveValues[] = {
         for (int i = 0; i < [menuCategoryArray count]; i++) {
             UIButton *subMenuItemBtn;
             NSLog(@"Value of i ...... %d",i);
-            subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *self.subMenuBgView.frame.size.width/content.count+2,1,self.subMenuBgView.frame.size.width/content.count, 45)];
+            UILabel *pageName = [[UILabel alloc] init];
+            if (IS_IPAD_Pro) {
+                subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *1366/content.count+2,1,1366/content.count, 65)];
+            }else{
+                subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *self.subMenuBgView.frame.size.width/content.count+2,1,self.subMenuBgView.frame.size.width/content.count, 45)];
+            }
+            
         
             subMenuItemBtn.tag = i;
     
@@ -384,7 +390,12 @@ static int curveValues[] = {
         for (int j = 0; j < [drinkMenuItems count]; j++) {
             UIButton *subMenuItemBtn;
             NSLog(@"Value of i ...... %d",j);
-            subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *self.subMenuBgView.frame.size.width/content.count+2,1,self.subMenuBgView.frame.size.width/content.count, 45)];
+            if (IS_IPAD_Pro) {
+                subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *1366/content.count+2,1,1366/content.count, 65)];
+            }else{
+                subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *self.subMenuBgView.frame.size.width/content.count+2,1,self.subMenuBgView.frame.size.width/content.count, 45)];
+            }
+            
             
             subMenuItemBtn.tag = j;
             
@@ -591,29 +602,25 @@ static int curveValues[] = {
         menuItemsObj = [menuItemsDetailsArray objectAtIndex:i];
         if (i %2 == 0 || i == 0) {
             UIImageView *page = [[UIImageView alloc] init];
-//            NSData *data = [[NSData alloc] initWithData:[NSData
-//                                                         dataFromBase64String:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]];
-//            
-//            UIImage *itemsImage = [UIImage imageWithData:data];
-            
-//            UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-//                                                           [NSURL URLWithString:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]]];
-//            page.image = itemsImage;
             
             NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-            // UIImage* img1 = [UIImage imageWithData:data];
             page.image = [UIImage imageWithData:data];
-
+            UILabel *pageName = [[UILabel alloc] init];
             
+            if (IS_IPAD_Pro) {
+                page.frame = CGRectMake(0, y, 679, 430);
+                pageName.frame = CGRectMake(0,380 ,679, 50);
+            }else{
+                page.frame = CGRectMake(0, y, 510, 350);
+                pageName.frame = CGRectMake(0,300 ,510, 50);
+            }
             
-            
-            page.frame = CGRectMake(0, y, 509, 350);
             //page.contentMode = UIViewContentModeScaleAspectFill;
             page.tag = i;
             page.userInteractionEnabled = YES;
             page.multipleTouchEnabled = YES;
             [_scrollerimage addSubview:page];
-            UILabel *pageName = [[UILabel alloc] initWithFrame:CGRectMake(0,300 ,509, 50)];
+        
             NSString *pageNameString = [NSString stringWithFormat:@"%@",menuItemsObj.ItemName];
             pageNameString = [pageNameString uppercaseString];
             pageName.text = pageNameString;
@@ -626,29 +633,29 @@ static int curveValues[] = {
             
         }else{
             UIImageView *page = [[UIImageView alloc] init];
-//            NSData *data = [[NSData alloc] initWithData:[NSData
-//                                                         dataFromBase64String:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]];
-//            
-//            UIImage *itemsImage = [UIImage imageWithData:data];
-//            UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-//                                                           [NSURL URLWithString:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]]];
-//            
-//            page.image = itemsImage;
+
 
             
             NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-            // UIImage* img1 = [UIImage imageWithData:data];
             page.image = [UIImage imageWithData:data];
             
             
-            page.frame = CGRectMake(510, y, 511, 350);
-            //page.contentMode = UIViewContentModeScaleAspectFill;
+            UILabel *pageName = [[UILabel alloc] init];
+            if (IS_IPAD_Pro) {
+                page.frame = CGRectMake(681, y, 679, 430);
+                pageName.frame = CGRectMake(0,380 ,679, 50);
+                y=y+431;
+            }else{
+                page.frame = CGRectMake(0, y, 510, 350);
+                pageName.frame = CGRectMake(0,300 ,510, 50);
+                y=y+351;
+            }
+            
             page.tag = i;
             page.userInteractionEnabled = YES;
             page.multipleTouchEnabled = YES;
             [_scrollerimage addSubview:page];
-            y=y+351;
-            UILabel *pageName = [[UILabel alloc] initWithFrame:CGRectMake(0, 300, 511,50)];
+        
             NSString *pageNameString = [NSString stringWithFormat:@"%@",menuItemsObj.ItemName];
             pageNameString = [pageNameString uppercaseString];
             pageName.text = pageNameString;
@@ -1986,7 +1993,11 @@ static int curveValues[] = {
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
     pt = rc.origin;
     if (pt.x == 0) {
-        pt.x -= 265;
+        if (IS_IPAD_Pro) {
+            pt.x -= 356;
+        }else{
+            pt.x -= 265;
+        }
     }else{
         pt.x = 0;
     }
@@ -3217,7 +3228,8 @@ static int curveValues[] = {
     [self.exitPopUpView removeFromSuperview];
 }
 
--(void)createMenu{
+-(void)createMenu
+{
     BOOL isEventDetailActive;
     BOOL isPingActive;
     BOOL isSlideShowActive;
@@ -3246,7 +3258,12 @@ static int curveValues[] = {
     
     
     // Menu Bar...............
-    [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }else{
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+    }
+    
     [self.sideScroller addSubview:self.bottomMenuView];
     
     if (isPingActive) {
@@ -3257,13 +3274,19 @@ static int curveValues[] = {
         //Ping Button Image...............
         [self.otherMenuPingBulbImg setFrame:CGRectMake(self.pingBtn.frame.size.width/4, self.pingBtn.frame.size.height/4-4, self.otherMenuPingBulbImg.frame.size.width, self.otherMenuPingBulbImg.frame.size.height)];
         [self.pingBtn addSubview:self.otherMenuPingBulbImg];
-        
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+ 105 ,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.pingBtn.frame.origin.x+self.pingBtn.frame.size.width+1,0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
+        
         //OphemyLogo View.....
         [self.ophemyLogoView setFrame:CGRectMake(self.pingBtn.frame.origin.x + self.pingBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
+        NSLog(@"Left Width = %f", self.slideMenuBtn.frame.size.width);
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }else{
         self.pingBtn.hidden = YES;
@@ -3272,8 +3295,13 @@ static int curveValues[] = {
         [self.ophemyLogoView setFrame:CGRectMake(self.slideMenuBtn.frame.size.width+1, 4, self.ophemyLogoView.frame.size.width, self.ophemyLogoView.frame.size.height)];
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }
+    int leftWidth;
+    if (IS_IPAD_Pro) {
+        leftWidth = 930;
+    }else{
+        leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+    }
     
-    int leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     NSLog(@"Left Width = %d",leftWidth);
     
     NSMutableArray *buttonsArray = [[NSMutableArray alloc] initWithObjects:@"Slide Show",@"Event Detail",@"Menu",@"View Order", nil];
@@ -3288,8 +3316,14 @@ static int curveValues[] = {
     for (int j = 0; j < buttonsArray.count; j++) {
         
         NSLog(@"Value of i ...... %d",j);
-        UIButton *bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        UIButton *bottomBarBtn;
+        if (IS_IPAD_Pro) {
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+        }else{
+            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+        }
         
+        NSLog(@"%f,%f,%f,%f",bottomBarBtn.frame.origin.x,bottomBarBtn.frame.origin.y,bottomBarBtn.frame.size.width,bottomBarBtn.frame.size.height);
         NSString * title = [NSString stringWithFormat:@"%@",[buttonsArray objectAtIndex:j]];
         [bottomBarBtn setTitle:[title uppercaseString] forState:UIControlStateNormal];
         [bottomBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal] ;
@@ -3317,12 +3351,18 @@ static int curveValues[] = {
         [bottomBarBtn addTarget:self action:@selector(bottomBarBtns:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomMenuView addSubview:bottomBarBtn];
         
-        UIImageView *seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        UIImageView *seperatorImg;
+        if (IS_IPAD_Pro) {
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+        }else{
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+        }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];
         
         
     }
+    
 }
 
 -(IBAction)bottomBarBtns:(UIButton*)sender{
