@@ -646,7 +646,7 @@ static int curveValues[] = {
                 pageName.frame = CGRectMake(0,380 ,679, 50);
                 y=y+431;
             }else{
-                page.frame = CGRectMake(0, y, 510, 350);
+                page.frame = CGRectMake(511, y, 510, 350);
                 pageName.frame = CGRectMake(0,300 ,510, 50);
                 y=y+351;
             }
@@ -674,10 +674,10 @@ static int curveValues[] = {
     [self.view sendSubviewToBack:self.mainMenuFooter];
     
     CGRect theFrame = self.itemView.frame;
-    theFrame.size.height = 769.0f;
+    theFrame.size.height = self.view.bounds.size.height-10;
     theFrame.origin.x = 0.0f;
     theFrame.origin.y = 20.0f;
-    theFrame.size.width = 1024.0f;
+    theFrame.size.width = self.view.bounds.size.width;
     self.itemView.frame = theFrame;
     
     
@@ -702,18 +702,14 @@ static int curveValues[] = {
     itemImagePage = [[AsyncImageView alloc] init];
    
     NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-    // UIImage* img1 = [UIImage imageWithData:data];
     itemImagePage.image = [UIImage imageWithData:data];
-
-    
-    
-//    UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-//                                                   [NSURL URLWithString:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]]];
-//    
-//    itemImagePage.image = itemsImage;
     itemImagePage.showActivityIndicator = YES;
-    itemImagePage.frame = CGRectMake(1,65,1022,619);
-//    itemImagePage.contentMode = UIViewContentModeScaleAspectFit;
+    if (IS_IPAD_Pro) {
+        itemImagePage.frame = CGRectMake(1,87,1363,840);
+    }else{
+        itemImagePage.frame = CGRectMake(1,65,1022,628);
+    }
+    
     itemImagePage.autoresizesSubviews = YES;
     
     [self.itemView addSubview:itemImagePage];
@@ -724,27 +720,7 @@ static int curveValues[] = {
     
     UIImage *itemsImage1 = [UIImage imageWithData:data1];
     self.showMinimizeItemImage.image = itemsImage1;
-    
-//    [itemNamebg removeFromSuperview];
-//    [itemNameToDisplay  removeFromSuperview];
-//    
-//    
-//    itemNamebg = [[UILabel alloc] initWithFrame:CGRectMake(0, 280, 480, 170)];
-//    [itemNamebg setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:30]];
-//    
-//    [itemNamebg setBackgroundColor:[UIColor whiteColor]];
-//    
-//    // itemNamebg.textColor = [UIColor whiteColor];
-//    [itemNamebg setBackgroundColor:[UIColor colorWithRed:1/255.0f green:1/255.0f blue:1/255.0f alpha:0.5]];
-//    [self.itemView addSubview:itemNamebg];
-//    
-//    itemNameToDisplay = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 450, 100)];
-//    itemNameToDisplay.text =[[NSString stringWithFormat:@"%@", menuItemsObj.ItemName] uppercaseString];
-//    [itemNameToDisplay setFont:[UIFont fontWithName:@"Helvetica-Condensed" size:42]];
-//    itemNameToDisplay.textColor = [UIColor whiteColor];
-//    itemNameToDisplay.numberOfLines = 3;
-//    [itemNameToDisplay setBackgroundColor:[UIColor clearColor]];
-//    [itemNamebg addSubview:itemNameToDisplay];
+
     
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
     [self.increaseBtn setFrame:CGRectMake(self.increaseBtn.frame.origin.x, self.increaseBtn.frame.origin.y , self.increaseBtn.frame.size.width, self.increaseBtn.frame.size.height)];
@@ -2983,10 +2959,18 @@ static int curveValues[] = {
     itemNamebg.hidden = YES;
     [UIView animateWithDuration:0.5f animations:^{
         CGRect theFrame = self.itemView.frame;
-        theFrame.size.height -= 750.0f;
-        theFrame.origin.x += 797.0f;
-        theFrame.origin.y += 495.0f;
-        theFrame.size.width -= 950.0f;
+        if (IS_IPAD_Pro) {
+            theFrame.size.height -= 750.0f;
+            theFrame.origin.x += 1138.0f;
+            theFrame.origin.y += 669.0f;
+            theFrame.size.width -= 950.0f;
+        }else{
+            theFrame.size.height -= 750.0f;
+            theFrame.origin.x += 797.0f;
+            theFrame.origin.y += 495.0f;
+            theFrame.size.width -= 950.0f;
+        }
+        
         self.itemView.frame = theFrame;
     }];
     
@@ -3261,7 +3245,7 @@ static int curveValues[] = {
     if (IS_IPAD_Pro) {
         [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
     }else{
-        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-20, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
     }
     
     [self.sideScroller addSubview:self.bottomMenuView];

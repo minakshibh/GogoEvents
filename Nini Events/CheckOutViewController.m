@@ -280,8 +280,12 @@
     [cell setLabelText:ordrobject.orderItemName :ordrobject.orderQuantity :[NSString stringWithFormat:@"%d",ordrobject.orderPrice] :itemsImage:imgdata];
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    if (IS_IPAD_Pro) {
+        deleteBtn.frame = CGRectMake(205.0f, 82.0f, 50.0f, 50.0f);
+    }else{
+        deleteBtn.frame = CGRectMake(155.0f, 82.0f, 50.0f, 50.0f);
+    }
     
-    deleteBtn.frame = CGRectMake(155.0f, 82.0f, 50.0f, 50.0f);
     deleteBtn.tag = indexPath.row;
     
     [deleteBtn setTintColor:[UIColor colorWithRed:159.0f/255.0 green:14.0f/255.0 blue:14.0f/255.0 alpha:1.0]] ;
@@ -290,7 +294,12 @@
     [deleteBtn addTarget:self action:@selector(deleteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     increaseItemBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    increaseItemBtn.frame = CGRectMake(679, 97.4f, 30.0f, 35.0f);
+    if (IS_IPAD_Pro) {
+        increaseItemBtn.frame = CGRectMake(886, 98.2f, 30.0f, 35.0f);
+    }else{
+        increaseItemBtn.frame = CGRectMake(679, 97.4f, 30.0f, 35.0f);
+    }
+    
     increaseItemBtn.tag = indexPath.row;
     [increaseItemBtn setTintColor:[UIColor colorWithRed:159.0f/255.0 green:14.0f/255.0 blue:14.0f/255.0 alpha:1.0]] ;
     [cell.contentView addSubview:increaseItemBtn];
@@ -300,8 +309,12 @@
     
     
     decreaseItemBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    if (IS_IPAD_Pro) {
+        decreaseItemBtn.frame = CGRectMake(792.0f, 98.2f, 30.0f, 34.6f);
+    }else{
+        decreaseItemBtn.frame = CGRectMake(600.0f, 97.4f, 30.0f, 34.6f);
+    }
     
-    decreaseItemBtn.frame = CGRectMake(600.0f, 97.4f, 30.0f, 34.6f);
     decreaseItemBtn.tag = indexPath.row;
     [decreaseItemBtn setTintColor:[UIColor colorWithRed:159.0f/255.0 green:14.0f/255.0 blue:14.0f/255.0 alpha:1.0]] ;
     [cell.contentView addSubview:decreaseItemBtn];
@@ -954,7 +967,7 @@
     }
     int leftWidth;
     if (IS_IPAD_Pro) {
-        leftWidth = 930;
+        leftWidth = 950;
     }else{
         leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     }
