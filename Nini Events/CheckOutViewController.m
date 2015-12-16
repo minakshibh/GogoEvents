@@ -674,7 +674,11 @@
 }
 
 - (IBAction)exitAction:(id)sender {
-    [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
     [self.view addSubview:self.exitPopUpView];
 }
 
@@ -772,7 +776,11 @@
         [self.pingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         [self.otherMenuPingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         self.pingMessageView.hidden = NO;
-        [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        if (IS_IPAD_Pro) {
+            [self.pingMessageView setFrame:CGRectMake(88, 825, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }else{
+            [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }
         self.pingMessageView.alpha= 1.0;
         [self.sideScroller addSubview:self.pingMessageView];
         [self.sideScroller bringSubviewToFront:self.pingMessageView];

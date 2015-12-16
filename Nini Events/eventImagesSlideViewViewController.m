@@ -170,8 +170,8 @@
         
         
         
-        UILabel *lbldesc = [[UILabel alloc]initWithFrame:CGRectMake(20,528, scrMain.frame.size.width-40, 135.000000)];
-        
+        UILabel *lbldesc;
+        lbldesc = [[UILabel alloc]initWithFrame:CGRectMake(20,628, scrMain.frame.size.width-40, 135.000000)];
         lbldesc.numberOfLines = 4;
         lbldesc.font = [UIFont fontWithName:@"Helvetica-Condensed" size:23];
         lbldesc.text = [NSString stringWithFormat:@"%@",[imgDesc objectAtIndex:i]];
@@ -193,11 +193,14 @@
         lbldesc.lineBreakMode = NSLineBreakByWordWrapping;
         lbldesc.numberOfLines = 0;
         [lbldesc sizeToFit];
+        [lbldesc setFrame:CGRectMake(lbldesc.frame.origin.x, scrMain.frame.size.height - lbldesc.frame.size.height-20, lbldesc.frame.size.width, lbldesc.frame.size.height)];
+        if (![string isEqualToString:@""]) {
+            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, lbldesc.frame.origin.y - 20, scrMain.frame.size.width, lbldesc.frame.size.height+40)];
+            paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+            [imgV addSubview:paddingView];
+            [imgV addSubview:lbldesc];
+        }
         
-        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 538 - 25, scrMain.frame.size.width, 155.0)];
-        paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [imgV addSubview:paddingView];
-        [imgV addSubview:lbldesc];
 //        lbldesc .hidden=YES;
         lbldesc.alpha = 0.0;
         [UIView animateWithDuration:2.0
@@ -293,7 +296,11 @@
 
 
 - (IBAction)exitAction:(id)sender {
-    [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
     [self.view addSubview:self.exitPopUpView];
 }
 
@@ -347,7 +354,11 @@
         [self.pingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         [self.otherMenuPingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         self.pingMessageView.hidden = NO;
-        [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        if (IS_IPAD_Pro) {
+            [self.pingMessageView setFrame:CGRectMake(88, 825, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }else{
+            [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }
         self.pingMessageView.alpha= 1.0;
         [self.sideScroller addSubview:self.pingMessageView];
         [self.sideScroller bringSubviewToFront:self.pingMessageView];
@@ -1075,7 +1086,7 @@
     }
     int leftWidth;
     if (IS_IPAD_Pro) {
-         leftWidth = 930;
+         leftWidth = 950;
     }else{
      leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     }

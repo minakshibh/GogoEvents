@@ -326,6 +326,9 @@
 - (IBAction)myStatsBtn:(id)sender {
     
     self.pingMessageView.hidden = NO;
+    if (IS_IPAD_Pro) {
+        [self.pingMessageView setFrame:CGRectMake(180, 800, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+    }
     letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
     letterTapRecognizer.numberOfTapsRequired = 1;
     [self.gestureView addGestureRecognizer:letterTapRecognizer];
@@ -375,7 +378,11 @@
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
     pt = rc.origin;
     if (pt.x == 0) {
-        pt.x -= 267;
+        if (IS_IPAD_Pro) {
+            pt.x -= 356;
+        }else{
+            pt.x -= 267;
+        }
         int pingCount =[[[NSUserDefaults standardUserDefaults ]valueForKey:@"Ping Count"]intValue];
         if (pingCount != 0) {
             self.pingNotificationBadgeImg.hidden = NO;
@@ -535,101 +542,50 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    //    priceLabel= [[UILabel alloc]initWithFrame:CGRectMake(340, 5, 150, 80)];
-    //    priceLabel.textColor= [UIColor whiteColor];
-    //    priceLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    priceLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    //    priceLabel.numberOfLines = 2;
-    //    [cell.contentView addSubview:priceLabel];
-    //
-    //    itemImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 60, 60)];
-    //    [cell.contentView addSubview:itemImage];
-    //
-    //    deleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 10, 60, 35)];
-    //    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"delete.png"] forState:UIControlStateNormal];
-    //
-    //    deleteBtn.tintColor = [UIColor whiteColor];
-    //    deleteBtn.tag =indexPath.row;
-    //    if (tableView == self.ordersTableView) {
-    //        deleteBtn.hidden = NO;
-    //    }else{
-    //        deleteBtn.hidden = YES;
-    //    }
-    //    [deleteBtn addTarget:self action:@selector(deleteOrderItem:)  forControlEvents:UIControlEventTouchUpInside];
-    //    [cell.contentView addSubview:deleteBtn];
-    //
-    //    placedorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
-    //    placedorderName.textColor= [UIColor blackColor];
-    //    placedorderName.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    placedorderName.lineBreakMode = NSLineBreakByCharWrapping;
-    //    placedorderName.numberOfLines = 2;
-    //    [cell.contentView addSubview:placedorderName];
-    //
-    //    placeOrderquantity= [[UILabel alloc]initWithFrame:CGRectMake(20, 10, 150, 80)];
-    //    placeOrderquantity.textColor= [UIColor blackColor];
-    //    placeOrderquantity.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    placeOrderquantity.lineBreakMode = NSLineBreakByCharWrapping;
-    //    placeOrderquantity.numberOfLines = 2;
-    //    [cell.contentView addSubview:placeOrderquantity];
-    //
-    //    placedOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(220, 0, 150, 80)];
-    //    placedOrderPrice.textColor= [UIColor blackColor];
-    //    placedOrderPrice.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    placedOrderPrice.lineBreakMode = NSLineBreakByCharWrapping;
-    //    placedOrderPrice.numberOfLines = 2;
-    //    [cell.contentView addSubview:placedOrderPrice];
-    //
-    //    pendingOrderIDLbl= [[UILabel alloc]initWithFrame:CGRectMake(20, -28, 150, 80)];
-    //    pendingOrderIDLbl.textColor= [UIColor whiteColor];
-    //    pendingOrderIDLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    pendingOrderIDLbl.lineBreakMode = NSLineBreakByCharWrapping;
-    //    pendingOrderIDLbl.numberOfLines = 2;
-    //    [cell.contentView addSubview:pendingOrderIDLbl];
-    //
-    //    pendingOrderStatusLbl= [[UILabel alloc]initWithFrame:CGRectMake(20, -8, 150, 80)];
-    //    pendingOrderStatusLbl.textColor= [UIColor whiteColor];
-    //    pendingOrderStatusLbl.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    pendingOrderStatusLbl.lineBreakMode = NSLineBreakByCharWrapping;
-    //    pendingOrderStatusLbl.numberOfLines = 2;
-    //    [cell.contentView addSubview:pendingOrderStatusLbl];
-    //
-    
-    
-    //
-    //    pendingOrderTime = [[UILabel alloc]initWithFrame:CGRectMake(220, 0, 150, 80)];
-    //    pendingOrderTime.textColor= [UIColor blackColor];
-    //    pendingOrderTime.font = [UIFont fontWithName:@"Helvetica Neue" size:18];
-    //    pendingOrderTime.lineBreakMode = NSLineBreakByCharWrapping;
-    //    pendingOrderTime.numberOfLines = 2;
-    //    [cell.contentView addSubview:pendingOrderTime];
-    
     if (tableView == self.orderTableView)
     {
         
-        
-        timeLbl= [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 180, 50)];
+        if (IS_IPAD_Pro) {
+            timeLbl= [[UILabel alloc]initWithFrame:CGRectMake(60, 0, 180, 50)];
+        }else{
+            timeLbl= [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 180, 50)];
+        }
         timeLbl.textColor= [UIColor blackColor];
         timeLbl.textAlignment      = NSTextAlignmentLeft;
         timeLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
         timeLbl.lineBreakMode = NSLineBreakByCharWrapping;
         [cell.contentView addSubview:timeLbl];
         
+        if (IS_IPAD_Pro) {
+            tableNoLbl= [[UILabel alloc]initWithFrame:CGRectMake(265, -15, 80, 80)];
+        }else{
+            tableNoLbl= [[UILabel alloc]initWithFrame:CGRectMake(200, -15, 80, 80)];
+        }
         
-        tableNoLbl= [[UILabel alloc]initWithFrame:CGRectMake(200, -15, 80, 80)];
         tableNoLbl.textColor= [UIColor blackColor];
         tableNoLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
         tableNoLbl.lineBreakMode = NSLineBreakByCharWrapping;
         tableNoLbl.numberOfLines = 2;
         [cell.contentView addSubview:tableNoLbl];
         
-        orderIdLbl= [[UILabel alloc]initWithFrame:CGRectMake(330, -15, 70, 80)];
+        if (IS_IPAD_Pro) {
+            orderIdLbl= [[UILabel alloc]initWithFrame:CGRectMake(450, -15, 70, 80)];
+        }else{
+            orderIdLbl= [[UILabel alloc]initWithFrame:CGRectMake(330, -15, 70, 80)];
+        }
+        
         orderIdLbl.textColor= [UIColor blackColor];
         orderIdLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
         orderIdLbl.lineBreakMode = NSLineBreakByCharWrapping;
         orderIdLbl.numberOfLines = 2;
         [cell.contentView addSubview:orderIdLbl];
         
-        statusLbl= [[UILabel alloc]initWithFrame:CGRectMake(402,-15, 200, 80)];
+        if (IS_IPAD_Pro) {
+            statusLbl= [[UILabel alloc]initWithFrame:CGRectMake(562,-15, 200, 80)];
+        }else{
+            statusLbl= [[UILabel alloc]initWithFrame:CGRectMake(402,-15, 200, 80)];
+        }
+        
         statusLbl.textColor= [UIColor blackColor];
         statusLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
         statusLbl.textAlignment = NSTextAlignmentCenter;
@@ -637,7 +593,6 @@
         statusLbl.numberOfLines = 2;
         [cell.contentView addSubview:statusLbl];
         
-        // cell.backgroundColor = [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.1];
         cell.backgroundColor=[UIColor clearColor];
         
         
@@ -645,20 +600,13 @@
         
         
         pendingOrderObj = [orderList objectAtIndex:indexPath.row];
-//        NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
-//        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-//        NSDate *date = [dateFormat dateFromString:time];
         NSString *orderVip = [NSString stringWithFormat:@"%@",pendingOrderObj.tableType];
                 if ([orderVip isEqualToString:@"VIP"]) {
                     UIImageView *vipImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.orderTableView.frame.size.width-60, 0, 60, 60)];
                     vipImg.image = [UIImage imageNamed:@"VIP.png"];
                     [cell.contentView addSubview:vipImg];
                 }
-//        // Convert date object to desired output format
-//        [dateFormat setDateFormat:@"HH:mm"];
-//        NSString *dateStr = [dateFormat stringFromDate:date];
-//        NSLog(@"Current TIME %@",dateStr);
+
         NSString *orderNumber = [NSString stringWithFormat:@"%@",self.orderNumberLbl.text];
         NSLog(@"Index path ... %lu",(unsigned long)[orderIdsArray indexOfObject:orderNumber]);
         orderNumberIndex = [NSIndexPath indexPathForRow:[orderIdsArray indexOfObject:orderNumber] inSection:0];
@@ -667,29 +615,44 @@
         
         if ( indexPath.row == orderNumberIndex.row) {
             
-//            [self.orderTableView selectRowAtIndexPath:0 animated:NO scrollPosition:indexPath.row];
             NSLog(@"INDEX PATH %ld",(long)indexPath.row);
             
             [cell setBackgroundColor:[UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.2]];
             selectedIndex = indexPath;
             
         }
-        firstline= [[UILabel alloc]initWithFrame:CGRectMake(130, 0, 2, 50)];
+        if (IS_IPAD_Pro) {
+            firstline= [[UILabel alloc]initWithFrame:CGRectMake(174, 0, 2, 50)];
+        }else{
+            firstline= [[UILabel alloc]initWithFrame:CGRectMake(130, 0, 2, 50)];
+        }
         firstline.backgroundColor= [UIColor blackColor];
         firstline.alpha = 0.3;
         [cell.contentView addSubview:firstline];
         
-        secondLine= [[UILabel alloc]initWithFrame:CGRectMake(300, 0, 2,50)];
+        if (IS_IPAD_Pro) {
+            secondLine= [[UILabel alloc]initWithFrame:CGRectMake(400, 0, 2,50)];
+        }else{
+            secondLine= [[UILabel alloc]initWithFrame:CGRectMake(300, 0, 2,50)];
+        }
         secondLine.backgroundColor= [UIColor blackColor];
         secondLine.alpha = 0.3;
         [cell.contentView addSubview:secondLine];
         
-        thirdLine= [[UILabel alloc]initWithFrame:CGRectMake(400, 0, 2, 50)];
+        if (IS_IPAD_Pro) {
+            thirdLine= [[UILabel alloc]initWithFrame:CGRectMake(534, 0, 2, 50)];
+        }else{
+            thirdLine= [[UILabel alloc]initWithFrame:CGRectMake(400, 0, 2, 50)];
+        }
         thirdLine.backgroundColor= [UIColor blackColor];
         thirdLine.alpha = 0.3;
         [cell.contentView addSubview:thirdLine];
         
-        bottomLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 668, 2)];
+        if (IS_IPAD_Pro) {
+            bottomLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 898, 2)];
+        }else{
+            bottomLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 668, 2)];
+        }
         bottomLine.backgroundColor= [UIColor blackColor];
         bottomLine.alpha = 0.3;
         [cell.contentView addSubview:bottomLine];
@@ -734,37 +697,7 @@
             timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
         }
         
-//        if([StatusTag isEqualToString:@"request"])
-//        {
-//            timeLbl.text =@"S. No.";
-//            tableNoLbl.text = @"Request Status";
-//            orderIdLbl.text = @"Completed";
-//            statusLbl.text = @"Comments";
-//            
-//            pendingOrderObj = [[pendingOrdersOC alloc]init];
-//            pendingOrderObj = [savDataArray objectAtIndex:indexPath.row];
-//            
-//            CGRect frame = tableNoLbl.frame;
-//            frame.origin.x = frame.origin.x-20;
-//            tableNoLbl.frame = frame;
-//            
-//            CGRect frame1 = timeLbl.frame;
-//            frame1.origin.x = frame1.origin.x+30;
-//            timeLbl.frame = frame1;
-//            
-//            CGRect frame2 = tableNoLbl.frame;
-//            frame2.origin.x = frame2.origin.x+15;
-//            tableNoLbl.frame = frame2;
-//            
-//            tableNoLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
-//            
-//            NSInteger a = indexPath.row+1;
-//            timeLbl.text =[NSString stringWithFormat:@"%ld",(long)a];
-//            tableNoLbl.text =[NSString stringWithFormat:@"%@",pendingOrderObj.requestid];
-//            orderIdLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.isCompleted];
-//            statusLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.comments];
-//            return cell;
-//        }else{
+
         NSString *commentStr = [NSString stringWithFormat:@"%@",[pendingOrderObj.requestData valueForKey:@"RequestType"]];
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
@@ -794,25 +727,40 @@
         cell.backgroundColor = [UIColor clearColor];
         
         UIImageView *cellBackGroundImage = [[UIImageView alloc]init];
-        cellBackGroundImage.frame = CGRectMake(5, 5, 290, 68);
+        if (IS_IPAD_Pro) {
+            cellBackGroundImage.frame = CGRectMake(5, 5, 385, 68);
+        }else{
+            cellBackGroundImage.frame = CGRectMake(5, 5, 290, 68);
+        }
         cellBackGroundImage.image = [UIImage imageNamed:@"box.png"];
         [cell.contentView addSubview:cellBackGroundImage];
         
-        pendingorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
+        if (IS_IPAD_Pro) {
+            pendingorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
+        }else{
+            pendingorderName= [[UILabel alloc]initWithFrame:CGRectMake(20, -10, 200, 80)];
+        }
         pendingorderName.textColor= [UIColor blackColor];
         pendingorderName.font = [UIFont fontWithName:@"Helvetica-Condensed" size:18];
         pendingorderName.lineBreakMode = NSLineBreakByCharWrapping;
         pendingorderName.numberOfLines = 2;
         [cell.contentView addSubview:pendingorderName];
         
+        if (IS_IPAD_Pro) {
+            pendingOrderquantity= [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 150, 80)];
+        }else{
         pendingOrderquantity= [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 150, 80)];
+        }
         pendingOrderquantity.textColor= [UIColor blackColor];
         pendingOrderquantity.font = [UIFont fontWithName:@"Bebas Neue" size:15];
         pendingOrderquantity.lineBreakMode = NSLineBreakByCharWrapping;
         pendingOrderquantity.numberOfLines = 2;
         [cell.contentView addSubview:pendingOrderquantity];
-        
-        pendingOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(250, 0, 150, 80)];
+        if (IS_IPAD_Pro) {
+            pendingOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(340, 0, 250, 80)];
+        }else{
+            pendingOrderPrice= [[UILabel alloc]initWithFrame:CGRectMake(250, 0, 150, 80)];
+        }
         pendingOrderPrice.textColor= [UIColor blackColor];
         pendingOrderPrice.font = [UIFont fontWithName:@"Bebas Neue" size:18];
         pendingOrderPrice.lineBreakMode = NSLineBreakByCharWrapping;

@@ -45,7 +45,7 @@
         // iOS 6.1 or earlier
         toolBar.tintColor = [UIColor colorWithRed:178/255.0f green:38/255.0f blue:12/255.0f alpha:1.0f];
     }
-
+    
     
     [super viewDidLoad];
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"bulb"] isEqualToString:@"ON"]) {
@@ -111,12 +111,12 @@
         [self.sideMenuWithoutReqAssistance removeFromSuperview];
         
     }
-//    if ([eventStatus isEqualToString:@"0"]) {
-//        [self.footerWithoutEventsDetail setFrame:CGRectMake(0, 704, self.footerWithoutEventsDetail.frame.size.width, self.footerWithoutEventsDetail.frame.size.height)];
-//        [self.sideScroller addSubview:self.footerWithoutEventsDetail];
-//    }else{
-//        [self.footerWithoutEventsDetail removeFromSuperview];
-//    }
+    //    if ([eventStatus isEqualToString:@"0"]) {
+    //        [self.footerWithoutEventsDetail setFrame:CGRectMake(0, 704, self.footerWithoutEventsDetail.frame.size.width, self.footerWithoutEventsDetail.frame.size.height)];
+    //        [self.sideScroller addSubview:self.footerWithoutEventsDetail];
+    //    }else{
+    //        [self.footerWithoutEventsDetail removeFromSuperview];
+    //    }
     
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activityIndicator.center = CGPointMake(512, 374);
@@ -124,7 +124,7 @@
     activityIndicator.color=[UIColor whiteColor];
     [self.view addSubview:activityIndicator];
     if (self.flagValue == 1) {
-         headrLbl.text=@"ORDER HISTORY";
+        headrLbl.text=@"ORDER HISTORY";
         startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         ordrHistryLbl.textColor=[UIColor whiteColor];
         exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
@@ -144,9 +144,9 @@
         headrLbl.text=@"SP CORNER";
         [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"delivered"]];
     }
-   
-
-   
+    
+    
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -223,7 +223,7 @@
     {
         NSLog(@"connection is NULL");
     }
- 
+    
 }
 
 
@@ -253,8 +253,8 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-     if(webServiceCode == 1)
-     {
+    if(webServiceCode == 1)
+    {
         
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
@@ -295,21 +295,21 @@
         [self.pendingOrdersTableView reloadData];
         
         
-     }else if (webServiceCode == 0) {
-         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
-         NSLog(@"responseString:%@",responseString);
-         NSError *error;
-         
-         responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
-         
-         SBJsonParser *json = [[SBJsonParser alloc] init];
-         
-         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
-         NSLog(@"Dictionary %@",userDetailDict);
-         NSString *messageStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
-         
-    [activityIndicator stopAnimating];
-}
+    }else if (webServiceCode == 0) {
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        NSError *error;
+        
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        NSString *messageStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
+        
+        [activityIndicator stopAnimating];
+    }
 }
 
 
@@ -321,19 +321,19 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-   if (self.flagValue == 1){
-       return [pendingOrderListArray count];
-   }else if (self.flagValue == 2){
-       return [processingOrderList count];
-   }return YES;
+    if (self.flagValue == 1){
+        return [pendingOrderListArray count];
+    }else if (self.flagValue == 2){
+        return [processingOrderList count];
+    }return YES;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-           return 116;
-    }
+    return 116;
+}
 
-  // Customize the appearance of table view cells.
+// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *simpleTableIdentifier = @"ArticleCellID";
     
@@ -344,7 +344,7 @@
         cell = [nib objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
     }
-
+    
     
     if (self.flagValue == 1)
     {
@@ -353,30 +353,30 @@
         pendingOrderObj = [processingOrderList objectAtIndex:indexPath.row];
     }
     
-        NSDate *startTime;
-        
-        startTime = [NSDate date];
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-        NSString *curruntTime = [ dateFormat stringFromDate:startTime];
-        
-        NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
-        NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
-        
-        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-        NSDate *date = [dateFormat dateFromString:time];
-        
-        // Convert date object to desired output format
-        //[dateFormat setDateFormat:@"HH:mm"];
-        NSString *dateStr = [dateFormat stringFromDate:date];
-        NSDate *date1=[dateFormat dateFromString:dateStr];
-        NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
-        NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
-        timeDelay = [timeDelay
-                     stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        int timeINteger = [timeDelay integerValue];
-        int minutes = timeINteger / 60;
-        NSLog(@"interval %d",minutes);
+    NSDate *startTime;
+    
+    startTime = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *curruntTime = [ dateFormat stringFromDate:startTime];
+    
+    NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+    NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+    
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSDate *date = [dateFormat dateFromString:time];
+    
+    // Convert date object to desired output format
+    //[dateFormat setDateFormat:@"HH:mm"];
+    NSString *dateStr = [dateFormat stringFromDate:date];
+    NSDate *date1=[dateFormat dateFromString:dateStr];
+    NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
+    NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
+    timeDelay = [timeDelay
+                 stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    int timeINteger = [timeDelay integerValue];
+    int minutes = timeINteger / 60;
+    NSLog(@"interval %d",minutes);
     int hours = timeINteger / 3600;
     int days = timeINteger / 86400;
     NSLog(@"interval %d",minutes);
@@ -391,16 +391,16 @@
     }else{
         timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
     }
-
-        NSString *statusStr = [NSString stringWithFormat:@"%@",pendingOrderObj.Status];
-        statusStr = [statusStr uppercaseString];
-        NSLog(@"Order Status %@",pendingOrderObj.OrderId);
+    
+    NSString *statusStr = [NSString stringWithFormat:@"%@",pendingOrderObj.Status];
+    statusStr = [statusStr uppercaseString];
+    NSLog(@"Order Status %@",pendingOrderObj.OrderId);
     
     NSString *orderNumberStr = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
     orderNumberStr = [orderNumberStr uppercaseString];
     itemNamesArray = [[NSMutableArray alloc]init];
     
-        NSString *str = [NSString stringWithFormat:@"%@",[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"]];
+    NSString *str = [NSString stringWithFormat:@"%@",[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"]];
     str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
     str = [str stringByReplacingOccurrencesOfString:@"(" withString:@""];
@@ -410,24 +410,27 @@
     
     [cell setLabelText:[NSString stringWithString:statusStr] :[NSString stringWithString:timeStr] :[NSString stringWithFormat: @"ORDER NUMBER : %@",orderNumberStr]: str];
     
-        UIButton *showDetailoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [showDetailoBtn setTitle: @"VIEW DETAILS" forState: UIControlStateNormal];
-
+    UIButton *showDetailoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [showDetailoBtn setTitle: @"VIEW DETAILS" forState: UIControlStateNormal];
+    if (IS_IPAD_Pro) {
+        showDetailoBtn.frame = CGRectMake(1180.0f, 60.0f, 144.0f,35.0f);
+    }else{
         showDetailoBtn.frame = CGRectMake(845.0f, 60.0f, 144.0f,35.0f);
-        showDetailoBtn.tag = indexPath.row;
-        showDetailoBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0f];
-
-        [showDetailoBtn setTintColor:[UIColor whiteColor]] ;
-        [cell.contentView addSubview:showDetailoBtn];
-        
-        [showDetailoBtn addTarget:self action:@selector(showDetailoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        UIImage *buttonBackgroundShowDetail= [UIImage imageNamed:@"viewdetail"];
-        
-        [showDetailoBtn setBackgroundImage:buttonBackgroundShowDetail forState:UIControlStateNormal];
-
-        [cell.contentView addSubview:showDetailoBtn];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    showDetailoBtn.tag = indexPath.row;
+    showDetailoBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0f];
+    
+    [showDetailoBtn setTintColor:[UIColor whiteColor]] ;
+    [cell.contentView addSubview:showDetailoBtn];
+    
+    [showDetailoBtn addTarget:self action:@selector(showDetailoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *buttonBackgroundShowDetail= [UIImage imageNamed:@"viewdetail"];
+    
+    [showDetailoBtn setBackgroundImage:buttonBackgroundShowDetail forState:UIControlStateNormal];
+    
+    [cell.contentView addSubview:showDetailoBtn];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     return cell;
@@ -439,7 +442,7 @@
     // [self.menuTableView reloadData];
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:row inSection:section];
     NSLog(@"newIndexPath: %@", newIndexPath);
-
+    
 }
 
 - (IBAction)showDetailoBtnAction:(UIControl *)sender {
@@ -448,7 +451,7 @@
     NSLog(@"indexrow %ld", (long)indexPath.row);
     pendingOrdersOC *ordr;
     if(self.flagValue == 1){
-    ordr = (pendingOrdersOC *)[pendingOrderListArray objectAtIndex:indexPath.row];
+        ordr = (pendingOrdersOC *)[pendingOrderListArray objectAtIndex:indexPath.row];
     }else if (self.flagValue == 2){
         ordr = (pendingOrdersOC *)[processingOrderList objectAtIndex:indexPath.row];
     }
@@ -489,9 +492,9 @@
 }
 
 - (IBAction)orderHistoryActionBtn:(id)sender {
-     type=@"";
+    type=@"";
     [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"open"]];
-
+    
     startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
     ordrHistryLbl.textColor=[UIColor whiteColor];
     exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
@@ -515,7 +518,7 @@
     exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
     requestAssistntLbl.textColor=[UIColor whiteColor];
     spCornerLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
-
+    
     strtNewOrdrImag.image=[UIImage imageNamed:@"startneworder.png"];
     ordrhistryImag.image=[UIImage imageNamed:@"orderhistory.png"];
     requstAssistImag.image=[UIImage imageNamed:@"requestassistanceselect.png"];
@@ -531,10 +534,10 @@
 }
 
 - (IBAction)spCornerActionBtn:(id)sender {
-   
+    
     
     [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"open"]];
-
+    
     startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
     ordrHistryLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
     exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
@@ -553,20 +556,24 @@
 }
 
 - (IBAction)ExitBtn:(id)sender {
-//    startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
-//    ordrHistryLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
-//    exitLbl.textColor=[UIColor whiteColor];
-//    requestAssistntLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
-//    spCornerLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
-//    
+    //    startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
+    //    ordrHistryLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
+    //    exitLbl.textColor=[UIColor whiteColor];
+    //    requestAssistntLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
+    //    spCornerLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
+    //
     
-//    strtNewOrdrImag.image=[UIImage imageNamed:@"startneworder.png"];
-//    ordrhistryImag.image=[UIImage imageNamed:@"orderhistory.png"];
-//    requstAssistImag.image=[UIImage imageNamed:@"requestassistance.png"];
-//    spCornrImag.image=[UIImage imageNamed:@"sporder.png"];
-//    exitImag.image=[UIImage imageNamed:@"exitselect.png"];
+    //    strtNewOrdrImag.image=[UIImage imageNamed:@"startneworder.png"];
+    //    ordrhistryImag.image=[UIImage imageNamed:@"orderhistory.png"];
+    //    requstAssistImag.image=[UIImage imageNamed:@"requestassistance.png"];
+    //    spCornrImag.image=[UIImage imageNamed:@"sporder.png"];
+    //    exitImag.image=[UIImage imageNamed:@"exitselect.png"];
     [self showSlider];
-    [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
     [self.view addSubview:self.exitPopUpView];
 }
 
@@ -587,7 +594,7 @@
 }
 
 - (IBAction)ophemyAction:(id)sender {
-   
+    
 }
 - (IBAction)Slideshow:(id)sender
 {
@@ -626,7 +633,7 @@
         
         NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
         [database executeUpdate:queryString1];
-       
+        
         [database close];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -649,7 +656,11 @@
         [self.pingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         [self.otherMenuPingBulbImg setImage:[UIImage imageNamed:@"bulb-select.png"]];
         self.pingMessageView.hidden = NO;
-        [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        if (IS_IPAD_Pro) {
+            [self.pingMessageView setFrame:CGRectMake(88, 825, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }else{
+            [self.pingMessageView setFrame:CGRectMake(52, 585, self.pingMessageView.frame.size.width, self.pingMessageView.frame.size.height)];
+        }
         self.pingMessageView.alpha= 1.0;
         [self.sideScroller addSubview:self.pingMessageView];
         [self.sideScroller bringSubviewToFront:self.pingMessageView];
@@ -830,7 +841,7 @@
     }
     int leftWidth;
     if (IS_IPAD_Pro) {
-        leftWidth = 930;
+        leftWidth = 950;
     }else{
         leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
     }
@@ -864,9 +875,7 @@
         [bottomBarBtn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         bottomBarBtn.titleLabel.font =[UIFont fontWithName:@"Helvetica-Condensed" size:20];
         [bottomBarBtn setImageEdgeInsets:UIEdgeInsetsMake(0, bottomBarBtn.titleLabel.bounds.size.width-10, 0, 0)];
-        if ([title isEqualToString:@"View Order"]) {
-            [bottomBarBtn setBackgroundColor:[UIColor colorWithRed:194/255.0f green:57/255.0f blue:11/255.0f alpha:1.0]];
-        }
+    
         if ([title isEqualToString:@"View Order"]) {
             [bottomBarBtn setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
             CGRect frameIcon = bottomBarBtn.imageView.frame;
@@ -886,7 +895,7 @@
         
         UIImageView *seperatorImg;
         if (IS_IPAD_Pro) {
-           seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
         }else{
             seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
         }

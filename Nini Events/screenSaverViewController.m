@@ -62,8 +62,11 @@
 
     
     
-    
+    if (IS_IPAD_Pro) {
+        scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
     scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }
     scr.tag = 1;
     [scr setUserInteractionEnabled:NO];
     scr.autoresizingMask=UIViewAutoresizingNone;
@@ -128,11 +131,14 @@
         lbldesc.lineBreakMode = NSLineBreakByWordWrapping;
         lbldesc.numberOfLines = 0;
         [lbldesc sizeToFit];
-        
-        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 658 - 25, scrMain.frame.size.width, 135.0)];
-        paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [imgV addSubview:paddingView];
-        [imgV addSubview:lbldesc];
+        [lbldesc setFrame:CGRectMake(lbldesc.frame.origin.x, scrMain.frame.size.height - lbldesc.frame.size.height-20, lbldesc.frame.size.width, lbldesc.frame.size.height)];
+        if (![string isEqualToString:@""]) {
+            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, lbldesc.frame.origin.y - 20, scrMain.frame.size.width, lbldesc.frame.size.height+40)];
+            paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+            [imgV addSubview:paddingView];
+            [imgV addSubview:lbldesc];
+        }
+       
        
         lbldesc.alpha = 0.0;
         [UIView animateWithDuration:1.0

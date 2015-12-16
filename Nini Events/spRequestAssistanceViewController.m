@@ -411,8 +411,13 @@
     if (tableView == self.allotedTablesTableView)
     {
         tableAllotedObj = [tableAllotedIdsArray objectAtIndex:indexPath.row];
+        UILabel * TablesID;
+        if (IS_IPAD_Pro) {
+            TablesID= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 405, 79)];
+        }else{
+            TablesID= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 305, 79)];
+        }
         
-        UILabel * TablesID= [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 305, 79)];
         TablesID.textColor= [UIColor whiteColor];
         TablesID.font = [UIFont fontWithName:@"Bebas Neue" size:20];
         TablesID.lineBreakMode = NSLineBreakByCharWrapping;
@@ -908,7 +913,11 @@
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
     pt = rc.origin;
     if (pt.x == 0) {
-        pt.x -= 268;
+        if (IS_IPAD_Pro) {
+            pt.x -= 356;
+        }else{
+            pt.x -= 267;
+        }
         
     }else{
         pt.x = 0;
@@ -985,6 +994,10 @@
 //    self.orderPendingTitleLbl.font = [UIFont fontWithName:@"Bebas Neue" size:18];
     
     self.statsPopUpView.hidden = NO;
+    if (IS_IPAD_Pro) {
+        [self.statsPopUpView setFrame:CGRectMake(180, 800, self.statsPopUpView.frame.size.width, self.statsPopUpView.frame.size.height)];
+    }
+
     letterTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(highlightLetter:)];
     letterTapRecognizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:letterTapRecognizer];

@@ -22,6 +22,7 @@
 }
 -(void)setLabelText:(NSString*)orderstatus :(NSString*)OrderTime :(NSString*)orderId :(NSString*)itemNames
 {
+    
     self.orderNumLbl.textColor=[UIColor blackColor];
     self.orderNumLbl.text = [NSString stringWithFormat:@"%@",orderId];
     self.orderStatusLbl.text = [NSString stringWithFormat:@"%@",orderstatus];
