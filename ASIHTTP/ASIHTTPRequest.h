@@ -1,14 +1,3 @@
-//
-//  ASIHTTPRequest.h
-//
-//  Created by Ben Copsey on 04/10/2007.
-//  Copyright 2007-2011 All-Seeing Interactive. All rights reserved.
-//
-//  A guide to the main features is available at:
-//  http://allseeing-i.com/ASIHTTPRequest
-//
-//  Portions are based on the ImageClient example from Apple:
-//  See: http://developer.apple.com/samplecode/ImageClient/listing37.html
 
 #import <Foundation/Foundation.h>
 #if TARGET_OS_IPHONE

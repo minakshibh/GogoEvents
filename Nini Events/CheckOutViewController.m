@@ -1,10 +1,3 @@
-//
-//  CheckOutViewController.m
-//  Nini Events
-//
-//  Created by Br@R on 29/01/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "CheckOutViewController.h"
 #import "orderOC.h"
@@ -286,9 +279,9 @@
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     if (IS_IPAD_Pro) {
-        deleteBtn.frame = CGRectMake(205.0f, 82.0f, 50.0f, 50.0f);
+        deleteBtn.frame = CGRectMake(205.0f, 97.50f, 35.0f, 35.0f);
     }else{
-        deleteBtn.frame = CGRectMake(155.0f, 82.0f, 50.0f, 50.0f);
+        deleteBtn.frame = CGRectMake(155.0f, 97.5f, 35.0f, 35.0f);
     }
     
     deleteBtn.tag = indexPath.row;
@@ -300,24 +293,20 @@
     
     increaseItemBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     if (IS_IPAD_Pro) {
-        increaseItemBtn.frame = CGRectMake(886, 98.2f, 30.0f, 35.0f);
+        increaseItemBtn.frame = CGRectMake(886, 97.5f, 35.0f, 35.0f);
     }else{
-        increaseItemBtn.frame = CGRectMake(665, 98.0f, 30.0f, 35.0f);
+        increaseItemBtn.frame = CGRectMake(665, 97.5f, 35.0f, 35.0f);
     }
     
     increaseItemBtn.tag = indexPath.row;
     [increaseItemBtn setTintColor:[UIColor colorWithRed:159.0f/255.0 green:14.0f/255.0 blue:14.0f/255.0 alpha:1.0]] ;
     [cell.contentView addSubview:increaseItemBtn];
     
-    //    [increaseItemBtn addTarget:self action:@selector(increaseItemBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
     decreaseItemBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     if (IS_IPAD_Pro) {
-        decreaseItemBtn.frame = CGRectMake(792.0f, 98.2f, 30.0f, 34.6f);
+        decreaseItemBtn.frame = CGRectMake(788.0f, 97.5f, 35.0f, 35.0f);
     }else{
-        decreaseItemBtn.frame = CGRectMake(586.0f, 98.0f, 30.0f, 34.6f);
+        decreaseItemBtn.frame = CGRectMake(581.0f, 97.5f, 35.0f, 35.0f);
     }
     
     decreaseItemBtn.tag = indexPath.row;

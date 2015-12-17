@@ -1,10 +1,4 @@
-//
-//  cell2TableViewCell.h
-//  Nini Events
-//
-//  Created by Krishna Mac Mini 2 on 19/11/15.
-//  Copyright © 2015 Krishna_Mac_1. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 

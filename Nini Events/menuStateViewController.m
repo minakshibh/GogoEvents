@@ -1,10 +1,3 @@
-//
-//  menuStateViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 2/16/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "menuStateViewController.h"
 #import "AsyncImageView.h"
@@ -108,10 +101,6 @@
     //self.batchLbl.text = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Order Item Count"]];
     [self placeItems];
     
-    NSString *eventStatus = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Status"]];
-    NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
-    NSString *SlideShow = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
-    
     NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
     
     if ([eventChatSupport isEqualToString:@"False"]) {
@@ -195,7 +184,6 @@
     _scrollerimage.showsVerticalScrollIndicator = NO;
     
     
-    int x = 5;
     int y= 0;
     
     for (NSUInteger i = 0; i < [itemImageUrlArray count]; ++i) {
@@ -612,8 +600,7 @@
     
     NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
     NSLog(@"Dictionary %@",userDetailDict);
-    NSString *messageStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
-   }
+    }
 
 - (IBAction)exitYesAction:(id)sender {
     docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

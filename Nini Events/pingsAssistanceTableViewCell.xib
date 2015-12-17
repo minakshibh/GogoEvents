@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1012" height="148"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="box.png" id="MvR-QL-csH">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MvR-QL-csH">
                         <rect key="frame" x="4" y="4" width="1000" height="92"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -43,13 +43,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="TableNameLbl" destination="IZT-jb-3a1" id="p1E-zy-g5U"/>
+                <outlet property="bgImage" destination="MvR-QL-csH" id="u7f-Fn-9XP"/>
                 <outlet property="pingMessageLbl" destination="GbF-sh-za4" id="XVG-r7-CjC"/>
                 <outlet property="pingTimeLbl" destination="cEn-Dh-Dmz" id="RKe-nH-bkr"/>
             </connections>
             <point key="canvasLocation" x="443" y="326.5"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="box.png" width="971" height="140"/>
-    </resources>
 </document>

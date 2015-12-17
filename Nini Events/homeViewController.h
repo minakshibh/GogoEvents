@@ -1,10 +1,3 @@
-//
-//  homeViewController.h
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/17/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
@@ -14,18 +7,16 @@
 #import "pendingOrdersOC.h"
 #import "menuOC.h"
 #import "menuItemsOC.h"
-#import "CustomIOS7AlertView.h"
 #import "UIBubbleTableViewDataSource.h"
 #import "chatOC.h"
 #import "fetchChatOC.h"
 #import "UIView+Animation.h"
 #import "AsyncImageView.h"
-@interface homeViewController : UIViewController<UIScrollViewDelegate,UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate,CustomIOS7AlertViewDelegate,UIBubbleTableViewDataSource, UITextViewDelegate>
+@interface homeViewController : UIViewController<UIScrollViewDelegate,UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate,UIBubbleTableViewDataSource, UITextViewDelegate>
 {
     UITapGestureRecognizer *imageTapRecognizer;
     NSTimer *myTimer;
     NSTimer *hideTimer;
-    CustomIOS7AlertView *alertViewCustom ;
     chatOC *chatObj;
     fetchChatOC *fetchChatObj;
     UITapGestureRecognizer *letterTapRecognizer;

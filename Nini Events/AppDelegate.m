@@ -1,10 +1,3 @@
-//
-//  AppDelegate.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/17/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import "AppDelegate.h"
 #import "splashScreenViewController.h"
@@ -153,7 +146,6 @@
     NSString *documentsDir = [paths objectAtIndex:0];
     NSString *dbPath = [documentsDir stringByAppendingPathComponent:@"niniEvents.sqlite"];
     NSLog(@"db path %@", dbPath);
-    NSLog(@"File exist is %hhd", [fileManager fileExistsAtPath:dbPath]);
     BOOL success = [fileManager fileExistsAtPath:dbPath];
     if (!success) {
         

@@ -1,10 +1,3 @@
-//
-//  eventDetailViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 2/13/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "eventDetailViewController.h"
 #import "OrdersListViewController.h"
@@ -24,17 +17,6 @@
     [super viewDidLoad];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults valueForKey:@"PDF"];
-    
-    
-   // NSURL *targetURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",PdfWebUrl,[defaults valueForKey:@"PDF"]]];
-    NSURL *targetURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_pdfURL]];
-
-    
-//    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
-//    [self.eventPdfView loadRequest:request];
-//    self.eventPdfView.backgroundColor = [UIColor clearColor];
-    
-    
     
     
     NSMutableURLRequest * request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:_pdfURL]];

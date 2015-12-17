@@ -1,11 +1,3 @@
-//
-//  ASIHTTPRequestConfig.h
-//  Part of ASIHTTPRequest -> http://allseeing-i.com/ASIHTTPRequest
-//
-//  Created by Ben Copsey on 14/12/2009.
-//  Copyright 2009 All-Seeing Interactive. All rights reserved.
-//
-
 
 // ======
 // Debug output configuration options

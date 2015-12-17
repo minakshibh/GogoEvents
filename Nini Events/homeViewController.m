@@ -1,10 +1,3 @@
-//
-//  homeViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/17/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import "homeViewController.h"
 #import "JSON.h"
@@ -678,7 +671,7 @@ static int curveValues[] = {
     [self.view sendSubviewToBack:self.mainMenuFooter];
     
     CGRect theFrame = self.itemView.frame;
-    theFrame.size.height = self.view.bounds.size.height-10;
+    theFrame.size.height = self.view.bounds.size.height-20;
     theFrame.origin.x = 0.0f;
     theFrame.origin.y = 20.0f;
     theFrame.size.width = self.view.bounds.size.width;
@@ -709,9 +702,9 @@ static int curveValues[] = {
     itemImagePage.image = [UIImage imageWithData:data];
     itemImagePage.showActivityIndicator = YES;
     if (IS_IPAD_Pro) {
-        itemImagePage.frame = CGRectMake(1,87,1363,840);
+        itemImagePage.frame = CGRectMake(1,87,1363,830);
     }else{
-        itemImagePage.frame = CGRectMake(1,65,1022,628);
+        itemImagePage.frame = CGRectMake(1,65,1022,618);
     }
     
     itemImagePage.autoresizesSubviews = YES;
@@ -727,8 +720,13 @@ static int curveValues[] = {
 
     
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
-    [self.increaseBtn setFrame:CGRectMake(self.increaseBtn.frame.origin.x, self.increaseBtn.frame.origin.y , self.increaseBtn.frame.size.width, self.increaseBtn.frame.size.height)];
-    [self.decreaseBtn setFrame:CGRectMake(self.decreaseBtn.frame.origin.x, self.decreaseBtn.frame.origin.y , self.decreaseBtn.frame.size.width, self.decreaseBtn.frame.size.height)];
+    if (IS_IPAD_Pro) {
+        [self.increaseBtn setFrame:CGRectMake(228, 18 , 50, 49.0)];
+        [self.decreaseBtn setFrame:CGRectMake(105, 18 , 50, 49.0)];
+    }else{
+    [self.increaseBtn setFrame:CGRectMake(171, 14 , 35, 35.0)];
+    [self.decreaseBtn setFrame:CGRectMake(81, 14 , 35, 35.0)];
+    }
     [self.footerView addSubview:self.increaseBtn];
     
     self.priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[menuItemsObj.Price floatValue]];
@@ -1717,29 +1715,6 @@ static int curveValues[] = {
 
 
 
-- (void)launchDialog
-{
-    // Here we need to pass a full frame
-    alertViewCustom = [[CustomIOS7AlertView alloc] init];
-    
-    // Add some custom content to the alert view
-    [alertViewCustom setContainerView:[self createDemoView]];
-    
-    // Modify the parameters
-    [alertViewCustom setButtonTitles:[NSMutableArray arrayWithObjects:@"DONE",nil]];
-    [alertViewCustom setDelegate:self];
-    
-    // You may use a Block, rather than a delegate.
-    [alertViewCustom setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
-        NSLog(@"Block: Button at position %d is clicked on alertView %d.", buttonIndex, (int)[alertView tag]);
-        [alertViewCustom close];
-    }];
-    
-    [alertViewCustom setUseMotionEffects:true];
-    
-    // And launch the dialog
-    [alertViewCustom show];
-}
 
 
 - (UIView *)createDemoView
@@ -1748,19 +1723,6 @@ static int curveValues[] = {
     [demoView addSubview:self.quantityPopUp];
     return demoView;
 }
-
-
-
-
-
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
-{
-    
-    
-    NSLog(@"Delegate: Button at position %d is clicked on alertView %d.", (int)buttonIndex, (int)[alertView tag]);
-    [alertView close];
-}
-
 
 
 #pragma mark - Delete Button Action

@@ -1,10 +1,3 @@
-//
-//  loginViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/17/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import "loginViewController.h"
 #import "homeViewController.h"
@@ -77,8 +70,6 @@
  */
 
 - (IBAction)login:(id)sender {
-    NSString *emailReg = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",emailReg];
     [self.loginScroller setContentOffset:CGPointMake(0, 0) animated:YES];
     [self.userPasswordTxt resignFirstResponder];
     if ([self.userNameTxt.text isEqualToString:@""] || [self.userPasswordTxt.text isEqualToString:@""]) {
@@ -126,7 +117,6 @@
 {
     [self disabled];
     [activityIndicator startAnimating];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *timeStamp = [NSString stringWithFormat:@""];
     
      NSString *eventId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Event ID"]];
@@ -175,11 +165,11 @@
 }
 
 
--(void)loginWebservice:(NSString *)userid:(NSString *)password
+-(void)loginWebservice:(NSString *) userid :(NSString *) password
 {
     [self disabled];
     [activityIndicator startAnimating];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  
     
     NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:userid,@"UserId",password, @"Password", nil];
     
@@ -428,7 +418,6 @@
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
         NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
-        NSString *prevEventIdStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Event ID"]];
        
         [defaults setObject:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"role"]] forKey:@"Role"];
         if ([resultStr isEqualToString:@"0"]) {
@@ -471,7 +460,6 @@
                 [defaults setValue:[userDetailDict valueForKey:@"eventId"] forKey:@"Event ID"];
                 [defaults removeObjectForKey:@"userImage"];
                 [defaults setValue:[userDetailDict valueForKey:@"id"] forKey:@"Ipad ID"];
-                NSString *newEventIdStr = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Event ID"]];
                 
 //                if (![prevEventIdStr isEqualToString:newEventIdStr]) {
                     docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -504,7 +492,6 @@
     }
     else if (webServiceCode == 4)
     {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
         NSError *error;

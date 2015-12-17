@@ -1,10 +1,3 @@
-//
-//  ASINetworkQueue.h
-//  Part of ASIHTTPRequest -> http://allseeing-i.com/ASIHTTPRequest
-//
-//  Created by Ben Copsey on 07/11/2008.
-//  Copyright 2008-2009 All-Seeing Interactive. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "ASIHTTPRequestDelegate.h"

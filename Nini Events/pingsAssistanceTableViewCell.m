@@ -1,10 +1,3 @@
-//
-//  pingsAssistanceTableViewCell.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 2/24/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "pingsAssistanceTableViewCell.h"
 
@@ -16,7 +9,9 @@
 
 -(void)setLabelText:(NSString*)tableName :(NSString*)pingTime :(NSString*)pingMessage
 {
-
+    self.bgImage.layer.borderColor = [UIColor colorWithRed:221.0/255.0f green:221.0/255.0f blue:221.0/255.0f alpha:1].CGColor;
+    self.bgImage.layer.borderWidth = 1.0;
+    self.bgImage.layer.cornerRadius = 5.0;
     self.TableNameLbl.text = [NSString stringWithFormat:@"%@",tableName];
     self.pingTimeLbl.text = [NSString stringWithFormat:@"%@",pingTime];
     self.pingMessageLbl.text = [NSString stringWithFormat:@"%@",pingMessage];

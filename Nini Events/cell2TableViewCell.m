@@ -1,11 +1,3 @@
-//
-//  cell2TableViewCell.m
-//  Nini Events
-//
-//  Created by Krishna Mac Mini 2 on 19/11/15.
-//  Copyright © 2015 Krishna_Mac_1. All rights reserved.
-//
-
 #import "cell2TableViewCell.h"
 
 @implementation cell2TableViewCell

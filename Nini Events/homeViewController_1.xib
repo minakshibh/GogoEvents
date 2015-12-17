@@ -85,7 +85,7 @@
                             </subviews>
                             <color key="backgroundColor" red="0.76078431369999999" green="0.22352941179999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" id="4Zd-vj-4LM">
+                        <view contentMode="scaleToFill" id="4Zd-vj-4LM">
                             <rect key="frame" x="0.0" y="685" width="1024" height="63"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -117,9 +117,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="07s-Z8-swj">
-                                    <rect key="frame" x="80" y="14" width="37" height="35"/>
+                                    <rect key="frame" x="81" y="14" width="35" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" backgroundImage="decreaseselect.png">
+                                    <state key="normal" backgroundImage="decrease.png">
                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -134,9 +134,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MxF-8s-dVj">
-                                    <rect key="frame" x="170" y="15" width="37" height="35"/>
+                                    <rect key="frame" x="171" y="14" width="35" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" backgroundImage="increaseselect.png">
+                                    <state key="normal" backgroundImage="increase.png">
                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -179,7 +179,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" red="0.68627450980000004" green="0.13725490200000001" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.84161212299999999" green="0.24976304830000001" blue="0.052955394670000003" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
@@ -390,7 +390,7 @@
                                     <rect key="frame" x="22" y="210" width="37" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistanc.png" id="vy3-5p-nZo">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistance.png" id="vy3-5p-nZo">
                                     <rect key="frame" x="22" y="360" width="37" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -894,29 +894,29 @@
         </view>
     </objects>
     <resources>
-        <image name="addtocart.png" width="52" height="49"/>
+        <image name="addtocart.png" width="34" height="32"/>
         <image name="back.png" width="32" height="54"/>
-        <image name="box_assistance.png" width="502" height="237"/>
-        <image name="bulb.png" width="33" height="38"/>
+        <image name="box_assistance.png" width="501" height="236"/>
+        <image name="bulb.png" width="30" height="35"/>
         <image name="cart.png" width="27" height="22"/>
-        <image name="close_13.png" width="36" height="36"/>
-        <image name="decreaseselect.png" width="72" height="87"/>
-        <image name="drink.png" width="22" height="48"/>
-        <image name="exit.png" width="71" height="68"/>
-        <image name="foodselect.png" width="71" height="52"/>
-        <image name="increaseselect.png" width="59" height="66"/>
+        <image name="close_13.png" width="18" height="18"/>
+        <image name="decrease.png" width="35" height="35"/>
+        <image name="drink.png" width="21" height="47"/>
+        <image name="exit.png" width="47" height="45"/>
+        <image name="foodselect.png" width="47" height="35"/>
+        <image name="increase.png" width="35" height="35"/>
         <image name="logo.png" width="218" height="47"/>
-        <image name="menu.png" width="34" height="36"/>
-        <image name="notificationcircle.png" width="21" height="23"/>
-        <image name="ophemy-logo2x.png" width="392" height="92"/>
-        <image name="orderhistory.png" width="36" height="38"/>
-        <image name="quantity.png" width="42" height="38"/>
-        <image name="requestassistanc.png" width="83" height="74"/>
-        <image name="sidebar_02.png" width="246" height="738"/>
-        <image name="spcorner.png" width="56" height="57"/>
-        <image name="startneworder.png" width="90" height="74"/>
-        <image name="startneworderselect.png" width="90" height="74"/>
-        <image name="stroke_10.png" width="665" height="1"/>
-        <image name="stroke_13.png" width="2" height="54"/>
+        <image name="menu.png" width="32" height="32"/>
+        <image name="notificationcircle.png" width="14" height="15"/>
+        <image name="ophemy-logo2x.png" width="588" height="138"/>
+        <image name="orderhistory.png" width="47" height="50"/>
+        <image name="quantity.png" width="44" height="35"/>
+        <image name="requestassistance.png" width="83" height="74"/>
+        <image name="sidebar_02.png" width="245" height="738"/>
+        <image name="spcorner.png" width="55" height="57"/>
+        <image name="startneworder.png" width="60" height="49"/>
+        <image name="startneworderselect.png" width="60" height="49"/>
+        <image name="stroke_10.png" width="512" height="1"/>
+        <image name="stroke_13.png" width="2" height="36"/>
     </resources>
 </document>

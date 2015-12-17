@@ -190,7 +190,7 @@
                                     <rect key="frame" x="22" y="210" width="37" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistanc.png" id="tSs-96-SBf">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistance.png" id="tSs-96-SBf">
                                     <rect key="frame" x="22" y="377" width="37" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
@@ -283,7 +283,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
                                     <color key="tintColor" red="1" green="0.078742627580492663" blue="0.61142128456304956" alpha="0.87" colorSpace="calibratedRGB"/>
-                                    <state key="normal" title="CHECKOUT" backgroundImage="checkout.png">
+                                    <state key="normal" title="CHECKOUT" backgroundImage="checkoutselect.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -379,7 +379,7 @@
                                     <rect key="frame" x="415" y="334" width="194" height="43"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="20"/>
-                                    <state key="normal" title="START A NEW ORDER" backgroundImage="viewdetail.png">
+                                    <state key="normal" title="START A NEW ORDER" backgroundImage="checkoutselect.png">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -695,9 +695,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lSE-bL-nT3">
                     <rect key="frame" x="279" y="398" width="199" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.76078431369999999" green="0.22352941179999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
-                    <state key="normal" title="YES">
+                    <state key="normal" title="YES" backgroundImage="checkoutselect.png">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -708,9 +708,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="YYj-xd-26T">
                     <rect key="frame" x="538" y="398" width="199" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.76078431369999999" green="0.22352941179999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
-                    <state key="normal" title="NO">
+                    <state key="normal" title="NO" backgroundImage="checkoutselect.png">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -816,24 +816,23 @@
         </view>
     </objects>
     <resources>
-        <image name="box_assistance.png" width="502" height="237"/>
-        <image name="bulb.png" width="33" height="38"/>
+        <image name="box_assistance.png" width="501" height="236"/>
+        <image name="bulb.png" width="30" height="35"/>
         <image name="cart.png" width="27" height="22"/>
-        <image name="checkout.png" width="355" height="71"/>
-        <image name="close_13.png" width="36" height="36"/>
+        <image name="checkoutselect.png" width="236" height="47"/>
+        <image name="close_13.png" width="18" height="18"/>
         <image name="disable568.png" width="320" height="568"/>
-        <image name="exit.png" width="71" height="68"/>
+        <image name="exit.png" width="47" height="45"/>
         <image name="logo.png" width="218" height="47"/>
-        <image name="menu.png" width="34" height="36"/>
-        <image name="notificationcircle.png" width="21" height="23"/>
-        <image name="ophemy-logo2x.png" width="392" height="92"/>
-        <image name="orderhistory.png" width="36" height="38"/>
-        <image name="requestassistanc.png" width="83" height="74"/>
-        <image name="sidebar_02.png" width="246" height="738"/>
-        <image name="spcorner.png" width="56" height="57"/>
-        <image name="startneworder.png" width="90" height="74"/>
-        <image name="stroke_10.png" width="665" height="1"/>
-        <image name="stroke_13.png" width="2" height="54"/>
-        <image name="viewdetail.png" width="215" height="62"/>
+        <image name="menu.png" width="32" height="32"/>
+        <image name="notificationcircle.png" width="14" height="15"/>
+        <image name="ophemy-logo2x.png" width="588" height="138"/>
+        <image name="orderhistory.png" width="47" height="50"/>
+        <image name="requestassistance.png" width="83" height="74"/>
+        <image name="sidebar_02.png" width="245" height="738"/>
+        <image name="spcorner.png" width="55" height="57"/>
+        <image name="startneworder.png" width="60" height="49"/>
+        <image name="stroke_10.png" width="512" height="1"/>
+        <image name="stroke_13.png" width="2" height="36"/>
     </resources>
 </document>

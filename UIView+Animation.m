@@ -1,10 +1,3 @@
-//
-//  UIView+Animation.m
-//  UIAnimationSamples
-//
-//  Created by Ray Wenderlich on 11/15/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
 
 #import "UIView+Animation.h"
 

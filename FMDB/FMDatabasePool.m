@@ -1,10 +1,3 @@
-//
-//  FMDatabasePool.m
-//  fmdb
-//
-//  Created by August Mueller on 6/22/11.
-//  Copyright 2011 Flying Meat Inc. All rights reserved.
-//
 
 #import "FMDatabasePool.h"
 #import "FMDatabase.h"

@@ -1,10 +1,3 @@
-//
-//  serviceProviderHomeViewController.h
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/26/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "pendingOrdersOC.h"
@@ -54,12 +47,8 @@
     IBOutlet UIButton *btnRequest;
 }
 - (IBAction)btnRequest:(id)sender;
-
-- (IBAction)chatCloseBtn:(id)sender;
 - (IBAction)menuOrdersBtn:(id)sender;
 - (IBAction)menuPings:(id)sender;
-- (IBAction)menuMyStatus:(id)sender;
-- (IBAction)menuSearch:(id)sender;
 - (IBAction)menuExit:(id)sender;
 - (IBAction)menuBtn:(id)sender;
 @property (weak, nonatomic) IBOutlet UIScrollView *sideScroller;
@@ -84,11 +73,9 @@
 - (IBAction)sendChatMessage:(id)sender;
 - (IBAction)cancelationBtn:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *requestCancellation;
-- (IBAction)modificationBtn:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *requestModification;
 @property (strong, nonatomic) IBOutlet UILabel *orderTime;
 @property (strong, nonatomic) IBOutlet UIButton *orderStatus;
-- (IBAction)statusChangeBtn:(id)sender;
 @property (strong, nonatomic) IBOutlet UIImageView *arrow1;
 @property (strong, nonatomic) IBOutlet UIImageView *arrow2;
 @property (strong, nonatomic) IBOutlet UIImageView *arrow3;

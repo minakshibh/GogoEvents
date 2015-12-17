@@ -1,10 +1,3 @@
-//
-//  serviceProviderHomeViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 11/26/14.
-//  Copyright (c) 2014 Krishna_Mac_1. All rights reserved.
-//
 
 #import "serviceProviderHomeViewController.h"
 #import "JSON.h"
@@ -162,7 +155,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.tablesAllotedArray = [[NSMutableArray alloc]initWithObjects:[defaults valueForKey:@"Alloted Tables"], nil];
-    NSMutableArray *tempArray = [self.tablesAllotedArray objectAtIndex:0];
+   
     NSLog(@"Tables... %lu",(unsigned long)self.tablesAllotedArray.count);
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
@@ -225,7 +218,7 @@
         [assignedTablesArray addObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]];
     }
     [self.allotedTablesTableView reloadData];
-    NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+   
     
     
 }
@@ -362,6 +355,8 @@
 }
 #pragma mark -Fetch Open Orders List
 - (IBAction)openOrdersBtn:(id)sender {
+    [self.view endEditing:YES];
+
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -380,6 +375,8 @@
 
 #pragma mark -Fetch Delivered Orders List
 - (IBAction)deliveredOrderBtn:(id)sender {
+    [self.view endEditing:YES];
+
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -398,6 +395,8 @@
 
 #pragma mark -Fetch Processing Orders List
 - (IBAction)processingOrderBtn:(id)sender {
+    [self.view endEditing:YES];
+
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
@@ -417,6 +416,8 @@
 #pragma mark -Fetch Requests
 
 - (IBAction)btnRequest:(id)sender {
+    [self.view endEditing:YES];
+
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -634,7 +635,7 @@
         //    [dateFormat setDateFormat:@"HH:mm"];
         NSString *dateStr = [dateFormat stringFromDate:date];
         NSDate *date1=[dateFormat dateFromString:dateStr];
-        NSCalendar *calendar = [NSCalendar currentCalendar];
+       
         NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
         NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
         timeDelay = [timeDelay
@@ -687,11 +688,12 @@
         
         UIImageView *cellBackGroundImage = [[UIImageView alloc]init];
         if (IS_IPAD_Pro) {
-            cellBackGroundImage.frame = CGRectMake(5, 5, 385, 68);
+            cellBackGroundImage.frame = CGRectMake(5, 10, 385, 63);
         }else{
-            cellBackGroundImage.frame = CGRectMake(5, 5, 290, 68);
+            cellBackGroundImage.frame = CGRectMake(5, 10, 290, 63);
         }
-        cellBackGroundImage.image = [UIImage imageNamed:@"box.png"];
+        cellBackGroundImage.backgroundColor = [UIColor whiteColor];
+        cellBackGroundImage.layer.cornerRadius = 5.0;
         [cell.contentView addSubview:cellBackGroundImage];
         
         if (IS_IPAD_Pro) {
@@ -936,11 +938,10 @@
 }
 #pragma mark - Change Status
 
--(void) changeStatus:(NSString *)pendingOrdersIDS: (NSString *)changingOrderStatus
+-(void) changeStatus:(NSString *) pendingOrdersIDS : (NSString *) changingOrderStatus
 {
     [self disabled];
     [activityIndicator startAnimating];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDate *startTime;
     
     startTime = [NSDate date];
@@ -1035,7 +1036,7 @@
     }
     
 }
--(void)requestModification:(NSString*)requestType:(NSString*)commentText
+-(void)requestModification:(NSString*) requestType : (NSString*) commentText
 {
     [self disabled];
     [activityIndicator startAnimating];
@@ -1196,7 +1197,7 @@
         if ([orderList count] != 0) {
             self.orderNumberLbl.hidden = NO;
             self.spNotesTextView.hidden = NO;
-            [self showOrder:0];
+           // [self showOrder:0];
         }else{
              pendingOrderObj = [[pendingOrdersOC alloc] init];
             self.orderTime.hidden = YES;
@@ -1209,7 +1210,8 @@
             pendingOrderTimeOfDeliveryArray = [[NSMutableArray alloc]init];
             
              [self.orderListPopUpTableView reloadData];
-           
+            requestLbl.text=nil;
+
                 self.orderStatus.hidden = YES;
                 self.requestCancellation.hidden = YES;
                 self.requestModification.hidden = YES;
@@ -1222,6 +1224,17 @@
         NSLog(@"Order List %@",orderList);
         
          [self.orderTableView reloadData];
+        if (searchOrdrTxt.text.length!=0) {
+            [self searchAutocompleteEntriesWithSubstring:searchOrdrTxt.text];
+
+        }
+        else{
+             if ([orderList count] != 0)
+             {
+                 [self showOrder:0];
+
+             }
+        }
         NSString *serviceProviderId = [defaults valueForKey:@"Service Provider ID"];
         [self fetchStats:serviceProviderId];
         //        else if ([StatusTag isEqualToString:@"processing"] || [StatusTag isEqualToString:@"delivered"])
@@ -1230,9 +1243,7 @@
         //            orderIdsArray = [[[orderIdsArray reverseObjectEnumerator] allObjects] mutableCopy];
         //        }
         
-        
     }else if (webServiceCode == 2){
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
         NSError *error;
@@ -1243,7 +1254,7 @@
         
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
-        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
+       
         NSDate *startTime;
         
         startTime = [NSDate date];
@@ -1320,7 +1331,7 @@
         //        }
         
     }else if (webServiceCode == 3){
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+       
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
         NSError *error;
@@ -1334,7 +1345,7 @@
         //        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
         //        [self pendingPlacedOrder:orderTypeStr];
     }else if (webServiceCode == 4){
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
         NSError *error;
@@ -1407,7 +1418,7 @@
         [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderdeliverd"]] forKey:@"Delivery Stats"];
         [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderinprocess"]] forKey:@"Process Stats"];
         [defaults setValue:[NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"orderpending"]] forKey:@"Pending Stats"];
-        NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+       
         
     }else if (webServiceCode == 6){
         [self.view endEditing:YES];
@@ -1705,10 +1716,38 @@
         [orderList removeAllObjects];
         orderList =[orderIdtempArray mutableCopy];
     }
+   
     
     
     
     [self.orderTableView reloadData];
+    if (orderList.count>0) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+        UITableViewCell *cell = [self.orderTableView cellForRowAtIndexPath:path];
+        [cell setBackgroundColor:[UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.2]];
+        selectedIndex = 0;
+        self.orderNumberLbl.hidden = NO;
+        [self showOrder:0];
+    } else{
+        pendingOrderObj = [[pendingOrdersOC alloc] init];
+        self.orderTime.hidden = YES;
+        self.orderDeliveredTick.hidden = YES;
+        self.orderStatusLbl.hidden = YES;
+        self.orderNumberLbl.hidden = YES;
+        pendingOrderItemNameArray = [[NSMutableArray alloc] init];
+        pendingOrderItemPriceArray = [[NSMutableArray alloc] init];
+        pendingOrderItemQuantityArray = [[NSMutableArray alloc]init];
+        pendingOrderTimeOfDeliveryArray = [[NSMutableArray alloc]init];
+        
+        [self.orderListPopUpTableView reloadData];
+        requestLbl.text=nil;
+        self.orderStatus.hidden = YES;
+        self.requestCancellation.hidden = YES;
+        self.requestModification.hidden = YES;
+        self.spNotesTextView.hidden = YES;
+        
+    }
+
 }
 - (IBAction)cancelationBtn:(id)sender
 {

@@ -1,10 +1,3 @@
-//
-//  OrderListDetailViewController.m
-//  Nini Events
-//
-//  Created by Br@R on 09/02/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "OrderListDetailViewController.h"
 #import "OrderListTableViewCell.h"

@@ -1,21 +1,7 @@
-//
-//  FMDatabaseQueue.m
-//  fmdb
-//
-//  Created by August Mueller on 6/22/11.
-//  Copyright 2011 Flying Meat Inc. All rights reserved.
-//
 
 #import "FMDatabaseQueue.h"
 #import "FMDatabase.h"
 
-/*
- 
- Note: we call [self retain]; before using dispatch_sync, just incase 
- FMDatabaseQueue is released on another thread and we're in the middle of doing
- something in dispatch_sync
- 
- */
  
 @implementation FMDatabaseQueue
 

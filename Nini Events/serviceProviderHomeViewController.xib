@@ -188,7 +188,7 @@
                             <rect key="frame" x="-234" y="449" width="37" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistanc.png" id="Rfj-Rf-XyY">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistance.png" id="Rfj-Rf-XyY">
                             <rect key="frame" x="-234" y="267" width="37" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -596,7 +596,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lie-6H-P0p">
-                            <rect key="frame" x="6" y="234" width="668" height="404"/>
+                            <rect key="frame" x="6" y="234" width="668" height="348"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -608,7 +608,7 @@
                             </connections>
                         </tableView>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disable568.png" id="xEH-Y3-kdS">
-                            <rect key="frame" x="4" y="-21" width="1024" height="767"/>
+                            <rect key="frame" x="1" y="-21" width="1024" height="767"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -807,25 +807,25 @@
         </view>
     </objects>
     <resources>
-        <image name="box_assistance.png" width="502" height="237"/>
-        <image name="bulb.png" width="33" height="38"/>
-        <image name="checkout.png" width="355" height="71"/>
-        <image name="checkoutselect.png" width="238" height="48"/>
+        <image name="box_assistance.png" width="501" height="236"/>
+        <image name="bulb.png" width="30" height="35"/>
+        <image name="checkout.png" width="236" height="47"/>
+        <image name="checkoutselect.png" width="236" height="47"/>
         <image name="close2.png" width="68" height="69"/>
         <image name="close_03.png" width="18" height="18"/>
         <image name="deliveredorderTick.png" width="28" height="23"/>
         <image name="disable568.png" width="320" height="568"/>
         <image name="dropdown-right.png" width="9" height="15"/>
-        <image name="exit.png" width="71" height="68"/>
+        <image name="exit.png" width="47" height="45"/>
         <image name="header-contain-box.png" width="525" height="86"/>
-        <image name="menu.png" width="34" height="36"/>
-        <image name="notificationcircle.png" width="21" height="23"/>
-        <image name="orderhistoryselect.png" width="48" height="50"/>
-        <image name="popUp-without-text_small.png" width="218" height="38"/>
+        <image name="menu.png" width="32" height="32"/>
+        <image name="notificationcircle.png" width="14" height="15"/>
+        <image name="orderhistoryselect.png" width="47" height="50"/>
+        <image name="popUp-without-text_small.png" width="109" height="19"/>
         <image name="popup-big-scren-bg_19.png" width="1051" height="657"/>
-        <image name="requestassistanc.png" width="83" height="74"/>
-        <image name="sidebar_02.png" width="246" height="738"/>
+        <image name="requestassistance.png" width="83" height="74"/>
+        <image name="sidebar_02.png" width="245" height="738"/>
         <image name="stroke_07.png" width="1" height="45"/>
-        <image name="stroke_13.png" width="2" height="54"/>
+        <image name="stroke_13.png" width="2" height="36"/>
     </resources>
 </document>

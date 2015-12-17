@@ -396,16 +396,16 @@
         </view>
     </objects>
     <resources>
-        <image name="box_assistance.png" width="502" height="237"/>
-        <image name="bulb-select.png" width="37" height="44"/>
+        <image name="box_assistance.png" width="501" height="236"/>
+        <image name="bulb-select.png" width="30" height="35"/>
         <image name="close_03.png" width="18" height="18"/>
-        <image name="exit.png" width="71" height="68"/>
-        <image name="menu.png" width="34" height="36"/>
-        <image name="notificationcircle.png" width="21" height="23"/>
+        <image name="exit.png" width="47" height="45"/>
+        <image name="menu.png" width="32" height="32"/>
+        <image name="notificationcircle.png" width="14" height="15"/>
         <image name="requestassistence.png" width="55" height="49"/>
-        <image name="sidebar_02.png" width="246" height="738"/>
-        <image name="startneworder.png" width="90" height="74"/>
+        <image name="sidebar_02.png" width="245" height="738"/>
+        <image name="startneworder.png" width="60" height="49"/>
         <image name="stroke_07.png" width="1" height="45"/>
-        <image name="stroke_13.png" width="2" height="54"/>
+        <image name="stroke_13.png" width="2" height="36"/>
     </resources>
 </document>

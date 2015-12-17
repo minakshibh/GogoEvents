@@ -1,10 +1,3 @@
-//
-//  Base64.m
-//  CryptTest
-//
-//  Created by Kiichi Takeuchi on 4/20/10.
-//  Copyright 2010 ObjectGraph LLC. All rights reserved.
-//
 
 #import "Base64.h"
 

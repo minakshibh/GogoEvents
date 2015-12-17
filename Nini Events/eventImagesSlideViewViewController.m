@@ -1,10 +1,3 @@
-    //
-//  eventImagesSlideViewViewController.m
-//  Nini Events
-//
-//  Created by Krishna_Mac_1 on 2/13/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "eventImagesSlideViewViewController.h"
 #import "AppDelegate.h"
@@ -43,16 +36,6 @@
     
                     
     
-    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-//    if ([[ver objectAtIndex:0] intValue] >= 7) {
-//        // iOS 7.0 or later
-//        toolBar.barTintColor = [UIColor colorWithRed:178/255.0f green:38/255.0f blue:12/255.0f alpha:1.0f];
-//        toolBar.translucent = NO;
-//    }else {
-//        // iOS 6.1 or earlier
-//        toolBar.tintColor = [UIColor colorWithRed:178/255.0f green:38/255.0f blue:12/255.0f alpha:1.0f];
-//    }
-
     
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"bulb"] isEqualToString:@"ON"]) {
         
@@ -122,13 +105,7 @@
         [self.sideMenuWithoutReqAssistance removeFromSuperview];
         
     }
-    NSString *eventStatus = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Status"]];
-    NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
-
-    NSString *SlideShow = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
-
-    
-    
+ 
     [self fetchEventDetails];
     [self addBannerImages];
     
@@ -582,7 +559,6 @@
         //   [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(repeatWebservice) userInfo:nil repeats:YES];
     }else if (webServiceCode == 4)
     {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
         NSError *error;
@@ -695,7 +671,6 @@
         
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
-        NSString *messageStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
         
     }
 }
@@ -853,7 +828,7 @@
         [tableAllotedIdsArray addObject:tableAllotedObj];
         [assignedTablesArray addObject:[NSString stringWithFormat:@"%d",tableAllotedObj.tableId]];
     }
-    NSString *assignedTables = [NSString stringWithFormat:@"%@",assignedTablesArray];
+    
     }
 -(void) fetchCounts{
     NSLog(@"Fetch method called");
@@ -870,7 +845,7 @@
     //    [activityIndicator startAnimating];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     assignedTableTimestampsArray = [[NSMutableArray alloc] init];
-    NSString *timeStamp;
+   
     NSString *timestamp= [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Customer Incoming Chat Timestamp"]];
     NSLog(@"TimeStamp %@",timestamp);
     if ([timestamp isEqualToString:@"(null)"]) {
@@ -995,7 +970,6 @@
     [scr removeFromSuperview];
     [pgCtr removeFromSuperview];
     double width = [[UIScreen mainScreen] bounds].size.width;
-    double height = [[UIScreen mainScreen] bounds].size.height;
     if (IS_IPAD_Pro) {
         scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 68, width, 865)];
     }else{

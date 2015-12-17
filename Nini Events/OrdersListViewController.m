@@ -1,10 +1,3 @@
-//
-//  OrdersListViewController.m
-//  Nini Events
-//
-//  Created by Br@R on 09/02/15.
-//  Copyright (c) 2015 Krishna_Mac_1. All rights reserved.
-//
 
 #import "OrdersListViewController.h"
 #import "JSON.h"
@@ -97,11 +90,7 @@
         self.otheMenuBatchImg.hidden = YES;
     }
     
-    NSString *eventStatus = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Status"]];
-    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
-    NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
-    
-    NSString *SlideShow = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
+       NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
     
     if ([eventChatSupport isEqualToString:@"False"]) {
         [self.sideMenuWithoutReqAssistance setFrame:CGRectMake(-269, 19, self.sideMenuWithoutReqAssistance.frame.size.width, self.sideMenuWithoutReqAssistance.frame.size.height)];
@@ -310,7 +299,6 @@
         
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
-        NSString *messageStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
         
         [activityIndicator stopAnimating];
     }
@@ -428,7 +416,7 @@
     [cell.contentView addSubview:showDetailoBtn];
     
     [showDetailoBtn addTarget:self action:@selector(showDetailoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIImage *buttonBackgroundShowDetail= [UIImage imageNamed:@"viewdetail"];
+    UIImage *buttonBackgroundShowDetail= [UIImage imageNamed:@"checkoutselect"];
     
     [showDetailoBtn setBackgroundImage:buttonBackgroundShowDetail forState:UIControlStateNormal];
     
