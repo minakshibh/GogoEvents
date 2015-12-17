@@ -61,7 +61,12 @@
     [self.notesTextView setClipsToBounds:YES];
     orderList=[[NSMutableArray alloc]init];
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityIndicator.center = CGPointMake(512, 374);
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
+        activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    }
+   
     
     activityIndicator.color=[UIColor grayColor];
     [self.view addSubview:activityIndicator];
@@ -297,7 +302,7 @@
     if (IS_IPAD_Pro) {
         increaseItemBtn.frame = CGRectMake(886, 98.2f, 30.0f, 35.0f);
     }else{
-        increaseItemBtn.frame = CGRectMake(679, 97.4f, 30.0f, 35.0f);
+        increaseItemBtn.frame = CGRectMake(665, 98.0f, 30.0f, 35.0f);
     }
     
     increaseItemBtn.tag = indexPath.row;
@@ -312,7 +317,7 @@
     if (IS_IPAD_Pro) {
         decreaseItemBtn.frame = CGRectMake(792.0f, 98.2f, 30.0f, 34.6f);
     }else{
-        decreaseItemBtn.frame = CGRectMake(600.0f, 97.4f, 30.0f, 34.6f);
+        decreaseItemBtn.frame = CGRectMake(586.0f, 98.0f, 30.0f, 34.6f);
     }
     
     decreaseItemBtn.tag = indexPath.row;
@@ -974,10 +979,18 @@
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }
     int leftWidth;
-    if (IS_IPAD_Pro) {
-        leftWidth = 950;
+    if (isPingActive) {
+        if (IS_IPAD_Pro) {
+            leftWidth = 950;
+        }else{
+            leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        }
     }else{
-        leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        if (IS_IPAD_Pro) {
+            leftWidth = 1005;
+        }else{
+            leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        }
     }
     
     NSLog(@"Left Width = %d",leftWidth);
@@ -995,10 +1008,18 @@
         
         NSLog(@"Value of i ...... %d",j);
         UIButton *bottomBarBtn;
-        if (IS_IPAD_Pro) {
-            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+        if (isPingActive) {
+            if (IS_IPAD_Pro) {
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+            }else{
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            }
         }else{
-            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            if (IS_IPAD_Pro) {
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+360+2,2,leftWidth/buttonsArray.count, 72)];
+            }else{
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            }
         }
         
         NSLog(@"%f,%f,%f,%f",bottomBarBtn.frame.origin.x,bottomBarBtn.frame.origin.y,bottomBarBtn.frame.size.width,bottomBarBtn.frame.size.height);
@@ -1016,11 +1037,21 @@
             [bottomBarBtn setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
             CGRect frameIcon = bottomBarBtn.imageView.frame;
             NSLog(@"%f , %f , %f ,%f",frameIcon.origin.x,frameIcon.origin.y,frameIcon.size.width,frameIcon.size.height);
-            [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            if (IS_IPAD_Pro) {
+                [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,9, 20, 20)];
+            }else{
+                [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            }
+            
             [bottomBarBtn addSubview:self.otheMenuBatchImg];
             [bottomBarBtn bringSubviewToFront:self.otheMenuBatchImg];
             
-            [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            if (IS_IPAD_Pro) {
+                [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,9, 20, 20)];
+            }else{
+                [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            }
+            
             [bottomBarBtn addSubview:self.otherMenuBatchLbl];
             [bottomBarBtn bringSubviewToFront:self.otherMenuBatchLbl];
             
@@ -1030,10 +1061,18 @@
         [self.bottomMenuView addSubview:bottomBarBtn];
         
         UIImageView *seperatorImg;
-        if (IS_IPAD_Pro) {
-            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+        if (isPingActive) {
+            if (IS_IPAD_Pro) {
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+            }else{
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            }
         }else{
-            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            if (IS_IPAD_Pro) {
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+360,0,2,72)];
+            }else{
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            }
         }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];

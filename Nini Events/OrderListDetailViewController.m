@@ -45,7 +45,11 @@
     orderListArray=[pendingOrderObj.pendingOrderDetails mutableCopy];
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    activityIndicator.center = CGPointMake(512, 374);
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
+        activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    }
     
     activityIndicator.color=[UIColor whiteColor];
     

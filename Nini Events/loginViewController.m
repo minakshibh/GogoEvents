@@ -47,9 +47,11 @@
     [self.userPasswordTxt setDelegate:self];
     [self.userNameTxt setDelegate:self];
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
     activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-    
+    }
     activityIndicator.color=[UIColor whiteColor];
 //    NSString *userID = [NSString stringWithFormat:@"Table13a@Table13_67"];
 //    NSString *password = [NSString stringWithFormat:@"Table13a"];

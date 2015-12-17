@@ -170,7 +170,11 @@ static int curveValues[] = {
     appdelegate.navigator.navigationBarHidden = YES;
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     chatUsed = 1;
-    activityIndicator.center = CGPointMake(512, 374);
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
+        activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    }
     self.chatView.hidden=YES;
     
     activityIndicator.color=[UIColor whiteColor];
@@ -3288,10 +3292,18 @@ static int curveValues[] = {
         [self.bottomMenuView addSubview:self.ophemyLogoView];
     }
     int leftWidth;
-    if (IS_IPAD_Pro) {
-        leftWidth = 950;
+    if (isPingActive) {
+        if (IS_IPAD_Pro) {
+            leftWidth = 950;
+        }else{
+            leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        }
     }else{
-        leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        if (IS_IPAD_Pro) {
+            leftWidth = 1005;
+        }else{
+            leftWidth = self.bottomMenuView.frame.size.width - (self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width);
+        }
     }
     
     NSLog(@"Left Width = %d",leftWidth);
@@ -3309,10 +3321,18 @@ static int curveValues[] = {
         
         NSLog(@"Value of i ...... %d",j);
         UIButton *bottomBarBtn;
-        if (IS_IPAD_Pro) {
-            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+        if (isPingActive) {
+            if (IS_IPAD_Pro) {
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420+2,2,leftWidth/buttonsArray.count, 72)];
+            }else{
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            }
         }else{
-            bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            if (IS_IPAD_Pro) {
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+360+2,2,leftWidth/buttonsArray.count, 72)];
+            }else{
+                bottomBarBtn = [[UIButton alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width)+2,2,leftWidth/buttonsArray.count, self.bottomMenuView.frame.size.height)];
+            }
         }
         
         NSLog(@"%f,%f,%f,%f",bottomBarBtn.frame.origin.x,bottomBarBtn.frame.origin.y,bottomBarBtn.frame.size.width,bottomBarBtn.frame.size.height);
@@ -3330,11 +3350,21 @@ static int curveValues[] = {
             [bottomBarBtn setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
             CGRect frameIcon = bottomBarBtn.imageView.frame;
             NSLog(@"%f , %f , %f ,%f",frameIcon.origin.x,frameIcon.origin.y,frameIcon.size.width,frameIcon.size.height);
-            [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            if (IS_IPAD_Pro) {
+                [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,9, 20, 20)];
+            }else{
+                [self.otheMenuBatchImg setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            }
+            
             [bottomBarBtn addSubview:self.otheMenuBatchImg];
             [bottomBarBtn bringSubviewToFront:self.otheMenuBatchImg];
             
-            [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            if (IS_IPAD_Pro) {
+                [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,9, 20, 20)];
+            }else{
+                [self.otherMenuBatchLbl setFrame:CGRectMake(frameIcon.origin.x + frameIcon.size.width/2.5,0, 20, 20)];
+            }
+            
             [bottomBarBtn addSubview:self.otherMenuBatchLbl];
             [bottomBarBtn bringSubviewToFront:self.otherMenuBatchLbl];
             
@@ -3344,10 +3374,18 @@ static int curveValues[] = {
         [self.bottomMenuView addSubview:bottomBarBtn];
         
         UIImageView *seperatorImg;
-        if (IS_IPAD_Pro) {
-            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+        if (isPingActive) {
+            if (IS_IPAD_Pro) {
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+420,0,2,72)];
+            }else{
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            }
         }else{
-            seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            if (IS_IPAD_Pro) {
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+360,0,2,72)];
+            }else{
+                seperatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(j *leftWidth/buttonsArray.count+(self.ophemyLogoView.frame.origin.x + self.ophemyLogoView.frame.size.width),0,2,self.bottomMenuView.frame.size.height)];
+            }
         }
         seperatorImg.image = [UIImage imageNamed:@"stroke_13.png"];
         [self.bottomMenuView addSubview:seperatorImg];

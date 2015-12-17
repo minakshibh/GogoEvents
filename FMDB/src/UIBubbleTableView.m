@@ -230,10 +230,19 @@
     
     cell = [[UIBubbleTableViewCell alloc] init];
     if ([data.isCorner isEqualToString:@"Table"]) {
+        if (IS_IPAD_Pro) {
+            label = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width/2 + 370, -20, cell.frame.size.width, 50)];
+        }else{
         label = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width/2 + 170, -20, cell.frame.size.width, 50)];
+        }
 
     }else{
-        label = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width/2+30 , -20, cell.frame.size.width, 50)];
+        if (IS_IPAD_Pro) {
+             label = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width/2+150 , -20, cell.frame.size.width, 50)];
+        }else{
+             label = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width/2+30 , -20, cell.frame.size.width, 50)];
+        }
+       
 
     }
     

@@ -940,7 +940,11 @@
 }
 
 - (IBAction)exitAction:(id)sender {
+    if (IS_IPAD_Pro) {
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
     [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
     [self.view addSubview:self.exitPopUpView];
     
 }

@@ -121,60 +121,15 @@
     
     activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    activityIndicator.center = CGPointMake(512, 374);
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
+        activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    }
     
     activityIndicator.color=[UIColor whiteColor];
     [self.view addSubview:activityIndicator];
-    
-    //    NSMutableArray *chatMessages = [[NSMutableArray alloc]initWithObjects:@"hi",@"Hello",@"How are you?",@"I am good thanks",@"U tell", nil];
-    //    NSMutableArray *chatTime = [[NSMutableArray alloc]initWithObjects:@"12:03",@"12:04",@"12:05",@"12:06",@"12:07", nil];
-    //    NSMutableArray *chatuser = [[NSMutableArray alloc]initWithObjects:@"1",@"2",@"1",@"2",@"2", nil];
-    //    NSMutableArray *chatSender = [[NSMutableArray alloc]initWithObjects:@"1",@"2",@"1",@"2",@"2", nil];
-    //    chatDictionary = [[NSMutableDictionary alloc]initWithObjectsAndKeys:chatMessages,@"messages",chatTime,@"time",chatuser,@"user",chatSender,@"sender",nil];
-    //
-    //    NSLog(@"Chat Dictionary %@",chatDictionary);
-    //    allChatMessages = [[NSMutableArray alloc]init];
-    //
-    //    for (int i = 0; i < [chatMessages count]; i++) {
-    //        chatObj = [[chatOC alloc]init];
-    //        chatObj.chatMessage = [[chatDictionary valueForKey:@"messages"] objectAtIndex:i];
-    //        chatObj.chatTime = [[chatDictionary valueForKey:@"time"] objectAtIndex:i];
-    //        chatObj.chatUser = [[chatDictionary valueForKey:@"user"] objectAtIndex:i];
-    //        chatObj.chatSender = [[chatDictionary valueForKey:@"sender"] objectAtIndex:i];
-    //        [chatArray addObject:chatObj];
-    //
-    //        NSBubbleData *Bubble;
-    //
-    //        if([chatObj.chatSender isEqualToString:@"1"]){
-    //           Bubble = [NSBubbleData dataWithText:chatObj.chatMessage date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeMine];
-    //           Bubble.avatar = [UIImage imageNamed:@"avatar1.png"];
-    //        }else{
-    //            Bubble = [NSBubbleData dataWithText:chatObj.chatMessage date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];
-    //            Bubble.avatar = nil;
-    //        }
-    //
-    //        [allChatMessages addObject:Bubble];
-    //    }
-    //
-    //    self.chatTableView.bubbleDataSource = self;
-    //
-    //    self.chatTableView.snapInterval = 120;
-    //
-    //    self.chatTableView.showAvatars = YES;
-    //
-    //    self.chatTableView.typingBubble = NSBubbleTypingTypeSomebody;
-    //
-    //    [self.chatTableView reloadData];
-    //
-    //    self.chatTableView.bubbleDataSource = self;
-    //
-    //    self.chatTableView.snapInterval = 120;
-    //
-    //
-    //    self.chatTableView.typingBubble = NSBubbleTypingTypeSomebody;
-    //    NSLog(@"CHAT Array %@",chatObj);
-    //    [self.chatTableView reloadData];
-    //[self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -208,7 +163,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.tablesAllotedArray = [[NSMutableArray alloc]initWithObjects:[defaults valueForKey:@"Alloted Tables"], nil];
     NSMutableArray *tempArray = [self.tablesAllotedArray objectAtIndex:0];
-    NSLog(@"Tables... %d",self.tablesAllotedArray.count);
+    NSLog(@"Tables... %lu",(unsigned long)self.tablesAllotedArray.count);
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
     for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
@@ -337,7 +292,11 @@
 
 
 - (IBAction)menuExit:(id)sender {
+    if (IS_IPAD_Pro) {
+        [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
+    }else{
     [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
     [self.view addSubview:self.exitPopUpView];
     
 }
@@ -766,11 +725,6 @@
         pendingOrderPrice.lineBreakMode = NSLineBreakByCharWrapping;
         pendingOrderPrice.numberOfLines = 2;
         [cell.contentView addSubview:pendingOrderPrice];
-        
-        //        bottomOrderPopUpLine= [[UILabel alloc]initWithFrame:CGRectMake(0, 74, self.orderListPopUpTableView.frame.size.width, 1)];
-        //        bottomOrderPopUpLine.backgroundColor= [UIColor blackColor];
-        //        bottomOrderPopUpLine.alpha = 0.3;
-        //        [cell.contentView addSubview:bottomOrderPopUpLine];
         
         NSLog(@"OrderList %@",orderList);
         
@@ -1724,13 +1678,23 @@
         
         NSString *orderIdStr = pendingOrderObj.OrderId ;
         NSString *tableIdStr = pendingOrderObj.TableId ;
-        NSString *itemPlaced = [[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"] componentsJoinedByString:@", "];
-        NSLog(@"ItemName = %@",itemPlaced);
+        NSArray *itemPlacedArray = [pendingOrderObj.pendingOrderDetails  valueForKey:@"itemname"];
+        NSMutableArray *tableItemArray = [[NSMutableArray alloc] init];
+        NSRange tableItemRange;
+        for (int i = 0; i < itemPlacedArray.count; i++) {
+            NSString *tableItem =[NSString stringWithFormat:@"%@",[itemPlacedArray objectAtIndex:i]] ;
+            tableItemRange = [[tableItem lowercaseString] rangeOfString:[substring lowercaseString]];
+            if (tableItemRange.location==0) {
+                [tableItemArray addObject:tableItem];
+            }
+            
+        }
+        NSLog(@" OrderIds = %@, TableIds = %@", orderIdStr,tableIdStr);
         NSRange orderIdStringRange = [orderIdStr rangeOfString:substring];
         NSRange tableIdStringRange = [tableIdStr rangeOfString:substring];
-        NSRange itemNameStringRange = [itemPlaced rangeOfString:substring];
+      
         
-        if (orderIdStringRange.location == 0 ||  tableIdStringRange.location==0 || itemNameStringRange.location == 0)
+        if (orderIdStringRange.location == 0 ||  tableIdStringRange.location==0 || tableItemArray.count > 0)
         {
             
             [orderIdtempArray addObject:pendingOrderObj];

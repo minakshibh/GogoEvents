@@ -446,7 +446,6 @@
 		D959CE121BFDDF1700CE4BC4 /* password-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D959CE0A1BFDDF1600CE4BC4 /* password-icon@2x.png */; };
 		D959CE131BFDDF1700CE4BC4 /* user-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D959CE0B1BFDDF1600CE4BC4 /* user-icon.png */; };
 		D959CE141BFDDF1700CE4BC4 /* user-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D959CE0C1BFDDF1600CE4BC4 /* user-icon@2x.png */; };
-		D99C10A11BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png in Resources */ = {isa = PBXBuildFile; fileRef = D99C10A01BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png */; };
 		F965EAE81C15C10A006621F0 /* orderhistory.png in Resources */ = {isa = PBXBuildFile; fileRef = F965EAE71C15C10A006621F0 /* orderhistory.png */; };
 		F96A10C41C1A9DA1005C58E7 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */; };
 		F96A10C71C1AACE5005C58E7 /* dropdown-right.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C51C1AACE5005C58E7 /* dropdown-right.png */; };
@@ -1002,7 +1001,6 @@
 		D959CE0A1BFDDF1600CE4BC4 /* password-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "password-icon@2x.png"; sourceTree = "<group>"; };
 		D959CE0B1BFDDF1600CE4BC4 /* user-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon.png"; sourceTree = "<group>"; };
 		D959CE0C1BFDDF1600CE4BC4 /* user-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon@2x.png"; sourceTree = "<group>"; };
-		D99C10A01BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2015-11-18 at 10.00.14 am.png"; sourceTree = "<group>"; };
 		F965EAE71C15C10A006621F0 /* orderhistory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orderhistory.png; sourceTree = "<group>"; };
 		F96A10C21C1A9DA1005C58E7 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
@@ -2240,7 +2238,6 @@
 				97239F3B1AA5E2870062B0A2 /* Base64.m */,
 				97239F371AA5E25E0062B0A2 /* NSData+Base64.h */,
 				97239F381AA5E25E0062B0A2 /* NSData+Base64.m */,
-				D99C10A01BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png */,
 				180198451AA5CF2D0030E0F2 /* sprater */,
 				97D7D8461A8C8F6400DF888B /* loginLogo.png */,
 				97D7D85B1A8CA91A00DF888B /* loginBackground.png */,
@@ -2673,7 +2670,6 @@
 				97AE8B7D1A88B1D2007862C3 /* requestassistanc@2x.png in Resources */,
 				97AE8B1D1A88B1D2007862C3 /* cart@2x.png in Resources */,
 				97AE04FF1A3B229400A137DB /* chat-box-1.png in Resources */,
-				D99C10A11BFC366E00CAD173 /* Screen Shot 2015-11-18 at 10.00.14 am.png in Resources */,
 				D959CE111BFDDF1700CE4BC4 /* password-icon.png in Resources */,
 				97AE8BEF1A88B21A007862C3 /* box.png in Resources */,
 				97392DD31A1B4FFE00E4BB2B /* login_button.png in Resources */,
