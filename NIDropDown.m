@@ -58,18 +58,27 @@
     return self;
 }
 
--(void)hideDropDown:(UIButton *)b {
+-(void)hideDropDown:(UIButton *) b :(int )flag {
     CGRect btn = b.frame;
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    if ([animationDirection isEqualToString:@"up"]) {
-        self.frame = CGRectMake(btn.origin.x, btn.origin.y, btn.size.width, 0);
-    }else if ([animationDirection isEqualToString:@"down"]) {
-        self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, 0);
+    if (flag == 1) {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        if ([animationDirection isEqualToString:@"up"]) {
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y, btn.size.width, 0);
+        }else if ([animationDirection isEqualToString:@"down"]) {
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, 0);
+        }
+        table.frame = CGRectMake(0, 0, btn.size.width, 0);
+        [UIView commitAnimations];
+    }else{
+        if ([animationDirection isEqualToString:@"up"]) {
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y, btn.size.width, 0);
+        }else if ([animationDirection isEqualToString:@"down"]) {
+            self.frame = CGRectMake(btn.origin.x, btn.origin.y+btn.size.height, btn.size.width, 0);
+        }
+        table.frame = CGRectMake(0, 0, btn.size.width, 0);
     }
-    table.frame = CGRectMake(0, 0, btn.size.width, 0);
-    [UIView commitAnimations];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,7 +120,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self hideDropDown:btnSender];
+    [self hideDropDown:btnSender:1];
     
     UITableViewCell *c = [tableView cellForRowAtIndexPath:indexPath];
     [btnSender setTitle:c.textLabel.text forState:UIControlStateNormal];

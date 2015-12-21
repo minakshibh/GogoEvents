@@ -356,7 +356,7 @@
 #pragma mark -Fetch Open Orders List
 - (IBAction)openOrdersBtn:(id)sender {
     [self.view endEditing:YES];
-
+    
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -376,7 +376,10 @@
 #pragma mark -Fetch Delivered Orders List
 - (IBAction)deliveredOrderBtn:(id)sender {
     [self.view endEditing:YES];
-
+    [dropDown hideDropDown:self.requestCancellation :0];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
+    [self rel];
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -396,7 +399,10 @@
 #pragma mark -Fetch Processing Orders List
 - (IBAction)processingOrderBtn:(id)sender {
     [self.view endEditing:YES];
-
+    [dropDown hideDropDown:self.requestCancellation :0];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
+    [self rel];
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
@@ -417,7 +423,10 @@
 
 - (IBAction)btnRequest:(id)sender {
     [self.view endEditing:YES];
-
+    [dropDown hideDropDown:self.requestCancellation :0];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
+    [self rel];
     [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
@@ -650,11 +659,26 @@
         
         NSString *timeStr;
         if (days > 0) {
-            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+            if (days > 1) {
+                timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+            }else{
+                timeStr =[NSString stringWithFormat:@"%d DAY AGO",days];
+            }
+            
         }else if (hours > 0){
-            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+            if (hours > 1) {
+                timeStr =[NSString stringWithFormat:@"%d HOURS AGO",hours];
+            }else{
+                timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+            }
+            
         }else{
-            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+            if (minutes > 1) {
+                timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+            }else{
+                timeStr =[NSString stringWithFormat:@"%d MIN AGO",minutes];
+            }
+            
         }
         
 
@@ -738,7 +762,7 @@
         
         AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
         int p = [priceStr intValue];
-        pendingOrderquantity.text =[NSString stringWithFormat:@"QUANTITY: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
+        pendingOrderquantity.text =[NSString stringWithFormat:@"QTY: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
         pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         
@@ -1302,7 +1326,7 @@
             self.arrow1.hidden = NO;
             self.arrow2.hidden = NO;
             self.arrow3.hidden = YES;
-            self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED!!"];
+            self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED."];
             self.orderTime.text = [NSString stringWithString:timeStr];
         }
     
@@ -1763,7 +1787,7 @@
     else {
         [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
         editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
-        [dropDown hideDropDown:sender];
+        [dropDown hideDropDown:sender :1];
         [self rel];
     }
 }
@@ -1922,11 +1946,26 @@
     
     NSString *timeStr;
     if (days > 0) {
-        timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+        if (days > 1) {
+            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+        }else{
+            timeStr =[NSString stringWithFormat:@"%d DAY AGO",days];
+        }
+        
     }else if (hours > 0){
-        timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+        if (hours > 1) {
+            timeStr =[NSString stringWithFormat:@"%d HOURS AGO",hours];
+        }else{
+            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+        }
+        
     }else{
-        timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+        if (minutes > 1) {
+            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+        }else{
+            timeStr =[NSString stringWithFormat:@"%d MIN AGO",minutes];
+        }
+        
     }
     
     if ([StatusTag isEqualToString:@"Open"]) {
@@ -1940,7 +1979,7 @@
         self.orderStatusLbl.hidden = NO;
         self.orderTime.hidden = NO;
         editOrderImage.hidden = NO;
-        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS PLACED!!"];
+        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS PLACED."];
         self.orderTime.text = [NSString stringWithString:timeStr];
     }else if([StatusTag isEqualToString:@"processing"])
     {
@@ -1954,7 +1993,7 @@
         self.orderStatusLbl.hidden = NO;
         self.orderTime.hidden = NO;
         editOrderImage.hidden = YES;
-        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED!!"];
+        self.orderStatusLbl.text = [NSString stringWithFormat:@"ORDER WAS ACCEPTED."];
         self.orderTime.text = [NSString stringWithString:timeStr];
     }else if ([StatusTag isEqualToString:@"delivered"])
     {

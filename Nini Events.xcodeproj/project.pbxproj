@@ -312,6 +312,9 @@
 		F97907301C22B52800546664 /* requestassistanceselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F979072E1C22B52800546664 /* requestassistanceselect@2x.png */; };
 		F97907331C22B59A00546664 /* requestassistance.png in Resources */ = {isa = PBXBuildFile; fileRef = F97907311C22B59A00546664 /* requestassistance.png */; };
 		F97907341C22B59A00546664 /* requestassistance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97907321C22B59A00546664 /* requestassistance@2x.png */; };
+		F9EF7B341C23D09F0015858A /* popup-big-scren-bg_19.png in Resources */ = {isa = PBXBuildFile; fileRef = F9EF7B331C23D09F0015858A /* popup-big-scren-bg_19.png */; };
+		F9EF7B361C23DEE40015858A /* header-contain-box.png in Resources */ = {isa = PBXBuildFile; fileRef = F9EF7B351C23DEE40015858A /* header-contain-box.png */; };
+		F9EF7B381C23DF360015858A /* close2.png in Resources */ = {isa = PBXBuildFile; fileRef = F9EF7B371C23DF360015858A /* close2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -723,6 +726,9 @@
 		F979072E1C22B52800546664 /* requestassistanceselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "requestassistanceselect@2x.png"; path = "../iPad-Mini/requestassistanceselect@2x.png"; sourceTree = "<group>"; };
 		F97907311C22B59A00546664 /* requestassistance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = requestassistance.png; sourceTree = "<group>"; };
 		F97907321C22B59A00546664 /* requestassistance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "requestassistance@2x.png"; path = "../iPad-Mini/requestassistance@2x.png"; sourceTree = "<group>"; };
+		F9EF7B331C23D09F0015858A /* popup-big-scren-bg_19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popup-big-scren-bg_19.png"; sourceTree = "<group>"; };
+		F9EF7B351C23DEE40015858A /* header-contain-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-contain-box.png"; sourceTree = "<group>"; };
+		F9EF7B371C23DF360015858A /* close2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1218,6 +1224,9 @@
 		F979057B1C2295F600546664 /* iPad-Mini */ = {
 			isa = PBXGroup;
 			children = (
+				F9EF7B371C23DF360015858A /* close2.png */,
+				F9EF7B351C23DEE40015858A /* header-contain-box.png */,
+				F9EF7B331C23D09F0015858A /* popup-big-scren-bg_19.png */,
 				F979072D1C22B52800546664 /* requestassistanceselect.png */,
 				F97907311C22B59A00546664 /* requestassistance.png */,
 				F979057C1C2295F600546664 /* addtocart.png */,
@@ -1488,6 +1497,7 @@
 				D959CDF01BFDB79D00CE4BC4 /* right-arrow@2x.png in Resources */,
 				F97906BA1C229A2F00546664 /* 76@2x.png in Resources */,
 				F97906411C2295F600546664 /* right-arrow.png in Resources */,
+				F9EF7B341C23D09F0015858A /* popup-big-scren-bg_19.png in Resources */,
 				F979066D1C2295F600546664 /* ophemy-logo2x.png in Resources */,
 				F979061B1C2295F600546664 /* back.png in Resources */,
 				97A01B6F1A8E273200C12C06 /* eventImagesSlideViewViewController.xib in Resources */,
@@ -1515,6 +1525,7 @@
 				F97906681C2295F600546664 /* increaseselect@2x.png in Resources */,
 				F97906391C2295F600546664 /* ophemy-logo.png in Resources */,
 				F96A10CB1C1AB193005C58E7 /* dropdown-downWhite.png in Resources */,
+				F9EF7B361C23DEE40015858A /* header-contain-box.png in Resources */,
 				F979067E1C2295F600546664 /* stroke_13@2x.png in Resources */,
 				F97907141C22A0F600546664 /* ophemy-logo2x@2x.png in Resources */,
 				9783C69F1A89CE7F0030CA45 /* OrderListTableViewCell.xib in Resources */,
@@ -1562,6 +1573,7 @@
 				F97906291C2295F600546664 /* drink.png in Resources */,
 				F97906371C2295F600546664 /* menu.png in Resources */,
 				18C74DE41AA8642A004418D4 /* niniEvents.sqlite in Resources */,
+				F9EF7B381C23DF360015858A /* close2.png in Resources */,
 				F979066F1C2295F600546664 /* orderhistoryselect@2x.png in Resources */,
 				F97906561C2295F600546664 /* close_13@2x.png in Resources */,
 				F979064E1C2295F600546664 /* addtocart@2x.png in Resources */,
