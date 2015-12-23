@@ -19,7 +19,7 @@
 @implementation serviceProviderHomeViewController
 
 - (void)viewDidLoad {
-    
+    flag = 0;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CompareDate"];
     orderIdtempArray=[[NSMutableArray alloc]init];
     savDataArray=[[NSMutableArray alloc]init];
@@ -32,7 +32,7 @@
     nameLbl.text=serviceProviderName;
     roleLbl.text=serviceProviderRole;
     nameLbl.font = [UIFont fontWithName:@"Helvetica-Condensed" size:18];
-    roleLbl.font = [UIFont fontWithName:@"Helvetica-Light" size:18];
+    roleLbl.font = [UIFont fontWithName:@"Helvetica-Light" size:16];
     NSString*picUrl=[[NSUserDefaults standardUserDefaults ]valueForKey:@"Service Provider image"];
     
     
@@ -356,11 +356,13 @@
 #pragma mark -Fetch Open Orders List
 - (IBAction)openOrdersBtn:(id)sender {
     [self.view endEditing:YES];
-    
-    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
-    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    if (searchOrdrTxt.text.length == 0) {
+        flag = 0;
+    }
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     self.requestCancellation.hidden = NO;
     self.requestModification.hidden = NO;
     self.orderDeliveredTick.hidden = YES;
@@ -376,14 +378,17 @@
 #pragma mark -Fetch Delivered Orders List
 - (IBAction)deliveredOrderBtn:(id)sender {
     [self.view endEditing:YES];
+    if (searchOrdrTxt.text.length == 0) {
+        flag = 0;
+    }
     [dropDown hideDropDown:self.requestCancellation :0];
-    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, 338, 9, 15)];
     editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
     [self rel];
-    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
-    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     self.requestCancellation.hidden = YES;
     self.requestModification.hidden = YES;
     self.arrow1.hidden = YES;
@@ -399,14 +404,17 @@
 #pragma mark -Fetch Processing Orders List
 - (IBAction)processingOrderBtn:(id)sender {
     [self.view endEditing:YES];
+    if (searchOrdrTxt.text.length == 0) {
+        flag = 0;
+    }
     [dropDown hideDropDown:self.requestCancellation :0];
-    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, 338, 9, 15)];
     editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
     [self rel];
-    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
-    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     self.requestCancellation.hidden = YES;
     self.requestModification.hidden = YES;
     self.orderDeliveredTick.hidden = YES;
@@ -423,14 +431,17 @@
 
 - (IBAction)btnRequest:(id)sender {
     [self.view endEditing:YES];
+    if (searchOrdrTxt.text.length == 0) {
+        flag = 0;
+    }
     [dropDown hideDropDown:self.requestCancellation :0];
-    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, 338, 9, 15)];
     editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
     [self rel];
-    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
     self.requestCancellation.hidden = YES;
     self.requestModification.hidden = YES;
     self.orderDeliveredTick.hidden = YES;
@@ -459,10 +470,6 @@
         return [tableAllotedIdsArray count];
     }
     else{
-//        if([StatusTag isEqualToString:@"request"])
-//        {
-//            return savDataArray.count;
-//        }
         return [orderList count];
     }
 }
@@ -1169,22 +1176,6 @@
         NSMutableArray *pendingOrdersList;
         pendingOrdersList = [[NSMutableArray alloc]initWithArray:[userDetailDict valueForKey:@"ListPendingOrder"]];
         
-//        
-//        NSMutableArray *requestArray;
-//        if ([StatusTag isEqualToString:@"request"])
-//        {
-//           requestArray = [[NSMutableArray alloc]initWithArray:[userDetailDict valueForKey:@"ModificationData"]];
-//        }
-//        
-//        for (int j=0; j<requestArray.count; j++) {
-//            pendingOrderObj = [[pendingOrdersOC alloc] init];
-//            pendingOrderObj.comments = [[requestArray valueForKey:@"comments"]objectAtIndex:j];
-//            pendingOrderObj.isCompleted = [[requestArray valueForKey:@"isCompleted"]objectAtIndex:j];
-//            pendingOrderObj.requestid = [[requestArray valueForKey:@"requestid"]objectAtIndex:j];
-//            [orderList addObject:pendingOrderObj];
-//            [savDataArray addObject:pendingOrderObj];
-//        }
-//        [self.orderTableView reloadData];
         
         if(pendingOrdersList.count != 0){
             NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"maxtimestamp"]];
@@ -1221,7 +1212,8 @@
         if ([orderList count] != 0) {
             self.orderNumberLbl.hidden = NO;
             self.spNotesTextView.hidden = NO;
-           // [self showOrder:0];
+            emptyOrderLbl.hidden = YES;
+
         }else{
              pendingOrderObj = [[pendingOrdersOC alloc] init];
             self.orderTime.hidden = YES;
@@ -1240,7 +1232,7 @@
                 self.requestCancellation.hidden = YES;
                 self.requestModification.hidden = YES;
             self.spNotesTextView.hidden = YES;
-            
+            [self showPopUpLabel];
         }
         [self scrollToTop];
         
@@ -1743,7 +1735,12 @@
    
     
     
-    
+    flag = 1;
+    if (orderList.count == 0) {
+        [self showPopUpLabel];
+    }else{
+        emptyOrderLbl.hidden = YES;
+    }
     [self.orderTableView reloadData];
     if (orderList.count>0) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -1778,14 +1775,14 @@
     NSArray * arr = [[NSArray alloc] init];
     arr = [NSArray arrayWithObjects:@"Request Cancelation", @"Request Modification", @"Mark In Process",nil];
     if(dropDown == nil) {
-        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 15, 9)];
+        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y+5, 15, 9)];
         editOrderImage.image = [UIImage imageNamed:@"dropdown-downWhite.png"];
         CGFloat f = arr.count * 40;
         dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :@"down"];
         dropDown.delegate = self;
     }
     else {
-        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+        [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y-5, 9, 15)];
         editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
         [dropDown hideDropDown:sender :1];
         [self rel];
@@ -1793,7 +1790,7 @@
 }
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender :(NSString *)buttonTitle {
-    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y, 9, 15)];
+    [editOrderImage setFrame:CGRectMake(editOrderImage.frame.origin.x, editOrderImage.frame.origin.y-5, 9, 15)];
     editOrderImage.image = [UIImage imageNamed:@"dropdown-right.png"];
     NSLog(@"%@",buttonTitle);
     if ([buttonTitle isEqualToString:@"REQUEST MODIFICATION"]||[buttonTitle isEqualToString:@"REQUEST CANCELATION"]) {
@@ -2146,5 +2143,18 @@
 - (IBAction)OkAction:(id)sender {
     [self.requestPopUpView removeFromSuperview];
     [self.sideScroller setUserInteractionEnabled:YES];
+}
+-(void)showPopUpLabel{
+  
+        emptyOrderLbl.hidden = NO;
+        if(flag == 0){
+            emptyOrderLbl.text = @"No Result found.";
+            NSLog(@"No result found");
+        }
+        else{
+            emptyOrderLbl.text = @"No search result found.";
+            NSLog(@"No search result found");
+        }
+
 }
 @end

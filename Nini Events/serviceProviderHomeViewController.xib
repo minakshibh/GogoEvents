@@ -5,8 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Helvetica-Condensed.otf">
+            <string>Helvetica-Condensed</string>
+        </mutableArray>
         <mutableArray key="helvetica-condensed-bold.ttf">
-            <string>Helvetica-CondensedBold</string>
             <string>Helvetica-CondensedBold</string>
         </mutableArray>
     </customFonts>
@@ -21,6 +23,7 @@
                 <outlet property="deliveredbtn" destination="HJi-hN-7ET" id="Znd-kL-DCM"/>
                 <outlet property="disabledImgView" destination="xEH-Y3-kdS" id="Ivz-bm-uEe"/>
                 <outlet property="editOrderImage" destination="srs-Gr-aTI" id="xjj-BX-PEc"/>
+                <outlet property="emptyOrderLbl" destination="kkh-fI-Nyt" id="K3n-28-Ig4"/>
                 <outlet property="enterReasonLbl" destination="sjp-gM-pUt" id="lqg-9X-dhp"/>
                 <outlet property="exit" destination="I8b-Yq-CO4" id="A8B-zp-SgQ"/>
                 <outlet property="exitPopUpView" destination="VqV-Aj-DXa" id="MBR-aa-G3u"/>
@@ -237,7 +240,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.9946236559139785" green="0.989247311827957" blue="1" alpha="0.050000000000000003" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
-                            <state key="normal" title="OPEN" backgroundImage="checkoutselect.png">
+                            <state key="normal" title="OPEN" backgroundImage="checkout.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -280,7 +283,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
-                            <state key="normal" title="DELIVERED" backgroundImage="checkout.png">
+                            <state key="normal" title="DELIVERED" backgroundImage="checkoutselect.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -324,7 +327,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
-                            <state key="normal" title="PROCESSING" backgroundImage="checkout.png">
+                            <state key="normal" title="PROCESSING" backgroundImage="checkoutselect.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -337,7 +340,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
-                            <state key="normal" title="REQUEST" backgroundImage="checkout.png">
+                            <state key="normal" title="REQUEST" backgroundImage="checkoutselect.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -510,7 +513,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Helvetica-CondensedBold" family="Helvetica-Condensed" pointSize="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="Qzt-FZ-IGR"/>
@@ -533,7 +536,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VJo-oE-iVk">
                             <rect key="frame" x="799" y="106" width="211" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -607,8 +610,15 @@
                             <rect key="frame" x="711" y="66" width="80" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kkh-fI-Nyt">
+                            <rect key="frame" x="6" y="198" width="668" height="310"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Condensed" family="Helvetica" pointSize="25"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disable568.png" id="xEH-Y3-kdS">
-                            <rect key="frame" x="1" y="-21" width="1024" height="767"/>
+                            <rect key="frame" x="4" y="-10" width="1024" height="767"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>

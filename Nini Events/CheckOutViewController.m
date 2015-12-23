@@ -167,11 +167,11 @@
     float taxes=0.00;
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
     
-    taxesPriceLbl.text=[NSString stringWithFormat:@"%@%.2f",appdelegate.currencySymbol,taxes];
-    deliveryChargPriceLbl.text=[NSString stringWithFormat:@"%@%.2f",appdelegate.currencySymbol,delievrycharg];
-    foodDrinkPriceLbl.text = [NSString stringWithFormat:@"%@%d.00",appdelegate.currencySymbol,k];
+    taxesPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,taxes];
+    deliveryChargPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,delievrycharg];
+    foodDrinkPriceLbl.text = [NSString stringWithFormat:@"%@ %d.00",appdelegate.currencySymbol,k];
     totalPrice=k+taxes+delievrycharg;
-    orderTotalPriceLbl.text=[NSString stringWithFormat:@"%@%.2f",appdelegate.currencySymbol,k+taxes+delievrycharg];
+    orderTotalPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,k+taxes+delievrycharg];
     [database close];
     
     [self.orderTableView reloadData];

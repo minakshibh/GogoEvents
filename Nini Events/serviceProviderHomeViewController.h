@@ -45,6 +45,8 @@
     IBOutlet UIButton *modificationRequestCloseBtn;
     IBOutlet UIImageView *editOrderImage;
     IBOutlet UIButton *btnRequest;
+    int flag;
+    IBOutlet UILabel *emptyOrderLbl;
 }
 - (IBAction)btnRequest:(id)sender;
 - (IBAction)menuOrdersBtn:(id)sender;

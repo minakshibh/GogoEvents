@@ -27,7 +27,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8LL-bN-1G5">
-            <rect key="frame" x="0.0" y="0.0" width="1025" height="768"/>
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="sXV-Ka-uDz">
@@ -672,7 +672,7 @@
         <image name="notificationcircle.png" width="14" height="15"/>
         <image name="ophemy-logo2x.png" width="588" height="138"/>
         <image name="orderhistory.png" width="47" height="50"/>
-        <image name="requestassistance.png" width="42" height="38"/>
+        <image name="requestassistance.png" width="83" height="74"/>
         <image name="sidebar_02.png" width="245" height="738"/>
         <image name="spcorner.png" width="55" height="57"/>
         <image name="startneworder.png" width="60" height="49"/>

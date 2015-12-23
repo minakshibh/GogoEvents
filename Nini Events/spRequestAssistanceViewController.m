@@ -139,7 +139,7 @@
         }
         [assignedTableTimestampsArray addObject:timeStamp];
     }
-    
+ 
     NSString *ids = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Service Provider ID"]];
     NSString *user =[NSString stringWithFormat:@"serviceprovider"];
     NSString *assignedTableList = [NSString stringWithFormat:@"%@",assignedTableListStr];
@@ -257,10 +257,7 @@
         SBJsonParser *json = [[SBJsonParser alloc] init];
         
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
-        NSLog(@"Dictionary %@",userDetailDict);
-        //        NSString *orderTypeStr =[NSString stringWithFormat:@"%@",StatusTag];
-        //        [self pendingPlacedOrder:orderTypeStr];
-        
+        NSLog(@"Dictionary %@",userDetailDict);        
         
         NSMutableArray *tablesOfSP = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"TableList"]];
        

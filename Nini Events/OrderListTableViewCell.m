@@ -37,7 +37,7 @@
     self.orderStatusLbl.textColor = [UIColor blackColor];
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
     
-    self.orderTimeLbl.text = [NSString stringWithFormat:@"%@%@",appdelegate.currencySymbol,price];
+    self.orderTimeLbl.text = [NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,price];
     self.itemNames.text = [[NSString stringWithFormat:@"%@",itemNames]uppercaseString];
 }
 

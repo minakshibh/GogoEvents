@@ -1012,7 +1012,7 @@ static int curveValues[] = {
         cell.backgroundColor = [UIColor clearColor];
         menuItemsObj = [menuItemsDetailsArray objectAtIndex:indexPath.row];
         itemName.text = [NSString stringWithFormat:@"%@",menuItemsObj.ItemName];
-        priceLabel.text =[NSString stringWithFormat:@"%@%@",appdelegate.currencySymbol,menuItemsObj.Price];
+        priceLabel.text =[NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,menuItemsObj.Price];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [UIImage imageWithData:data];
@@ -1089,7 +1089,7 @@ static int curveValues[] = {
         placeOrderObj = [placeOrderList objectAtIndex:indexPath.row];
         placedorderName.text =[NSString stringWithFormat:@"%@",placeOrderObj.itemName];
         placeOrderquantity.text =[NSString stringWithFormat:@"Quantity: %d",placeOrderObj.Quantity];
-        placedOrderPrice.text = [NSString stringWithFormat:@"%@%d",appdelegate.currencySymbol,placeOrderObj.Price];
+        placedOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,placeOrderObj.Price];
     }
     
     else if (tableView == self.pendingOrdersTableView)
@@ -2592,7 +2592,7 @@ static int curveValues[] = {
     }
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
-    self.totalAmountLbl.text = [NSString stringWithFormat:@"%@%d",appdelegate.currencySymbol,k];
+    self.totalAmountLbl.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,k];
     NSLog(@"Notes %@",[defaults valueForKey:@"Note"]);
     if ([[NSString stringWithFormat:@"%@",[defaults valueForKey:@"Note"]] isEqualToString:@"(null)"]) {
         self.orderNoteLbl.text =[NSString stringWithFormat:@"Please add your note."];

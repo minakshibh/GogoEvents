@@ -392,15 +392,9 @@
     orderNumberStr = [orderNumberStr uppercaseString];
     itemNamesArray = [[NSMutableArray alloc]init];
     
-    NSString *str = [NSString stringWithFormat:@"%@",[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"]];
-    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@" " withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@"(" withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@")" withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    str = [str stringByReplacingOccurrencesOfString:@"," withString:@", "];
+    NSString *itemNameStr = [[pendingOrderObj.pendingOrderDetails valueForKey:@"itemname"] componentsJoinedByString:@" , "];
     
-    [cell setLabelText:[NSString stringWithString:statusStr] :[NSString stringWithString:timeStr] :[NSString stringWithFormat: @"ORDER NUMBER : %@",orderNumberStr]: str];
+    [cell setLabelText:[NSString stringWithString:statusStr] :[NSString stringWithString:timeStr] :[NSString stringWithFormat: @"ORDER NUMBER : %@",orderNumberStr]: [itemNameStr uppercaseString]];
     
     UIButton *showDetailoBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [showDetailoBtn setTitle: @"VIEW DETAILS" forState: UIControlStateNormal];

@@ -18,7 +18,7 @@
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
     name.text = [[NSString stringWithFormat:@"%@",orderName]uppercaseString];
-    priceLbl.text = [NSString stringWithFormat:@"%@%.2f",appdelegate.currencySymbol,[price floatValue]];
+    priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[price floatValue]];
     quantityLbl.text = [NSString stringWithFormat:@"%d",quantity];
    // NSData* data = [[NSData alloc] initWithBase64EncodedString:imageUrl options:0];
     // UIImage* img1 = [UIImage imageWithData:data];
