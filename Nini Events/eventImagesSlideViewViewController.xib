@@ -22,6 +22,7 @@
                 <outlet property="sideMenuWithoutReqAssistance" destination="Uk0-kI-si3" id="OTb-KV-rCU"/>
                 <outlet property="sideScroller" destination="sXV-Ka-uDz" id="7bf-4j-QQd"/>
                 <outlet property="slideMenuBtn" destination="pze-fm-nSt" id="Pcv-a9-Vv6"/>
+                <outlet property="topHeaderView" destination="0mN-YL-cfZ" id="BK6-QZ-5qo"/>
                 <outlet property="view" destination="8LL-bN-1G5" id="Wyf-fM-Ro6"/>
             </connections>
         </placeholder>
@@ -35,8 +36,18 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="0mN-YL-cfZ">
-                            <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1024" height="51"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vq2-yU-26o">
+                                    <rect key="frame" x="0.0" y="50" width="1028" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" red="0.67843137249999996" green="0.1450980392" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="zVi-fy-5A0">
@@ -361,7 +372,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-90.5" y="16"/>
+            <point key="canvasLocation" x="-91" y="16"/>
         </view>
         <view contentMode="scaleToFill" id="NxM-Se-Q8F">
             <rect key="frame" x="0.0" y="0.0" width="1026" height="55"/>

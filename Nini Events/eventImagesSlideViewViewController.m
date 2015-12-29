@@ -170,12 +170,16 @@
         lbldesc.lineBreakMode = NSLineBreakByWordWrapping;
         lbldesc.numberOfLines = 0;
         [lbldesc sizeToFit];
-        [lbldesc setFrame:CGRectMake(lbldesc.frame.origin.x, scrMain.frame.size.height - lbldesc.frame.size.height-20, lbldesc.frame.size.width, lbldesc.frame.size.height)];
+        [lbldesc setFrame:CGRectMake(lbldesc.frame.origin.x, scrMain.frame.size.height - lbldesc.frame.size.height-90, lbldesc.frame.size.width, lbldesc.frame.size.height)];
         if (![string isEqualToString:@""]) {
             UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, lbldesc.frame.origin.y - 20, scrMain.frame.size.width, lbldesc.frame.size.height+40)];
             paddingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
             [imgV addSubview:paddingView];
             [imgV addSubview:lbldesc];
+            
+            UILabel *whiteStrip = [[UILabel alloc] initWithFrame:CGRectMake(0, paddingView.frame.size.height-1, paddingView.frame.size.width, 1)];
+            whiteStrip.backgroundColor = [UIColor whiteColor];
+            [paddingView addSubview:whiteStrip];
         }
         
 //        lbldesc .hidden=YES;
@@ -971,14 +975,15 @@
     [pgCtr removeFromSuperview];
     double width = [[UIScreen mainScreen] bounds].size.width;
     if (IS_IPAD_Pro) {
-        scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 68, width, 865)];
+        scr=[[UIScrollView alloc] initWithFrame:CGRectMake(2, 0, width-4, 1005)];
     }else{
-    scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 51, 1024, 641)];
+    scr=[[UIScrollView alloc] initWithFrame:CGRectMake(0, 21, 1024, 748)];
     }
     scr.tag = 1;
     [scr setUserInteractionEnabled:NO];
     scr.autoresizingMask=UIViewAutoresizingNone;
     [self.sideScroller addSubview:scr];
+    
     [self setupScrollView:scr];
     pgCtr = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 70, 1024, 50)];
     [pgCtr setTag:12];
@@ -992,6 +997,8 @@
     [self.view addGestureRecognizer:letterTapRecognizer];
     
     [activityIndicator stopAnimating];
+    [self.sideScroller bringSubviewToFront:topHeaderView];
+    [self.sideScroller bringSubviewToFront:self.bottomMenuView];
 }
 - (IBAction)exitNoAction:(id)sender {
     [self.exitPopUpView removeFromSuperview];

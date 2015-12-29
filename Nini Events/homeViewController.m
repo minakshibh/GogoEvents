@@ -91,13 +91,7 @@ static int curveValues[] = {
         self.otheMenuBatchImg.hidden = YES;
     }
     
-
-    NSString *eventStatus = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Status"]];
     NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
-    NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
-    
-    NSString *SlideShow = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
-    
     if ([eventChatSupport isEqualToString:@"False"]) {
         [self.sideMenuWithoutReqAssistance setFrame:CGRectMake(-269, 19, self.sideMenuWithoutReqAssistance.frame.size.width, self.sideMenuWithoutReqAssistance.frame.size.height)];
         [self.sideScroller addSubview:self.sideMenuWithoutReqAssistance];
@@ -106,12 +100,6 @@ static int curveValues[] = {
         [self.sideMenuWithoutReqAssistance removeFromSuperview];
         
     }
-//    if ([eventStatus isEqualToString:@"0"]) {
-//        [self.footerWithoutEventsDetail setFrame:CGRectMake(0, 704, self.footerWithoutEventsDetail.frame.size.width, self.footerWithoutEventsDetail.frame.size.height)];
-//        [self.sideScroller addSubview:self.footerWithoutEventsDetail];
-//    }else{
-//        [self.footerWithoutEventsDetail removeFromSuperview];
-//    }
     
     NSLog(@"Image Tag Value..... %d",self.itemTag);
     NSLog(@"Menu Tag Value..... %d",self.menuTagValue);
@@ -204,46 +192,10 @@ static int curveValues[] = {
     
     [self.menuTableView reloadData];
     [self orderlist];
-    [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    // Do any additional setup after loading the view from its nib.
-    
-    //~~~~~~~~~~~~~~~~~ 2nd Xib~~~~~~~~~~~~~~~//
-    //    self.menuBgView.layer.borderColor = [UIColor grayColor].CGColor;
-    //    self.menuBgView.layer.borderWidth = 1.5;
-    //    self.menuBgView.layer.cornerRadius = 0.0;
-    //
-    //    [self.view setUserInteractionEnabled:YES];
-    //    for (int i = 0; i < [menuDisplayItemsArray count]; i++) {
-    //        UIButton *menuItemBtn;
-    //        if (i == 2) {
-    //            menuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *85 +105, 5,135, 40)];
-    //        }else if (i == 3){
-    //            menuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *85 +105, 5, 85, 40)];
-    //        }
-    //        else{
-    //            menuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *85 +105, 5, 85, 40)];
-    //        }
-    //        menuItemBtn.tag = i;
-    //        [menuItemBtn setTitle:[NSString stringWithFormat:@"%@",[menuDisplayItemsArray objectAtIndex:i]] forState:UIControlStateNormal];
-    //
-    //        [menuItemBtn setTitleColor:[UIColor colorWithRed:12/255.0f green:99/255.0f blue:158/255.0f alpha:1] forState:UIControlStateNormal] ;
-    //        [menuItemBtn setUserInteractionEnabled:YES];
-    //        menuItemBtn.titleLabel.font =[UIFont fontWithName:@"Helvetica Neue" size:14];
-    //
-    //        if(i != 3){
-    //        UILabel *menuItemSeperator = [[UILabel alloc] initWithFrame:CGRectMake(menuItemBtn.frame.origin.x+menuItemBtn.frame.size.width,0, 1, self.menuBgView.frame.size.height)];
-    //        [menuItemSeperator setBackgroundColor:[UIColor grayColor]];
-    //        [self.menuBgView addSubview:menuItemSeperator];
-    //        }
-    //        [menuItemBtn addTarget:self action:@selector(openSubMenu:) forControlEvents:UIControlEventTouchUpInside];
-    //        [self.menuBgView addSubview:menuItemBtn];
-    //        [self.view bringSubviewToFront:menuItemBtn];
-    //        [self.menuBgView bringSubviewToFront:menuItemBtn];
-    //   }
     submenuTagValue = 1;
     UIControl* sender;
     

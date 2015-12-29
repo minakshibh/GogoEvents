@@ -111,15 +111,6 @@
         [self.sideMenuWithoutReqAssistance removeFromSuperview];
         
     }
-//    if ([eventStatus isEqualToString:@"0"]) {
-//        [self.footerWithoutEventsDetail setFrame:CGRectMake(0, 704, self.footerWithoutEventsDetail.frame.size.width, self.footerWithoutEventsDetail.frame.size.height)];
-//        [self.sideScroller addSubview:self.footerWithoutEventsDetail];
-//    }else{
-//        [self.footerWithoutEventsDetail removeFromSuperview];
-//    }
-
-
-
 }
 
 - (void)didReceiveMemoryWarning {

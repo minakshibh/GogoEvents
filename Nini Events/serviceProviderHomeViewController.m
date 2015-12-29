@@ -363,6 +363,7 @@
     [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
     [btnRequest setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+    [self.requestCancellation setTitle:@"EDIT ORDER" forState:UIControlStateNormal];
     self.requestCancellation.hidden = NO;
     self.requestModification.hidden = NO;
     self.orderDeliveredTick.hidden = YES;
@@ -1966,7 +1967,7 @@
     }
     
     if ([StatusTag isEqualToString:@"Open"]) {
-        [self.orderStatus setTitle:@"MARK IN PROCESS" forState:UIControlStateNormal];
+        [self.orderStatus setTitle:@"EDIT ORDER" forState:UIControlStateNormal];
         self.requestCancellation.hidden = NO;
         self.requestModification.hidden = NO;
         self.orderDeliveredTick.hidden = YES;

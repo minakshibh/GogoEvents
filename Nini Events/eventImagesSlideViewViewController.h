@@ -20,6 +20,7 @@
     NSTimer *hideTimer, *fetchTimer;
     UIActivityIndicatorView *activityIndicator;
 
+    IBOutlet UIView *topHeaderView;
     
     IBOutlet UIButton *Slideshow;
     
