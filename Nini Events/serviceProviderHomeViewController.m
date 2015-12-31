@@ -1309,9 +1309,9 @@
         if ([StatusTag isEqualToString:@"Open"]) {
             [self pendingPlacedOrder:[NSString stringWithFormat:@"processing"]];
             StatusTag =[NSString stringWithFormat:@"processing"];
-            [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-            [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
-            [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+            [self.openBtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+            [self.deliveredbtn setBackgroundImage:[UIImage imageNamed:@"checkoutselect.png"] forState:UIControlStateNormal];
+            [self.processingBtn setBackgroundImage:[UIImage imageNamed:@"checkout.png"] forState:UIControlStateNormal];
             self.orderStatus.hidden = YES;
             self.requestCancellation.hidden = NO;
             self.requestModification.hidden = NO;
@@ -2030,7 +2030,16 @@
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@")" withString:@""];
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         requestLbl.hidden = NO;
-        requestLbl.text = commentStr;
+        NSString *resonTitle = @"Reason";
+        NSString *yourString = [NSString stringWithFormat:@"%@ - %@",resonTitle,commentStr];
+        //  NSString *yourString = [NSString stringWithFormat:@"%@ by R.R. Kumar",eventName];
+        NSMutableAttributedString *yourAttributedString = [[NSMutableAttributedString alloc] initWithString:yourString];
+        NSString *boldString = [NSString stringWithFormat:@"%@",resonTitle];
+        //    NSString *boldString = [NSString stringWithFormat:@"R.R. Kumar"];
+        NSRange boldRange = [yourString rangeOfString:boldString];
+        [yourAttributedString addAttribute: NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16] range:boldRange];
+        [requestLbl setAttributedText: yourAttributedString];
+       
     }
     [self pendingOrderItems:indexPath.row];
     

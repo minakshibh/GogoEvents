@@ -482,7 +482,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDateFormatter *dateformate=[[NSDateFormatter alloc]init];
     
-    [dateformate setDateFormat:@"YYYYMMddHHmmss"];
+    [dateformate setDateFormat:@"yyyyMMddHHmmss"];
     
     NSString *date_String=[dateformate stringFromDate:[NSDate date]];
     
