@@ -90,13 +90,15 @@
         [self.sideMenuWithoutReqAssistance removeFromSuperview];
         
     }
-//    if ([eventStatus isEqualToString:@"0"]) {
-//        [self.footerWithoutEventsDetail setFrame:CGRectMake(0, 704, self.footerWithoutEventsDetail.frame.size.width, self.footerWithoutEventsDetail.frame.size.height)];
-//        [self.sideScroller addSubview:self.footerWithoutEventsDetail];
-//    }else{
-//        [self.footerWithoutEventsDetail removeFromSuperview];
-//    }
-
+    NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
+    if ([freeTag isEqualToString:@"Free"]) {
+        priceingView.hidden = YES;
+        [self.checkOutBtn setFrame:CGRectMake(self.checkOutBtn.frame.origin.x, self.checkOutBtn.frame.origin.y - 160, self.checkOutBtn.frame.size.width, self.checkOutBtn.frame.size.height)];
+        [checkoutPriceDetailView addSubview:self.checkOutBtn];
+        
+    }else{
+        priceingView.hidden = NO;
+    }
     [self fetchOrders];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

@@ -680,8 +680,16 @@ static int curveValues[] = {
     [self.decreaseBtn setFrame:CGRectMake(81, 14 , 35, 35.0)];
     }
     [self.footerView addSubview:self.increaseBtn];
+    NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
+    if ([freeTag isEqualToString:@"Free"]) {
+        self.priceLbl.hidden = YES;
+        priceTagLbl.hidden = YES;
+    }else{
+        self.priceLbl.hidden = NO;
+        priceTagLbl.hidden = NO;
+        self.priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[menuItemsObj.Price floatValue]];
+    }
     
-    self.priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[menuItemsObj.Price floatValue]];
     self.quantityLbl.text = [NSString stringWithFormat:@"%d",menuItemsObj.Quantity];
     self.headerTitleLbl.text = headerTitleName;
     [self changeQuantity:[[NSString stringWithFormat:@"%d",menuItemsObj.ItemId] intValue]];

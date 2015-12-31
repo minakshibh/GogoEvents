@@ -18,7 +18,14 @@
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
     name.text = [[NSString stringWithFormat:@"%@",orderName]uppercaseString];
-    priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[price floatValue]];
+    NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
+    if ([freeTag isEqualToString:@"Free"]) {
+        priceLbl.hidden = YES;
+    }else{
+        priceLbl.hidden = NO;
+         priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[price floatValue]];
+    }
+   
     quantityLbl.text = [NSString stringWithFormat:@"%d",quantity];
    // NSData* data = [[NSData alloc] initWithBase64EncodedString:imageUrl options:0];
     // UIImage* img1 = [UIImage imageWithData:data];

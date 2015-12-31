@@ -37,6 +37,7 @@
                 <outlet property="pingBtn" destination="IZ8-M9-7aR" id="mkV-Xn-tZT"/>
                 <outlet property="pingMessageView" destination="gr2-NG-FmR" id="Ow3-l4-4JF"/>
                 <outlet property="priceLbl" destination="poZ-zy-aHM" id="GSD-fV-f0T"/>
+                <outlet property="priceTagLbl" destination="yKP-NZ-aNT" id="7bg-MU-dGF"/>
                 <outlet property="quantityLbl" destination="9cX-WC-xZ9" id="aKK-87-z7U"/>
                 <outlet property="scrollerimage" destination="NQV-tH-Ta2" id="Klv-19-FJe"/>
                 <outlet property="showMinimizeItemImage" destination="4xl-Wb-aKu" id="Bte-A3-0BB"/>

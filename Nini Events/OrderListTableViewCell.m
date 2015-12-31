@@ -36,8 +36,14 @@
     self.orderStatusLbl.text = [NSString stringWithFormat:@"QUANTITY: %@",quantity];
     self.orderStatusLbl.textColor = [UIColor blackColor];
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
+    NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
+    if ([freeTag isEqualToString:@"Free"]) {
+        self.orderTimeLbl.hidden = YES;
+    }else{
+        self.orderTimeLbl.hidden = NO;
+        self.orderTimeLbl.text = [NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,price];
+    }
     
-    self.orderTimeLbl.text = [NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,price];
     self.itemNames.text = [[NSString stringWithFormat:@"%@",itemNames]uppercaseString];
 }
 

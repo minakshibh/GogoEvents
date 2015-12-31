@@ -24,6 +24,7 @@
     NSMutableArray *itemList,*itemsIDArray, *itemsNameArray,*cuisineArray,*typeIDArray,*quantityArray, *itemsImageArray, *itemPriceArray,*processingOrderList;
     NSMutableArray *orderList,* placeOrderList, * placeOrderPriceCount,* placeOrderItemName,* pendingOrderListArray,*quantityCounts,*drinksCategoryIds;
     NSMutableArray *pendingOrderItemNameArray,*pendingOrderItemPriceArray,*pendingOrderItemQuantityArray,*pendingOrderTimeOfDeliveryArray,* chatArray, *allChatMessages;
+    IBOutlet UILabel *priceTagLbl;
     NSMutableDictionary *menuContentDict,*menuItemContentDict;
     NSArray *categoryFirst,* categorySecond;
     NSMutableData *webData;

@@ -28,6 +28,7 @@
     UIButton *increaseItemBtn;
     IBOutlet UIView *checkoutPriceDetailView;
     NSTimer *hideTimer;
+    IBOutlet UIView *priceingView;
     
     
     
@@ -69,6 +70,7 @@
 - (IBAction)checkOutView:(id)sender;
 - (IBAction)ophemyAction:(id)sender;
 - (IBAction)Slideshow:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *checkOutBtn;
 @property (strong, nonatomic) IBOutlet UITextView *notesTextView;
 @property (strong, nonatomic) IBOutlet UILabel *batchLbl;
 @property (strong, nonatomic) IBOutlet UIView *sideMenuWithoutReqAssistance;
