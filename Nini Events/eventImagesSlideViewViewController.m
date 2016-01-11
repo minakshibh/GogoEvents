@@ -486,12 +486,20 @@
             [defaults setValue:eventChatSupport forKey:@"Event Chat Support"];
             [defaults setValue:[userDetailDict valueForKey:@"EventName"] forKey:@"EventName"];
             [defaults setValue:[userDetailDict valueForKey:@"ListEventDetails"] forKey:@"ListEventDetails"];
+            [defaults setValue:[userDetailDict valueForKey:@"IsfreeEvent"] forKey:@"Is Paid"];
             [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
             AppDelegate *appdelegate=[[UIApplication sharedApplication]delegate];
             NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
-            NSRange range = [currencyStr rangeOfString:@"("];
-            NSString *substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            substring = [substring substringToIndex:1];
+            NSString *substring;
+             NSLog(@"%@",currencyStr);
+            if (![currencyStr isEqualToString:@""]) {
+                NSRange range = [currencyStr rangeOfString:@"("];
+                substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                substring = [substring substringToIndex:1];
+            }else{
+                substring = @"";
+            }
+            
             
             
             appdelegate.currencySymbol=substring;

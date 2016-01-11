@@ -681,7 +681,7 @@ static int curveValues[] = {
     }
     [self.footerView addSubview:self.increaseBtn];
     NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
-    if ([freeTag isEqualToString:@"Free"]) {
+    if ([freeTag isEqualToString:@"1"]) {
         self.priceLbl.hidden = YES;
         priceTagLbl.hidden = YES;
     }else{

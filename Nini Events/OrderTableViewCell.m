@@ -19,7 +19,7 @@
 
     name.text = [[NSString stringWithFormat:@"%@",orderName]uppercaseString];
     NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
-    if ([freeTag isEqualToString:@"Free"]) {
+    if ([freeTag isEqualToString:@"1"]) {
         priceLbl.hidden = YES;
     }else{
         priceLbl.hidden = NO;

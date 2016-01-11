@@ -27,11 +27,23 @@
     }
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
-    currencySymbolLbl.text=appdelegate.currencySymbol;
+    NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
+    if ([freeTag isEqualToString:@"1"]) {
+        currencySymbolLbl.hidden = YES;
+        self.totalPriceLbl.hidden = YES;
+        totalLbl.hidden = YES;
+    }else{
+        currencySymbolLbl.hidden = NO;
+        self.totalPriceLbl.hidden = NO;
+        totalLbl.hidden = NO;
+        currencySymbolLbl.text=appdelegate.currencySymbol;
+        float totalBill=[[NSString stringWithFormat:@"%@",pendingOrderObj.TotalBill ]floatValue];
+        self.totalPriceLbl.text=[NSString stringWithFormat: @"%.2f",totalBill];
+    }
+    
     
     self.headrLbl.text=[NSString stringWithFormat:@"ORDER NUMBER: %@", pendingOrderObj.OrderId ];
-    float totalBill=[[NSString stringWithFormat:@"%@",pendingOrderObj.TotalBill ]floatValue];
-    self.totalPriceLbl.text=[NSString stringWithFormat: @"%.2f",totalBill];
+    
     NSLog(@"NOTES...... %@",pendingOrderObj.note);
     self.notesTextView.text = [NSString stringWithFormat:@"%@",pendingOrderObj.note];
     orderListArray=[[NSMutableArray alloc]init];

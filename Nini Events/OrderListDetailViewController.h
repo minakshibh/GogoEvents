@@ -15,6 +15,7 @@
     NSMutableData *webData;
     UIActivityIndicatorView *activityIndicator;
     IBOutlet UILabel *currencySymbolLbl;
+    IBOutlet UILabel *totalLbl;
 }
 @property (strong, nonatomic) NSString*type;
 @property (strong, nonatomic) IBOutlet UILabel *headrLbl;

@@ -297,15 +297,23 @@
         [defaults setValue:eventChatSupport forKey:@"Event Chat Support"];
         [defaults setValue:[userDetailDict valueForKey:@"EventName"] forKey:@"EventName"];
         [defaults setValue:[userDetailDict valueForKey:@"ListEventDetails"] forKey:@"ListEventDetails"];
+        [defaults setValue:[userDetailDict valueForKey:@"IsfreeEvent"] forKey:@"Is Paid"];
         [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
         [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
         [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
+    
         NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
+    NSLog(@"%@",currencyStr);
+    NSString *substring;
+    if (![currencyStr isEqualToString:@""]) {
         NSRange range = [currencyStr rangeOfString:@"("];
-        NSString *substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         substring = [substring substringToIndex:1];
-        
-        
+    }else{
+        substring = @"";
+    }
+    
+    
         self.currencySymbol=substring;
         
         if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {

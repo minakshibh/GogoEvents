@@ -91,7 +91,7 @@
         
     }
     NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
-    if ([freeTag isEqualToString:@"Free"]) {
+    if ([freeTag isEqualToString:@"1"]) {
         priceingView.hidden = YES;
         [self.checkOutBtn setFrame:CGRectMake(self.checkOutBtn.frame.origin.x, self.checkOutBtn.frame.origin.y - 160, self.checkOutBtn.frame.size.width, self.checkOutBtn.frame.size.height)];
         [checkoutPriceDetailView addSubview:self.checkOutBtn];

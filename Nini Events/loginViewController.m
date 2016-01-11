@@ -460,7 +460,7 @@
                 [defaults setValue:[userDetailDict valueForKey:@"eventId"] forKey:@"Event ID"];
                 [defaults removeObjectForKey:@"userImage"];
                 [defaults setValue:[userDetailDict valueForKey:@"id"] forKey:@"Ipad ID"];
-                [defaults setValue:@"" forKey:@"Is Paid"];
+                
                 
                 
 //                if (![prevEventIdStr isEqualToString:newEventIdStr]) {

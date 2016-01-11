@@ -37,7 +37,7 @@
     self.orderStatusLbl.textColor = [UIColor blackColor];
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
     NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
-    if ([freeTag isEqualToString:@"Free"]) {
+    if ([freeTag isEqualToString:@"1"]) {
         self.orderTimeLbl.hidden = YES;
     }else{
         self.orderTimeLbl.hidden = NO;
