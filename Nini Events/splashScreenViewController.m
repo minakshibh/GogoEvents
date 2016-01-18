@@ -46,13 +46,14 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"%@",[defaults valueForKey:@"isLogedOut"]);
     NSString *isLogedOut;
+    NSString *isTerminated = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"isTerminated"]];
     if ([defaults valueForKey:@"isLogedOut"] == NULL ) {
         isLogedOut =[NSString stringWithFormat:@"YES"];
     }else{
         isLogedOut =[NSString stringWithFormat:@"%@",[defaults valueForKey:@"isLogedOut"]];
     }
     NSLog(@"ROLE... %@",[defaults valueForKey:@"Role"]);
-    if ([isLogedOut isEqualToString:@"YES"]) {
+    if ([isLogedOut isEqualToString:@"YES"] || [isTerminated isEqualToString:@"1"]) {
         loginViewController *loginVC = [[loginViewController alloc]initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }else{

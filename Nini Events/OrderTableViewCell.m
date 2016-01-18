@@ -23,7 +23,7 @@
         priceLbl.hidden = YES;
     }else{
         priceLbl.hidden = NO;
-         priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[price floatValue]];
+         priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],[price floatValue]];
     }
    
     quantityLbl.text = [NSString stringWithFormat:@"%d",quantity];

@@ -36,7 +36,7 @@
         currencySymbolLbl.hidden = NO;
         self.totalPriceLbl.hidden = NO;
         totalLbl.hidden = NO;
-        currencySymbolLbl.text=appdelegate.currencySymbol;
+        currencySymbolLbl.text=[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"];
         float totalBill=[[NSString stringWithFormat:@"%@",pendingOrderObj.TotalBill ]floatValue];
         self.totalPriceLbl.text=[NSString stringWithFormat: @"%.2f",totalBill];
     }

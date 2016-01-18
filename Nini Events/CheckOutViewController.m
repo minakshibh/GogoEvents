@@ -169,11 +169,11 @@
     float taxes=0.00;
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
     
-    taxesPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,taxes];
-    deliveryChargPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,delievrycharg];
-    foodDrinkPriceLbl.text = [NSString stringWithFormat:@"%@ %d.00",appdelegate.currencySymbol,k];
+    taxesPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",[defaults valueForKey:@"Currency Value"],taxes];
+    deliveryChargPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",[defaults valueForKey:@"Currency Value"],delievrycharg];
+    foodDrinkPriceLbl.text = [NSString stringWithFormat:@"%@ %d.00",[defaults valueForKey:@"Currency Value"],k];
     totalPrice=k+taxes+delievrycharg;
-    orderTotalPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,k+taxes+delievrycharg];
+    orderTotalPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",[defaults valueForKey:@"Currency Value"],k+taxes+delievrycharg];
     [database close];
     
     [self.orderTableView reloadData];
@@ -636,6 +636,10 @@
             homeVC.isNewOrder = NO;
             homeVC.isOrderPlaced = YES;
             [self.navigationController pushViewController:homeVC animated:NO];
+        }else{
+            NSString *message = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GOGO Events" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
         }
         [self enable];
         [activityIndicator stopAnimating];

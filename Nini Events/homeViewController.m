@@ -687,7 +687,7 @@ static int curveValues[] = {
     }else{
         self.priceLbl.hidden = NO;
         priceTagLbl.hidden = NO;
-        self.priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",appdelegate.currencySymbol,[menuItemsObj.Price floatValue]];
+        self.priceLbl.text = [NSString stringWithFormat:@"%@ %.2f",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],[menuItemsObj.Price floatValue]];
     }
     
     self.quantityLbl.text = [NSString stringWithFormat:@"%d",menuItemsObj.Quantity];
@@ -972,7 +972,7 @@ static int curveValues[] = {
         cell.backgroundColor = [UIColor clearColor];
         menuItemsObj = [menuItemsDetailsArray objectAtIndex:indexPath.row];
         itemName.text = [NSString stringWithFormat:@"%@",menuItemsObj.ItemName];
-        priceLabel.text =[NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,menuItemsObj.Price];
+        priceLabel.text =[NSString stringWithFormat:@"%@ %@",[[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"] valueForKey:@"Currency Value"],menuItemsObj.Price];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [UIImage imageWithData:data];
@@ -1049,7 +1049,7 @@ static int curveValues[] = {
         placeOrderObj = [placeOrderList objectAtIndex:indexPath.row];
         placedorderName.text =[NSString stringWithFormat:@"%@",placeOrderObj.itemName];
         placeOrderquantity.text =[NSString stringWithFormat:@"Quantity: %d",placeOrderObj.Quantity];
-        placedOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,placeOrderObj.Price];
+        placedOrderPrice.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],placeOrderObj.Price];
     }
     
     else if (tableView == self.pendingOrdersTableView)
@@ -1284,14 +1284,14 @@ static int curveValues[] = {
             int p = [priceStr intValue];
             pendingOrderquantity.text =[NSString stringWithFormat:@"Quantity: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
 
-            pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+            pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],p];
         }else{
             
             pendingorderName.text =[NSString stringWithFormat:@"%@",[pendingOrderItemNameArray objectAtIndex:indexPath.row]];
             NSString *priceStr = [NSString stringWithFormat:@"%@",[pendingOrderItemPriceArray objectAtIndex:indexPath.row]];
             int p = [priceStr intValue];
             pendingOrderquantity.text =[NSString stringWithFormat:@"Quantity: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
-            pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+            pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],p];
         }
         
         
@@ -1452,7 +1452,7 @@ static int curveValues[] = {
 
         NSString *totalStr = [NSString stringWithFormat:@"%@",pendingOrderObj.TotalBill];
         int p = [totalStr intValue];
-        self.pendingOrderTotalLbl.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,tempPrice];
+        self.pendingOrderTotalLbl.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],tempPrice];
         [self.pendingOrderTotalLbl setFont:[UIFont fontWithName:@"Poor Richard" size:18]];
         [self pendingOrderItems:indexPath.row];
         
@@ -1501,7 +1501,7 @@ static int curveValues[] = {
         int p = [totalStr intValue];
         AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
-        self.pendingOrderTotalLbl.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,tempPrice];
+        self.pendingOrderTotalLbl.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],tempPrice];
         [self.pendingOrderTotalLbl setFont:[UIFont fontWithName:@"Poor Richard" size:18]];
         [self processingOrders:indexPath.row];
         
@@ -2552,7 +2552,7 @@ static int curveValues[] = {
     }
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
-    self.totalAmountLbl.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,k];
+    self.totalAmountLbl.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],k];
     NSLog(@"Notes %@",[defaults valueForKey:@"Note"]);
     if ([[NSString stringWithFormat:@"%@",[defaults valueForKey:@"Note"]] isEqualToString:@"(null)"]) {
         self.orderNoteLbl.text =[NSString stringWithFormat:@"Please add your note."];
@@ -2878,7 +2878,7 @@ static int curveValues[] = {
     [self.itemView setBackgroundColor: [UIColor clearColor]];
     NSLog(@"ITEMID.. %d , %d",menuItemsObj.ItemId,[self.quantityLbl.text intValue]);
     [self orderList:[NSString stringWithFormat:@"%d",menuItemsObj.ItemId] :[self.quantityLbl.text intValue]];
-    
+    [self.view setUserInteractionEnabled:NO];
     self.headerView.hidden = YES;
     self.footerView.hidden = YES;
     self.itemImageView.hidden = YES;
@@ -2946,7 +2946,11 @@ static int curveValues[] = {
         theFrame.origin.y += 250;
         self.itemView.frame = theFrame;
         
-    } completion:^(BOOL finished){[self.view bringSubviewToFront:self.sideScroller];}];
+    } completion:^(BOOL finished){
+        [self.view bringSubviewToFront:self.sideScroller];
+        [self.view setUserInteractionEnabled:YES];
+    }];
+    
     [self.viewOrderBtn setUserInteractionEnabled:YES];
     
     [self orderlist];

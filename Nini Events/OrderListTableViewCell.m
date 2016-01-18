@@ -41,7 +41,7 @@
         self.orderTimeLbl.hidden = YES;
     }else{
         self.orderTimeLbl.hidden = NO;
-        self.orderTimeLbl.text = [NSString stringWithFormat:@"%@ %@",appdelegate.currencySymbol,price];
+        self.orderTimeLbl.text = [NSString stringWithFormat:@"%@ %@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],price];
     }
     
     self.itemNames.text = [[NSString stringWithFormat:@"%@",itemNames]uppercaseString];

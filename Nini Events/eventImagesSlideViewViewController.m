@@ -503,7 +503,7 @@
             
             
             appdelegate.currencySymbol=substring;
-           
+           [defaults setValue:substring forKey:@"Currency Value"];
             if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
                 
                 NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];

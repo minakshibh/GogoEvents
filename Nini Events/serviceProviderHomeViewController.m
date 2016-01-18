@@ -771,7 +771,7 @@
         AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
         int p = [priceStr intValue];
         pendingOrderquantity.text =[NSString stringWithFormat:@"QTY: %@",[pendingOrderItemQuantityArray objectAtIndex:indexPath.row]];
-        pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+        pendingOrderPrice.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],p];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         
     }else if (tableView == self.allotedTablesTableView)
@@ -1909,7 +1909,7 @@
     int p = [totalStr intValue];
     AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
 
-    self.orderPopUpTotalBill.text = [NSString stringWithFormat:@"%@ %d",appdelegate.currencySymbol,p];
+    self.orderPopUpTotalBill.text = [NSString stringWithFormat:@"%@ %d",[[NSUserDefaults standardUserDefaults] valueForKey:@"Currency Value"],p];
     self.orderNumberLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
     self.spNotesTextView.text = [NSString stringWithFormat:@"%@",pendingOrderObj.note];
     NSDate *startTime;

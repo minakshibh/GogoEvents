@@ -279,6 +279,9 @@
         
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
+    NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
+    if([resultStr isEqualToString:@"0"])
+    {
         NSString *pdfUrl = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"EventPdfUrl"]];
         NSString *eventStatus = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"EventTabVisiblity"]];
         NSString *PingAssistance = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"PingAssistance"]];
@@ -301,7 +304,8 @@
         [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
         [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
         [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
-    
+        [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
+        
         NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
     NSLog(@"%@",currencyStr);
     NSString *substring;
@@ -315,7 +319,7 @@
     
     
         self.currencySymbol=substring;
-        
+        [defaults setValue:substring forKey:@"Currency Value"];
         if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
             
             NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
@@ -335,6 +339,10 @@
         else{
             [defaults setValue:@"" forKey:@"EventPictureUrl"];
         }
+    }else{
+       
+    }
     
 }
+
 @end
