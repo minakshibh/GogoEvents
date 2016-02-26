@@ -215,7 +215,16 @@ static int curveValues[] = {
     }
     UIButton *check = (UIButton*)[sender viewWithTag:sender.tag];
     NSLog(@"BUTTON TITLE...... %@",check.titleLabel.text);
-    mainItemName = [NSString stringWithFormat:@"%@",check.titleLabel.text ];
+    if (sender == nil) {
+        if (self.menuTagValue == 1) {
+            mainItemName = [NSString stringWithFormat:@"FOOD"];
+        }else{
+            mainItemName = [NSString stringWithFormat:@"DRINKS"];
+        }
+    }else{
+        mainItemName = [NSString stringWithFormat:@"%@",check.titleLabel.text ];
+    }
+    
     if ([mainItemName isEqualToString:@"FOOD"]) {
         [self.foodBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.drinksbtn setTitleColor:[UIColor colorWithRed:176/255.0f green:176/255.0f blue:176/255.0f alpha:1] forState:UIControlStateNormal];
@@ -621,14 +630,14 @@ static int curveValues[] = {
 }
 - (void)imageTapped:(UITapGestureRecognizer *)sender{
     [self.view sendSubviewToBack:self.mainMenuFooter];
-    
+   
     CGRect theFrame = self.itemView.frame;
-    theFrame.size.height = self.view.bounds.size.height-20;
+    theFrame.size.height = 748;
     theFrame.origin.x = 0.0f;
     theFrame.origin.y = 20.0f;
     theFrame.size.width = self.view.bounds.size.width;
     self.itemView.frame = theFrame;
-    
+     NSLog(@"Height = %f", theFrame.size.height);
     
     itemImagePage.hidden = NO;
     self.headerView.hidden = NO;
@@ -1780,7 +1789,7 @@ static int curveValues[] = {
     [self.noteTextView resignFirstResponder];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:gestureRecognizer.view.tag];
     if (indexPath.section == 3) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"ARE YOU SURE YOU WANT TO EXIT?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:@"ARE YOU SURE YOU WANT TO EXIT?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
         alert.tag = 1000;
         [alert show];
         
@@ -1794,7 +1803,7 @@ static int curveValues[] = {
                 
             }
         }else{
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOUR ASSISTANCE HAS BEEN DELIVERED." delegate:nil cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:@"YOUR ASSISTANCE HAS BEEN DELIVERED." delegate:nil cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
             [alert show];
         }
     }else{
@@ -2317,7 +2326,7 @@ static int curveValues[] = {
         NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
         if([resultStr isEqualToString:@"0"])
         {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"Your order is placed successfully." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:@"Your order is placed successfully." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             alert.tag = 999;
             [defaults setValue:@"" forKey:@"Note"];
             [alert show];
@@ -2897,15 +2906,15 @@ static int curveValues[] = {
             theFrame.size.width -= 950.0f;
         }
         
-        self.itemView.frame = theFrame;
+        //self.itemView.frame = theFrame;
     }];
     
     [UIView animateWithDuration:0.5f animations:^{
         CGRect theFrame = itemImagePage.frame;
-        theFrame.size.height = 240.f;
-        theFrame.origin.x = 0.0f;
-        theFrame.origin.y = 20.0f;
-        theFrame.size.width = 225.0f;
+        theFrame.size.height -= 800.0;
+        theFrame.origin.x += 832.0f;
+        theFrame.origin.y += 628.0f;
+        theFrame.size.width -= 832.0f;
         
         itemImagePage.frame = theFrame;
     }];

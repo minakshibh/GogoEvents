@@ -638,7 +638,7 @@
             [self.navigationController pushViewController:homeVC animated:NO];
         }else{
             NSString *message = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"message"]];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GOGO Events" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OPHEMY" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
         }
         [self enable];

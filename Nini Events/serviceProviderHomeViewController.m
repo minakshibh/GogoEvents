@@ -1796,7 +1796,7 @@
     NSLog(@"%@",buttonTitle);
     if ([buttonTitle isEqualToString:@"REQUEST MODIFICATION"]||[buttonTitle isEqualToString:@"REQUEST CANCELATION"]) {
         if (self.orderNumberLbl.text == nil) {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR MODIFICATION" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:@"YOU ARE HAVING NO ORDER FOR MODIFICATION" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }else{
             if (self.modificationPopUpView.hidden == YES) {

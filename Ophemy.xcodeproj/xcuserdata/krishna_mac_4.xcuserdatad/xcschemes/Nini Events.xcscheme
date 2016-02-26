@@ -17,7 +17,7 @@
                BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
                BuildableName = "Nini Events.app"
                BlueprintName = "Nini Events"
-               ReferencedContainer = "container:Nini Events.xcodeproj">
+               ReferencedContainer = "container:Ophemy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "97D973FA1A19FF8F0093056E"
                BuildableName = "Nini EventsTests.xctest"
                BlueprintName = "Nini EventsTests"
-               ReferencedContainer = "container:Nini Events.xcodeproj">
+               ReferencedContainer = "container:Ophemy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "97D973FA1A19FF8F0093056E"
                BuildableName = "Nini EventsTests.xctest"
                BlueprintName = "Nini EventsTests"
-               ReferencedContainer = "container:Nini Events.xcodeproj">
+               ReferencedContainer = "container:Ophemy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
             BlueprintName = "Nini Events"
-            ReferencedContainer = "container:Nini Events.xcodeproj">
+            ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
             BlueprintName = "Nini Events"
-            ReferencedContainer = "container:Nini Events.xcodeproj">
+            ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -101,7 +101,7 @@
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
             BlueprintName = "Nini Events"
-            ReferencedContainer = "container:Nini Events.xcodeproj">
+            ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

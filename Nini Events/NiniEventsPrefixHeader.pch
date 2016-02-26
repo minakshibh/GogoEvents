@@ -18,9 +18,9 @@
 #endif
 
 
-//#define Kwebservices @"http://service.www.ophemy.com/ninievents.asmx"
+#define Kwebservices @"http://ophemy-001-site2.ctempurl.com/ninievents.asmx"
 
-#define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
+//#define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
 
 #define PdfWebUrl @"http://112.196.24.205:1071/EventPdf"
 

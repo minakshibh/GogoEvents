@@ -339,6 +339,9 @@
         else{
             [defaults setValue:@"" forKey:@"EventPictureUrl"];
         }
+        
+        _startIdleTimmer = YES;
+        [self resetIdleTimer];
     }else{
        
     }

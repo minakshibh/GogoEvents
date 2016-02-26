@@ -177,7 +177,7 @@
             [imgV addSubview:paddingView];
             [imgV addSubview:lbldesc];
             
-            UILabel *whiteStrip = [[UILabel alloc] initWithFrame:CGRectMake(0, paddingView.frame.size.height-1, paddingView.frame.size.width, 1)];
+            UILabel *whiteStrip = [[UILabel alloc] initWithFrame:CGRectMake(0, paddingView.frame.size.height-7, paddingView.frame.size.width, 1)];
             whiteStrip.backgroundColor = [UIColor whiteColor];
             [paddingView addSubview:whiteStrip];
         }
@@ -488,6 +488,7 @@
             [defaults setValue:[userDetailDict valueForKey:@"ListEventDetails"] forKey:@"ListEventDetails"];
             [defaults setValue:[userDetailDict valueForKey:@"IsfreeEvent"] forKey:@"Is Paid"];
             [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
+            [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
             AppDelegate *appdelegate=[[UIApplication sharedApplication]delegate];
             NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
             NSString *substring;
@@ -565,9 +566,7 @@
             self.assisstanceNotificationBadgeImg.hidden = YES;
             self.assisstanceNotificationBadgeLbl.hidden = YES;
         }
-        AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
-        appdelegate.startIdleTimmer = YES;
-        [appdelegate resetIdleTimer];
+        
         //   [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(repeatWebservice) userInfo:nil repeats:YES];
     }else if (webServiceCode == 4)
     {

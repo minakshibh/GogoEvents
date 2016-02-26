@@ -55,7 +55,7 @@
 
 
 - (IBAction)exitAction:(id)sender {
-     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"ARE YOU SURE YOU WANT TO EXIT?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
+     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:@"ARE YOU SURE YOU WANT TO EXIT?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES",nil];
     alert.tag = 1;
     [alert show];
 }

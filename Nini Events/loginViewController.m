@@ -18,9 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSString *userID = [NSString stringWithFormat:@"vipTablea@vipTable_260"];
-//    NSString *password = [NSString stringWithFormat:@"vipTablea"];
-//    [self loginWebservice:userID :password];
+    NSString *userID = [NSString stringWithFormat:@"Table1a@Table1_1"];
+    NSString *password = [NSString stringWithFormat:@"Table1a"];
+    [self loginWebservice:userID :password];
     
      lblbackground.layer.cornerRadius = 4.0;  [lblbackground setClipsToBounds:YES];
     self.loginBtn.layer.cornerRadius = 4.0;  [self.loginBtn setClipsToBounds:YES];
@@ -269,7 +269,9 @@
                 homeVC.isNewOrder = NO;
                 [self.navigationController pushViewController:homeVC animated:NO];
             }
-            
+            appdelegate = [[UIApplication sharedApplication] delegate];
+            appdelegate.startIdleTimmer = YES;
+            [appdelegate resetIdleTimer];
         }
     }
     else if (webServiceCode == 2){
@@ -487,7 +489,7 @@
         }else{
             [self enable];
             [activityIndicator stopAnimating];
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:[userDetailDict valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"OPHEMY" message:[userDetailDict valueForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
         
@@ -585,10 +587,40 @@
             [defaults setValue:eventChatSupport forKey:@"Event Chat Support"];
             [defaults setValue:[userDetailDict valueForKey:@"EventName"] forKey:@"EventName"];
             [defaults setValue:[userDetailDict valueForKey:@"ListEventDetails"] forKey:@"ListEventDetails"];
+            [defaults setValue:[userDetailDict valueForKey:@"IsfreeEvent"] forKey:@"Is Paid"];
             [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
-            [defaults setValue:[userDetailDict valueForKey:@"EventDocuments"] forKey:@"EventDocuments"];
-            [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
-            [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
+            appdelegate=[[UIApplication sharedApplication]delegate];
+            NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
+            NSString *substring;
+            NSLog(@"%@",currencyStr);
+            if (![currencyStr isEqualToString:@""]) {
+                NSRange range = [currencyStr rangeOfString:@"("];
+                substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                substring = [substring substringToIndex:1];
+            }else{
+                substring = @"";
+            }
+            
+            
+            
+            appdelegate.currencySymbol=substring;
+            [[NSUserDefaults standardUserDefaults] setValue:substring forKey:@"Currency Value"];
+            if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
+                
+                NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+                
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", eventImageStr]];
+                NSData *data = [NSData dataWithContentsOfURL:url];
+                //  UIImage *img = [UIImage imageWithData:data];
+                
+                //   NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
+                NSString *strEncoded = [Base64 encode:data];
+                
+                eventImageStr = [NSString stringWithString:strEncoded];
+                
+                [defaults setValue:eventImageStr forKey:@"EventPictureUrl"];
+                
+            }
         }
         [self registerDevice];
     }
@@ -619,7 +651,7 @@
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-    webServiceCode =5;
+    webServiceCode = 5;
     if(connection)
     {
         if(webData==nil)

@@ -41,28 +41,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nini Events/splashScreenViewController.m"
-            timestampString = "474355734.15879"
+            filePath = "Nini Events/loginViewController.m"
+            timestampString = "476086109.124957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-presentnextView"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Nini Events/CheckOutViewController.m"
-            timestampString = "474455991.14354"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
             landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
