@@ -316,7 +316,7 @@ static int curveValues[] = {
         for (int i = 0; i < [menuCategoryArray count]; i++) {
             UIButton *subMenuItemBtn;
             NSLog(@"Value of i ...... %d",i);
-            UILabel *pageName = [[UILabel alloc] init];
+            
             if (IS_IPAD_Pro) {
                 subMenuItemBtn = [[UIButton alloc] initWithFrame:CGRectMake(i *1366/content.count+2,1,1366/content.count, 65)];
             }else{
@@ -526,7 +526,7 @@ static int curveValues[] = {
     FMResultSet *queryResults = [database executeQuery:queryString];
     while([queryResults next]) {
         NSString *categoryName = [queryResults stringForColumn:@"categoryName"];
-        headerTitleName = [[NSString stringWithString:categoryName]uppercaseString];
+//        headerTitleName = [[NSString stringWithString:categoryName]uppercaseString];
         self.itemTypeName.text = [[NSString stringWithString:categoryName] uppercaseString];
     }
     [database close];
@@ -604,8 +604,8 @@ static int curveValues[] = {
                 pageName.frame = CGRectMake(0,380 ,679, 50);
                 y=y+431;
             }else{
-                page.frame = CGRectMake(511, y, 510, 350);
-                pageName.frame = CGRectMake(0,300 ,510, 50);
+                page.frame = CGRectMake(511, y, 511, 350);
+                pageName.frame = CGRectMake(0,300 ,511, 50);
                 y=y+351;
             }
             
@@ -679,9 +679,7 @@ static int curveValues[] = {
     UIImage *itemsImage1 = [UIImage imageWithData:data1];
     self.showMinimizeItemImage.image = itemsImage1;
 
-    
-    AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
-    if (IS_IPAD_Pro) {
+   if (IS_IPAD_Pro) {
         [self.increaseBtn setFrame:CGRectMake(228, 18 , 50, 49.0)];
         [self.decreaseBtn setFrame:CGRectMake(105, 18 , 50, 49.0)];
     }else{
@@ -700,7 +698,7 @@ static int curveValues[] = {
     }
     
     self.quantityLbl.text = [NSString stringWithFormat:@"%d",menuItemsObj.Quantity];
-    self.headerTitleLbl.text = headerTitleName;
+    self.headerTitleLbl.text = [[NSString stringWithFormat:@"%@",menuItemsObj.ItemName]uppercaseString];
     [self changeQuantity:[[NSString stringWithFormat:@"%d",menuItemsObj.ItemId] intValue]];
     self.minimizeViewHeader.text = @"YOU JUST ADDED";
     self.minimizeItemName.text =[NSString stringWithFormat:@"%@", menuItemsObj.ItemName];
@@ -1799,7 +1797,6 @@ static int curveValues[] = {
             {
                 [self.view bringSubviewToFront:self.chatView];
                 self.chatView.hidden=NO;
-                [self fetchHelpMessage];
                 
             }
         }else{
@@ -2086,66 +2083,7 @@ static int curveValues[] = {
     return [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
 }
 
-#pragma mark - Fetch Help Message
--(void) fetchHelpMessage
-{
-    [self disabled];
-    [activityIndicator startAnimating];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    
-    NSString *timestamp= [NSString stringWithFormat:@"(null)"];
-    if ([timestamp isEqualToString:@"(null)"]) {
-        timestamp = [NSString stringWithFormat:@""];
-    }
-    NSString *ids = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Table ID"]];
-    NSString *user = [NSString stringWithFormat:@"table"];
-    NSString *assignedTableList= [NSString stringWithFormat:@""];;
-    NSString *timeStampList= [NSString stringWithFormat:@""];;
-    
-    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:timestamp,@"timestamp",ids, @"id",user, @"user",assignedTableList, @"assignedtablelist",timeStampList, @"timestamplist", nil];
-    
-    NSString *jsonRequest = [jsonDict JSONRepresentation];
-    
-    NSLog(@"jsonRequest is %@", jsonRequest);
-    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/FetchHelpMessages",Kwebservices]];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSLog(@"Request:%@",urlString);
-    
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    webServiceCode =1;
-    if(connection)
-    {
-        if(webData==nil)
-        {
-            webData = [NSMutableData data] ;
-            NSLog(@"data");
-        }
-        else
-        {
-            webData=nil;
-            webData = [NSMutableData data] ;
-        }
-        
-        NSLog(@"server connection made");
-    }
-    
-    else
-    {
-        NSLog(@"connection is NULL");
-    }
-    
-}
 
-#pragma mark - Send Help Message
 -(void) changeStatus:(NSString *)pendingOrdersIDS
 {
     [self disabled];
@@ -3014,9 +2952,7 @@ static int curveValues[] = {
     appHomeViewController *homeVC = [[appHomeViewController alloc] initWithNibName:@"appHomeViewController" bundle:nil];
     [self.navigationController pushViewController:homeVC animated:NO];
 }
-- (IBAction)ophemyAction:(id)sender {
-   
-}
+
 - (IBAction)Slideshow:(id)sender
 {
     eventImagesSlideViewViewController *homeVC = [[eventImagesSlideViewViewController alloc] initWithNibName:@"eventImagesSlideViewViewController" bundle:nil];

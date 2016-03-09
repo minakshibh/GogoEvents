@@ -18,9 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSString *userID = [NSString stringWithFormat:@"Table1a@Table1_1"];
-    NSString *password = [NSString stringWithFormat:@"Table1a"];
-    [self loginWebservice:userID :password];
+//    NSString *userID = [NSString stringWithFormat:@"Service@mailinator.com"]; 9882486511
+//    NSString *password = [NSString stringWithFormat:@"123456"];
+//    [self loginWebservice:userID :password];
     
      lblbackground.layer.cornerRadius = 4.0;  [lblbackground setClipsToBounds:YES];
     self.loginBtn.layer.cornerRadius = 4.0;  [self.loginBtn setClipsToBounds:YES];
@@ -46,11 +46,9 @@
     activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
     }
     activityIndicator.color=[UIColor whiteColor];
-//    NSString *userID = [NSString stringWithFormat:@"Table13a@Table13_67"];
-//    NSString *password = [NSString stringWithFormat:@"Table13a"];
-//    [self loginWebservice:userID :password];
+
     [self.view addSubview:activityIndicator];
-       // [self menuItems];
+
     // Do any additional setup after loading the view from its nib.
 }
 

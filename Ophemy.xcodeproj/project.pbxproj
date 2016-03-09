@@ -145,6 +145,7 @@
 		F93D107A1C80543900DF4F99 /* 180@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F93D10751C80543900DF4F99 /* 180@2x.png */; };
 		F93D107B1C80543900DF4F99 /* 76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F93D10761C80543900DF4F99 /* 76@2x.png */; };
 		F93D107C1C80543900DF4F99 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F93D10771C80543900DF4F99 /* icon.png */; };
+		F93D107E1C8057C900DF4F99 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F93D107D1C8057C900DF4F99 /* Icon-83.5@2x.png */; };
 		F96A10C41C1A9DA1005C58E7 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */; };
 		F96A10C71C1AACE5005C58E7 /* dropdown-right.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C51C1AACE5005C58E7 /* dropdown-right.png */; };
 		F96A10C81C1AACE5005C58E7 /* dropdown-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F96A10C61C1AACE5005C58E7 /* dropdown-right@2x.png */; };
@@ -563,6 +564,7 @@
 		F93D10751C80543900DF4F99 /* 180@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "180@2x.png"; sourceTree = "<group>"; };
 		F93D10761C80543900DF4F99 /* 76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "76@2x.png"; sourceTree = "<group>"; };
 		F93D10771C80543900DF4F99 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		F93D107D1C8057C900DF4F99 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
 		F96A10C21C1A9DA1005C58E7 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		F96A10C31C1A9DA1005C58E7 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		F96A10C51C1AACE5005C58E7 /* dropdown-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-right.png"; sourceTree = "<group>"; };
@@ -1139,6 +1141,7 @@
 				F93D10741C80543900DF4F99 /* 152@2x.png */,
 				F93D10751C80543900DF4F99 /* 180@2x.png */,
 				F93D10761C80543900DF4F99 /* 76@2x.png */,
+				F93D107D1C8057C900DF4F99 /* Icon-83.5@2x.png */,
 				F93D10771C80543900DF4F99 /* icon.png */,
 			);
 			path = "App-new-icon";
@@ -1431,9 +1434,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		97D973DE1A19FF8F0093056E /* Nini Events */ = {
+		97D973DE1A19FF8F0093056E /* Ophemy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 97D974051A19FF8F0093056E /* Build configuration list for PBXNativeTarget "Nini Events" */;
+			buildConfigurationList = 97D974051A19FF8F0093056E /* Build configuration list for PBXNativeTarget "Ophemy" */;
 			buildPhases = (
 				97D973DB1A19FF8F0093056E /* Sources */,
 				97D973DC1A19FF8F0093056E /* Frameworks */,
@@ -1443,7 +1446,7 @@
 			);
 			dependencies = (
 			);
-			name = "Nini Events";
+			name = Ophemy;
 			productName = "Nini Events";
 			productReference = 97D973DF1A19FF8F0093056E /* Nini Events.app */;
 			productType = "com.apple.product-type.application";
@@ -1478,7 +1481,7 @@
 				TargetAttributes = {
 					97D973DE1A19FF8F0093056E = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = T5DY39F2BR;
+						DevelopmentTeam = V5J3JHH35V;
 					};
 					97D973FA1A19FF8F0093056E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1500,7 +1503,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				97D973DE1A19FF8F0093056E /* Nini Events */,
+				97D973DE1A19FF8F0093056E /* Ophemy */,
 				97D973FA1A19FF8F0093056E /* Nini EventsTests */,
 			);
 		};
@@ -1720,6 +1723,7 @@
 				F979065D1C2295F600546664 /* drink@2x.png in Resources */,
 				F97907081C22A0F600546664 /* dropdown-right@2x.png in Resources */,
 				F97906581C2295F600546664 /* decreaseselect@2x.png in Resources */,
+				F93D107E1C8057C900DF4F99 /* Icon-83.5@2x.png in Resources */,
 				F97906511C2295F600546664 /* bulb-select@2x.png in Resources */,
 				F979063D1C2295F600546664 /* popUp-without-text_small.png in Resources */,
 				F97906571C2295F600546664 /* decrease@2x.png in Resources */,
@@ -1840,7 +1844,7 @@
 /* Begin PBXTargetDependency section */
 		97D973FD1A19FF8F0093056E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 97D973DE1A19FF8F0093056E /* Nini Events */;
+			target = 97D973DE1A19FF8F0093056E /* Ophemy */;
 			targetProxy = 97D973FC1A19FF8F0093056E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1863,8 +1867,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rocky Uppal (3R7VB3H8QT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rocky Uppal (3R7VB3H8QT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1884,7 +1889,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "aec28993-e796-410c-9f0f-2b262d5f319c";
+				PROVISIONING_PROFILE = "548c7c21-a28d-47d7-8a5f-538e9c4942b9";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1907,8 +1912,9 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rocky Uppal (T5DY39F2BR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rocky Uppal (T5DY39F2BR)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1921,7 +1927,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "b2e32fb3-7a27-4460-82cc-058bda4336fb";
+				PROVISIONING_PROFILE = "b19b5ca0-b72a-4d02-afcd-a30674b6128e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1934,8 +1940,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -1946,7 +1953,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Nini Events";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "548c7c21-a28d-47d7-8a5f-538e9c4942b9";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nini Events-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1959,8 +1966,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
@@ -1971,7 +1979,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Nini Events";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "b19b5ca0-b72a-4d02-afcd-a30674b6128e";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nini Events-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2029,7 +2037,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		97D974051A19FF8F0093056E /* Build configuration list for PBXNativeTarget "Nini Events" */ = {
+		97D974051A19FF8F0093056E /* Build configuration list for PBXNativeTarget "Ophemy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97D974061A19FF8F0093056E /* Debug */,

@@ -20,9 +20,6 @@
     NSTimer *idleTimer;
     
 }
-
-
-
 @end
 
 @implementation AppDelegate
@@ -31,11 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     currencySymbol=@"";
-        for (NSString *fontFamilyName in [UIFont familyNames]) {
-            for (NSString *fontName in [UIFont fontNamesForFamilyName:fontFamilyName]) {
-                NSLog(@"Family: %@    Font: %@", fontFamilyName, fontName);
-            }
-        }
+ 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"%@",[defaults valueForKey:@"isLogedOut"]);
     NSString *isLogedOut;

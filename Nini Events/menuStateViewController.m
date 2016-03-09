@@ -221,8 +221,8 @@
                 pageName.frame = CGRectMake(0,380 ,679, 50);
                 y=y+431;
             }else{
-                page.frame = CGRectMake(511, y, 510, 350);
-                pageName.frame = CGRectMake(0,300 ,510, 50);
+                page.frame = CGRectMake(511, y, 511, 350);
+                pageName.frame = CGRectMake(0,300 ,511, 50);
                 y=y+351;
             }
 

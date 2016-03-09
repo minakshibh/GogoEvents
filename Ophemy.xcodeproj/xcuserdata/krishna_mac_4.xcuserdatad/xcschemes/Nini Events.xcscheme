@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
                BuildableName = "Nini Events.app"
-               BlueprintName = "Nini Events"
+               BlueprintName = "Ophemy"
                ReferencedContainer = "container:Ophemy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
-            BlueprintName = "Nini Events"
+            BlueprintName = "Ophemy"
             ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -81,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
-            BlueprintName = "Nini Events"
+            BlueprintName = "Ophemy"
             ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -100,7 +100,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97D973DE1A19FF8F0093056E"
             BuildableName = "Nini Events.app"
-            BlueprintName = "Nini Events"
+            BlueprintName = "Ophemy"
             ReferencedContainer = "container:Ophemy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
