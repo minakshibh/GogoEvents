@@ -100,20 +100,18 @@ NSArray *urlLinks;
     EventDocumentUrlsArray = [[NSMutableArray alloc] init];
     for (int i = 0;i < tempEventDetails.count; i++) {
         NSDictionary *tempEventDocumentDict=[tempEventDetails objectAtIndex:i];
+        
         [EventDocumentUrlsArray addObject:[tempEventDocumentDict valueForKey:@"Url"]];
         [EventDocumentTitleArray addObject:[tempEventDocumentDict valueForKey:@"Title"]];
     }
     
-    NSString *DLImageUrl=[defaults valueForKey:@"EventPictureUrl"];
-    
+    NSString *DLImageUrl = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[defaults valueForKey:@"EventImage"]]];
     if ([DLImageUrl isEqualToString:@"(null)"]) {
         
     }
     else if (DLImageUrl.length!=0 )
     {
-        NSData* data = [[NSData alloc] initWithBase64EncodedString:DLImageUrl options:0];
-        // UIImage* img1 = [UIImage imageWithData:data];
-        eventImageView.image = [UIImage imageWithData:data];
+        eventImageView.image = [UIImage imageNamed:DLImageUrl];
         
         
         //        UIActivityIndicatorView *objactivityindicator=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -685,7 +683,7 @@ NSArray *urlLinks;
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
@@ -1045,4 +1043,41 @@ NSArray *urlLinks;
     }
     
 }
+
+- (void)pdfDownloading:(NSString *) pdfUrl : (NSString *) pdfName
+{
+    ASIHTTPRequest *request;
+    request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",pdfUrl]]];
+    
+    [request setDownloadDestinationPath:[[NSHomeDirectory()
+                                          stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",pdfName]]];
+    [request setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
+        
+        
+    }];
+    
+    
+    
+    [request setDelegate:self];
+    [request startAsynchronous];
+    
+}
+
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
+
 @end

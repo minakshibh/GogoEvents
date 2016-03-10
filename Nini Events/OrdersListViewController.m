@@ -747,7 +747,7 @@
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
@@ -944,4 +944,22 @@
     }
     
 }
+
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
+
 @end

@@ -561,8 +561,9 @@ static int curveValues[] = {
         if (i %2 == 0 || i == 0) {
             UIImageView *page = [[UIImageView alloc] init];
             
-            NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-            page.image = [UIImage imageWithData:data];
+            NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
+            
+            page.image = [UIImage imageNamed:imageName];
             UILabel *pageName = [[UILabel alloc] init];
             
             if (IS_IPAD_Pro) {
@@ -594,10 +595,10 @@ static int curveValues[] = {
 
 
             
-            NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-            page.image = [UIImage imageWithData:data];
             
+            NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
             
+            page.image = [UIImage imageNamed:imageName];
             UILabel *pageName = [[UILabel alloc] init];
             if (IS_IPAD_Pro) {
                 page.frame = CGRectMake(681, y, 679, 430);
@@ -659,8 +660,9 @@ static int curveValues[] = {
     [self.view bringSubviewToFront:self.itemView];
     itemImagePage = [[AsyncImageView alloc] init];
    
-    NSData* data = [[NSData alloc] initWithBase64EncodedString:menuItemsObj.Image options:0];
-    itemImagePage.image = [UIImage imageWithData:data];
+    NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
+    
+    itemImagePage.image = [UIImage imageNamed:imageName];
     itemImagePage.showActivityIndicator = YES;
     if (IS_IPAD_Pro) {
         itemImagePage.frame = CGRectMake(1,87,1363,830);
@@ -673,11 +675,7 @@ static int curveValues[] = {
     [self.itemView addSubview:itemImagePage];
     
     
-    NSData *data1 = [[NSData alloc] initWithData:[NSData
-                                                  dataFromBase64String:[NSString stringWithFormat:@"%@",menuItemsObj.Image]]];
-    
-    UIImage *itemsImage1 = [UIImage imageWithData:data1];
-    self.showMinimizeItemImage.image = itemsImage1;
+    self.showMinimizeItemImage.image = [UIImage imageNamed:imageName];
 
    if (IS_IPAD_Pro) {
         [self.increaseBtn setFrame:CGRectMake(228, 18 , 50, 49.0)];
@@ -3084,7 +3082,7 @@ static int curveValues[] = {
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
@@ -3281,5 +3279,20 @@ static int curveValues[] = {
     
 }
 
-
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
 @end

@@ -9,6 +9,6 @@
     IBOutlet UILabel *quantityLbl;
     
 }
--(void)setLabelText:(NSString*)name  :(int)quantity :(NSString*)price :(NSString*) imageUrl : (NSData*)imageData ;
+-(void)setLabelText:(NSString*)name  :(int)quantity :(NSString*)price :(NSString*) imageName;
 
 @end

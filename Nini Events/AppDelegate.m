@@ -316,17 +316,13 @@
         if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
             
             NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
             
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", eventImageStr]];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            //  UIImage *img = [UIImage imageWithData:data];
+            [self imageDownloading:eventImageStr :eventID];
             
-            //   NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
-            NSString *strEncoded = [Base64 encode:data];
+            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
             
-            eventImageStr = [NSString stringWithString:strEncoded];
-            
-            [defaults setValue:eventImageStr forKey:@"EventPictureUrl"];
+            [defaults setValue:eventImageStr forKey:@"EventImage"];
             
         }
         else{
@@ -338,6 +334,27 @@
     }else{
        
     }
+    
+}
+
+- (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName
+{
+    ASIHTTPRequest *request;
+    
+    NSLog(@"%@.png",imageName);
+    request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]]];
+    
+    [request setDownloadDestinationPath:[[NSHomeDirectory()
+                                          stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",imageName]]];
+    [request setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
+        
+        
+    }];
+    
+    
+    
+    [request setDelegate:self];
+    [request startAsynchronous];
     
 }
 

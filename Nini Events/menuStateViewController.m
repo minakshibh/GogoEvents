@@ -183,8 +183,9 @@
         if (i %2 == 0 || i == 0) {
             UIImageView *page = [[UIImageView alloc] init];
 
-            NSData* data = [[NSData alloc] initWithBase64EncodedString:[itemImageUrlArray objectAtIndex:i] options:0];
-            page.image = [UIImage imageWithData:data];
+            NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[itemImageUrlArray objectAtIndex:i]]];
+            page.image = [UIImage imageNamed:imageName];
+            
             UILabel *pageName = [[UILabel alloc] init];
             if (IS_IPAD_Pro) {
                 page.frame = CGRectMake(0, y, 679, 430);
@@ -212,8 +213,8 @@
             
         }else{
             UIImageView *page = [[UIImageView alloc] init];
-            NSData* data = [[NSData alloc] initWithBase64EncodedString:[itemImageUrlArray objectAtIndex:i] options:0];
-            page.image = [UIImage imageWithData:data];
+            NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[itemImageUrlArray objectAtIndex:i]]];
+            page.image = [UIImage imageNamed:imageName];
 
             UILabel *pageName = [[UILabel alloc] init];
             if (IS_IPAD_Pro) {
@@ -611,7 +612,7 @@
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
@@ -808,4 +809,20 @@
     
 }
 
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
 @end

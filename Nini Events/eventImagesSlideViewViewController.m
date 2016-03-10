@@ -134,14 +134,14 @@
     for (int i=0; i<[imageNameStringsArray count]; i++) {
         // create image
         
-        NSData* data = [[NSData alloc] initWithBase64EncodedString:[imageNameStringsArray objectAtIndex:i] options:0];
-        UIImage* img1 = [UIImage imageWithData:data];
+        NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[imageNameStringsArray objectAtIndex:i]]];
+    
         // create imageView
         UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake((i)*scrMain.frame.size.width, 0, scrMain.frame.size.width, scrMain.frame.size.height)];
         // set scale to fill
         imgV.contentMode=UIViewContentModeScaleToFill;
         // set image
-        imgV.image = img1;
+        imgV.image = [UIImage imageNamed:imageName];
         // apply tag to access in future
         imgV.tag=i+1;
         
@@ -508,17 +508,13 @@
             if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
                 
                 NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+                NSString *eventID = [userDetailDict valueForKey:@"EventName"];
                 
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", eventImageStr]];
-                NSData *data = [NSData dataWithContentsOfURL:url];
-              //  UIImage *img = [UIImage imageWithData:data];
+                [self imageDownloading:eventImageStr :eventID];
                 
-             //   NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
-                NSString *strEncoded = [Base64 encode:data];
+                eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
                 
-                eventImageStr = [NSString stringWithString:strEncoded];
-                
-                [defaults setValue:eventImageStr forKey:@"EventPictureUrl"];
+                [defaults setValue:eventImageStr forKey:@"EventImage"];
                 
             }
             else{
@@ -935,7 +931,7 @@
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
@@ -1195,4 +1191,42 @@
     }
     
 }
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
+
+- (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName
+{
+    ASIHTTPRequest *request;
+    
+    NSLog(@"%@.png",imageName);
+    request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]]];
+    
+    [request setDownloadDestinationPath:[[NSHomeDirectory()
+                                          stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",imageName]]];
+    [request setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
+        
+        
+    }];
+    
+    
+    
+    [request setDelegate:self];
+    [request startAsynchronous];
+    
+}
+
 @end

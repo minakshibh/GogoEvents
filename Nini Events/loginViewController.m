@@ -236,7 +236,7 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-   // 01725056969
+  
     if (webServiceCode == 1) {
         
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
@@ -316,13 +316,14 @@
                     menuItemsObj.Image = [menuItemsObj.Image stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
                     
                     
+                    [self imageDownloading:menuItemsObj.Image :menuItemsObj.ItemName];
                     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", menuItemsObj.Image]];
                     NSData *data = [NSData dataWithContentsOfURL:url];
                   //  UIImage *img = [UIImage imageWithData:data];
                     
                 //    NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
                     NSString *strEncoded = [Base64 encode:data];
-                    menuItemsObj.Image = [NSString stringWithString:strEncoded];
+                    menuItemsObj.Image = [NSString stringWithFormat:@"%@.png",menuItemsObj.ItemName];
                     
                     
                     menuObj.imageUrl = @"";
@@ -519,25 +520,20 @@
         
         for (int i = 0; i < [fetchingImages count]; i++) {
             
-            NSString *urlStr = [NSString stringWithFormat:@"%@",[[fetchingImages valueForKey:@"URL"] objectAtIndex:i]];
-            NSString *BannerId= [NSString stringWithFormat:@"%@",[[fetchingImages valueForKey:@"BannerId"] objectAtIndex:i]];
+            NSString *bannerImage = [NSString stringWithFormat:@"%@",[[fetchingImages valueForKey:@"URL"] objectAtIndex:i]];
+            NSString *BannerId= [NSString stringWithFormat:@"banner%@",[[fetchingImages valueForKey:@"BannerId"] objectAtIndex:i]];
             NSString *descriptionStr = [NSString stringWithFormat:@"%@",[[fetchingImages valueForKey:@"Description"] objectAtIndex:i]];
 
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", urlStr]];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            UIImage *img = [UIImage imageWithData:data];
+            [self imageDownloading:bannerImage :BannerId];
             
-            NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
-            NSString *strEncoded = [Base64 encode:imgdata];
-            
-            urlStr = [NSString stringWithString:strEncoded];
+            bannerImage = [NSString stringWithFormat:@"%@.png",BannerId];
             
             docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             documentsDir = [docPaths objectAtIndex:0];
             dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
             database = [FMDatabase databaseWithPath:dbPath];
             [database open];
-            NSString *insert = [NSString stringWithFormat:@"INSERT INTO banner (bannerId, bannerData, bannerDescription) VALUES ( \"%@\", \"%@\", \"%@\")",BannerId,urlStr,descriptionStr];
+            NSString *insert = [NSString stringWithFormat:@"INSERT INTO banner (bannerId, bannerData, bannerDescription) VALUES ( \"%@\", \"%@\", \"%@\")",BannerId,bannerImage,descriptionStr];
             [database executeUpdate:insert];
             
             [database close];
@@ -561,12 +557,8 @@
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
         int result1=[[userDetailDict valueForKey:@"result"]intValue];
-        if (result1 ==1)
+        if (result1 !=1)
         {
-            
-            
-        }
-        else{
             NSString *pdfUrl = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"EventPdfUrl"]];
             NSString *eventStatus = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"EventTabVisiblity"]];
             NSString *PingAssistance = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"PingAssistance"]];
@@ -606,17 +598,13 @@
             if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
                 
                 NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+                NSString *eventID = [userDetailDict valueForKey:@"EventName"];
                 
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", eventImageStr]];
-                NSData *data = [NSData dataWithContentsOfURL:url];
-                //  UIImage *img = [UIImage imageWithData:data];
+                [self imageDownloading:eventImageStr :eventID];
                 
-                //   NSData* imgdata = UIImageJPEGRepresentation(img, 0.3f);
-                NSString *strEncoded = [Base64 encode:data];
+                eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
                 
-                eventImageStr = [NSString stringWithString:strEncoded];
-                
-                [defaults setValue:eventImageStr forKey:@"EventPictureUrl"];
+                [defaults setValue:eventImageStr forKey:@"EventImage"];
                 
             }
         }
@@ -828,4 +816,25 @@
          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://112.196.24.205:815/RegisterAdmin.aspx"]];
     
 }
+- (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName
+{
+    ASIHTTPRequest *request;
+    
+    NSLog(@"%@.png",imageName);
+       request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",imageUrl]]];
+  
+        [request setDownloadDestinationPath:[[NSHomeDirectory()
+                                              stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",imageName]]];
+        [request setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
+            
+            
+        }];
+    
+    
+    
+    [request setDelegate:self];
+    [request startAsynchronous];
+    
+}
+
 @end

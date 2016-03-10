@@ -90,8 +90,7 @@
     for (int i=0; i<[imageNameStringsArray count]; i++) {
         // create image
        
-        NSData* data = [[NSData alloc] initWithBase64EncodedString:[imageNameStringsArray objectAtIndex:i] options:0];
-        UIImage* img1 = [UIImage imageWithData:data];
+        UIImage* img1 = [UIImage imageNamed:[imageNameStringsArray objectAtIndex:i]];
         // create imageView
         UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake((i)*scrMain.frame.size.width, 0, scrMain.frame.size.width, scrMain.frame.size.height)];
         // set scale to fill

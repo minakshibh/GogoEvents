@@ -14,8 +14,8 @@
     
     // Configure the view for the selected state
 }
--(void)setLabelText:(NSString*)orderName :(int)quantity :(NSString*)price :(UIImage*)imageUrl :(NSData*)imageData{
-    AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
+-(void)setLabelText:(NSString*)orderName :(int)quantity :(NSString*)price :(NSString*)imageName{
+   
 
     name.text = [[NSString stringWithFormat:@"%@",orderName]uppercaseString];
     NSString *freeTag = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Is Paid"]];
@@ -29,7 +29,7 @@
     quantityLbl.text = [NSString stringWithFormat:@"%d",quantity];
    // NSData* data = [[NSData alloc] initWithBase64EncodedString:imageUrl options:0];
     // UIImage* img1 = [UIImage imageWithData:data];
-    productImageView.image = [UIImage imageWithData:imageData];
+    productImageView.image = [UIImage imageNamed:imageName];
     
 
    // [productImageView setImage:imageUrl];

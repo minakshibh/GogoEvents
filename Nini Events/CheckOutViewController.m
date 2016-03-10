@@ -271,13 +271,10 @@
     }
     orderOC *ordrobject = (orderOC *)[orderList objectAtIndex:indexPath.row];
     
-    UIImage * itemsImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                   [NSURL URLWithString:[NSString stringWithFormat:@"%@",ordrobject.orderImage]]]];
     
-    NSData* imgdata = [[NSData alloc] initWithBase64EncodedString:ordrobject.orderImage options:0];
+    NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",ordrobject.orderImage]];
     
-    
-    [cell setLabelText:ordrobject.orderItemName :ordrobject.orderQuantity :[NSString stringWithFormat:@"%d",ordrobject.orderPrice] :itemsImage:imgdata];
+    [cell setLabelText:ordrobject.orderItemName :ordrobject.orderQuantity :[NSString stringWithFormat:@"%d",ordrobject.orderPrice] :imageName];
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     if (IS_IPAD_Pro) {
@@ -895,7 +892,7 @@
     [defaults removeObjectForKey:@"Table Name"];
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
-    
+    [self removeData];
     
     [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
@@ -1092,4 +1089,20 @@
     
 }
 
+- (void)removeData
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSError *error;
+    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
+    if (success) {
+        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        [removeSuccessFulAlert show];
+    }
+    else
+    {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
 @end
