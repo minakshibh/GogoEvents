@@ -52,6 +52,25 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)removeData
+{
+    NSString *extension = @"png";
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        if ([[filename pathExtension] isEqualToString:extension]) {
+            
+            [fileManager removeItemAtPath:[documentsDirectory     stringByAppendingPathComponent:filename] error:NULL];
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -400,13 +419,14 @@
         }
         }
         
-//        [self registerDevice];
+        [self registerDevice];
 
-        [self fetchBannerImages];
+        
         
     }
     
     else if(webServiceCode == 3){
+        [appdelegate createCopyOfDatabaseIfNeeded];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
@@ -479,7 +499,7 @@
                     [database close];
                 
 //                }
-                [self menuItems];
+                [self fetchBannerImages];
                 
             }
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -526,14 +546,14 @@
 
             [self imageDownloading:bannerImage :BannerId];
             
-            bannerImage = [NSString stringWithFormat:@"%@.png",BannerId];
+            NSString *bannerImageName = [NSString stringWithFormat:@"%@.png",BannerId];
             
             docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             documentsDir = [docPaths objectAtIndex:0];
             dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
             database = [FMDatabase databaseWithPath:dbPath];
             [database open];
-            NSString *insert = [NSString stringWithFormat:@"INSERT INTO banner (bannerId, bannerData, bannerDescription) VALUES ( \"%@\", \"%@\", \"%@\")",BannerId,bannerImage,descriptionStr];
+            NSString *insert = [NSString stringWithFormat:@"INSERT INTO banner (bannerId, bannerData, bannerDescription) VALUES ( \"%@\", \"%@\", \"%@\")",BannerId,bannerImageName,descriptionStr];
             [database executeUpdate:insert];
             
             [database close];
@@ -608,7 +628,7 @@
                 
             }
         }
-        [self registerDevice];
+        [self menuItems];
     }
     
     
@@ -827,13 +847,15 @@
                                               stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png",imageName]]];
         [request setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
             
-            
+            if (size == total) {
+                
+                
+            }
         }];
-    
-    
-    
     [request setDelegate:self];
-    [request startAsynchronous];
+    [request startSynchronous];
+    
+    
     
 }
 

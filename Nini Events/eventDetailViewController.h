@@ -1,12 +1,14 @@
 
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
-@interface eventDetailViewController : UIViewController
+@interface eventDetailViewController : UIViewController<UIWebViewDelegate>
 {
     NSArray *docPaths;
     NSString *documentsDir, *dbPath;
     FMDatabase *database;
     IBOutlet UIWebView *webView;
+    UIActivityIndicatorView *activityIndicator;
+    IBOutlet UIImageView *disabledImgView;
 }
 //@property (strong, nonatomic) IBOutlet UIWebView *eventPdfView;
 @property (strong, nonatomic) IBOutlet UIScrollView *sideScroller;

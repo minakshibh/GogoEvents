@@ -141,7 +141,7 @@
         // set scale to fill
         imgV.contentMode=UIViewContentModeScaleToFill;
         // set image
-        imgV.image = [UIImage imageNamed:imageName];
+        [imgV setImage:[UIImage imageNamed:imageName]];
         // apply tag to access in future
         imgV.tag=i+1;
         
@@ -493,6 +493,7 @@
             NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
             NSString *substring;
              NSLog(@"%@",currencyStr);
+            
             if (![currencyStr isEqualToString:@""]) {
                 NSRange range = [currencyStr rangeOfString:@"("];
                 substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -933,7 +934,7 @@
     [defaults removeObjectForKey:@"Role"];
     [self removeData];
     
-    [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+    [defaults setObject:@"YES"forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
 }
@@ -1193,18 +1194,20 @@
 }
 - (void)removeData
 {
+    NSString *extension = @"png";
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-
-    NSError *error;
-    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
-    if (success) {
-        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
-        [removeSuccessFulAlert show];
-    }
-    else
-    {
-        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        if ([[filename pathExtension] isEqualToString:extension]) {
+            
+            [fileManager removeItemAtPath:[documentsDirectory     stringByAppendingPathComponent:filename] error:NULL];
+        }
     }
 }
 

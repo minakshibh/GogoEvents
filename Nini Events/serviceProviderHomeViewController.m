@@ -1839,26 +1839,6 @@
     dropDown = nil;
 }
 
-//    if (self.orderNumberLbl.text == nil) {
-//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"GOGO EVENTS" message:@"YOU ARE HAVING NO ORDER FOR CANCELLATION." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
-//    }else{
-//        if (self.modificationPopUpView.hidden == YES) {
-//            self.modificationPopUpView.hidden = NO;
-//            [self.view bringSubviewToFront:self.modificationPopUpView];
-//            [self.sideScroller setUserInteractionEnabled:NO];
-//            self.modificationPopUpTitle.text = [NSString stringWithFormat:@"Add reason for Cancellation."];
-//            [[self.modificationTextView layer] setBorderColor:[[UIColor grayColor] CGColor]];
-//            [[self.modificationTextView layer] setBorderWidth:1.0];
-//            [[self.modificationTextView layer] setCornerRadius:5];
-//            isCancellation = YES;
-//            [self.confirmModification setTitle:@"Request Cancellation" forState:UIControlStateNormal];
-//        }else{
-//            self.modificationPopUpView.hidden = YES;
-//            [self.view sendSubviewToBack:self.modificationPopUpView];
-//        }
-//    }
-
 - (IBAction)confirmModificationBtn:(id)sender {
     [self.view endEditing:YES];
     if ([self.modificationTextView.text isEqualToString:@""]) {
@@ -2140,7 +2120,7 @@
     [defaults removeObjectForKey:@"Service Provider image"];
     [defaults removeObjectForKey:@"Role"];
     
-    [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+    [defaults setObject:@"YES" forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:YES];
    

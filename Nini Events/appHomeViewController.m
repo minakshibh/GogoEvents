@@ -80,6 +80,7 @@ NSArray *urlLinks;
     }
     
     NSArray *tempEvntArray=[defaults valueForKey:@"ListEventDetails"];
+    eventArray = [[NSMutableArray alloc]init];
     eventDetailArray=[[NSMutableArray alloc]init];
     eventNameArray = [[NSMutableArray alloc] init] ;
     EventDetailsStartTime=[[NSMutableArray alloc]init];
@@ -95,6 +96,21 @@ NSArray *urlLinks;
         [EventDetailsBy addObject: [tempEventNAmeDict valueForKey:@"EventDetailsBy"]];
         NSLog(@"%@,%@,%@,%@",eventNameArray,eventDetailArray,EventDetailsStartTime,EventDetailsEndTime);
     }
+    
+    for (int i=0; i<tempEvntArray.count; i++)
+    {
+        NSMutableDictionary *tempDicts = [[NSMutableDictionary alloc]init];
+        [tempDicts setObject:[eventNameArray objectAtIndex:i] forKey:@"heading"];
+        [tempDicts setObject:[eventDetailArray objectAtIndex:i] forKey:@"description"];
+        [tempDicts setObject:[EventDetailsStartTime objectAtIndex:i] forKey:@"startTime"];
+        [tempDicts setObject:[EventDetailsEndTime objectAtIndex:i] forKey:@"endTime"];
+        [tempDicts setObject:[EventDetailsBy objectAtIndex:i] forKey:@"DetailedBy"];
+        [eventArray addObject:tempDicts];
+    }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:YES];
+    [eventArray sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
     NSArray *tempEventDetails = [defaults valueForKey:@"EventDocuments"];
     EventDocumentTitleArray = [[NSMutableArray alloc] init];
     EventDocumentUrlsArray = [[NSMutableArray alloc] init];
@@ -151,8 +167,17 @@ NSArray *urlLinks;
         NSArray *fontString = [[fontFamilyNames objectAtIndex:i] componentsSeparatedByString:@"."];
         [appFonts addObject:[fontString objectAtIndex:0]];
     }
-    //   NSLog(@"%@",appFonts);
-    // eventNameArray = [[NSMutableArray alloc] initWithObjects:@"Samantha Weds Eric",@"Sam Weds Julia",@"Joi Weds Jaz", nil];
+   
+    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
+    
+    if ([eventChatSupport isEqualToString:@"False"]) {
+        [self.sideMenuWithoutReqAssistance setFrame:CGRectMake(-269, 19, self.sideMenuWithoutReqAssistance.frame.size.width, self.sideMenuWithoutReqAssistance.frame.size.height)];
+        [self.sideScroller addSubview:self.sideMenuWithoutReqAssistance];
+        
+    }else{
+        [self.sideMenuWithoutReqAssistance removeFromSuperview];
+        
+    }
     
     
     [self fetchOrders];
@@ -173,7 +198,7 @@ NSArray *urlLinks;
     
     
     
-    
+    [tableView reloadData];
     // [slideShow removeFromSuperview];
     //    [self fetchEventDetails];
     // Do any additional setup after loading the view from its nib.
@@ -215,9 +240,6 @@ NSArray *urlLinks;
     
     if (secondsBetween <= 0) {
         //Checks if the countdown completed
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Countdown Completed" message:@"YAY! The countdown has complete" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
         lblTimerHour.text = [NSString stringWithFormat:@"00"];
         lblTimermin.text = [NSString stringWithFormat:@"00"];
         lblTimerSec.text = [NSString stringWithFormat:@"00"];
@@ -488,18 +510,8 @@ NSArray *urlLinks;
         NSString *SlideShow = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
         
         
-        NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"EventChatSupportAvailability"]];
-        [defaults setValue:eventStatus forKey:@"Event Status"];
-        [defaults setValue:eventChatSupport forKey:@"Event Chat Support"];
         
-        if ([eventChatSupport isEqualToString:@"False"]) {
-            [self.sideMenuWithoutReqAssistance setFrame:CGRectMake(-269, 19, self.sideMenuWithoutReqAssistance.frame.size.width, self.sideMenuWithoutReqAssistance.frame.size.height)];
-            [self.sideScroller addSubview:self.sideMenuWithoutReqAssistance];
-            
-        }else{
-            [self.sideMenuWithoutReqAssistance removeFromSuperview];
-            
-        }
+        [defaults setValue:eventStatus forKey:@"Event Status"];
         
         
         
@@ -684,7 +696,7 @@ NSArray *urlLinks;
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
     [self removeData];
-    [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+    [defaults setObject:@"YES" forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
 }
@@ -702,7 +714,7 @@ NSArray *urlLinks;
         
     }
     
-    return eventNameArray.count;
+    return eventArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)atableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -732,13 +744,13 @@ NSArray *urlLinks;
             cell = [nib objectAtIndex:0];
         }
         
-        NSString *eventNameStr = [NSString stringWithFormat:@"%@",[eventNameArray objectAtIndex:indexPath.row]];
-        NSString *eventDetailStr = [NSString stringWithFormat:@"%@",[eventDetailArray objectAtIndex:indexPath.row]];
+        NSString *eventNameStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"heading"]];
+        NSString *eventDetailStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"description"]];
         content = eventDetailStr.length;
         
-        NSString *eventDetailsStartTimeStr = [NSString stringWithFormat:@"%@",[EventDetailsStartTime objectAtIndex:indexPath.row]];
-        NSString *eventDetailsEndTimeStr = [NSString stringWithFormat:@"%@",[EventDetailsEndTime objectAtIndex:indexPath.row]];
-        NSString *eventDetailsByStr = [NSString stringWithFormat:@"%@",[EventDetailsBy objectAtIndex:indexPath.row]];
+        NSString *eventDetailsStartTimeStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"startTime"]];
+        NSString *eventDetailsEndTimeStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"endTime"]];
+        NSString *eventDetailsByStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"DetailedBy"]];
         
         [cell setLabelText:eventNameStr :eventDetailsByStr :eventDetailsStartTimeStr :eventDetailsEndTimeStr :eventDetailStr];
         
@@ -753,10 +765,10 @@ NSArray *urlLinks;
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"cell1TableViewCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        NSString *eventNameStr = [NSString stringWithFormat:@"%@",[eventNameArray   objectAtIndex:indexPath.row]];
-        NSString *eventDetailsStartTimeStr = [NSString stringWithFormat:@"%@",[EventDetailsStartTime objectAtIndex:indexPath.row]];
-        NSString *eventDetailsEndTimeStr = [NSString stringWithFormat:@"%@",[EventDetailsEndTime objectAtIndex:indexPath.row]];
-        NSString *eventDetailsByStr = [NSString stringWithFormat:@"%@",[EventDetailsBy objectAtIndex:indexPath.row]];
+        NSString *eventNameStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"heading"]];
+        NSString *eventDetailsStartTimeStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"startTime"]];
+        NSString *eventDetailsEndTimeStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"endTime"]];
+        NSString *eventDetailsByStr = [NSString stringWithFormat:@"%@",[[eventArray objectAtIndex:indexPath.row] valueForKey:@"DetailedBy"]];
         
         [cell setLabelText:eventNameStr :eventDetailsByStr :eventDetailsStartTimeStr :  eventDetailsEndTimeStr];
         return cell;
@@ -1065,18 +1077,20 @@ NSArray *urlLinks;
 
 - (void)removeData
 {
+    NSString *extension = @"png";
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSError *error;
-    BOOL success = [fileManager removeItemAtPath:documentsPath error:&error];
-    if (success) {
-        UIAlertView *removeSuccessFulAlert=[[UIAlertView alloc]initWithTitle:@"Congratulation:" message:@"Successfully removed" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
-        [removeSuccessFulAlert show];
-    }
-    else
-    {
-        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        if ([[filename pathExtension] isEqualToString:extension]) {
+            
+            [fileManager removeItemAtPath:[documentsDirectory     stringByAppendingPathComponent:filename] error:NULL];
+        }
     }
 }
 

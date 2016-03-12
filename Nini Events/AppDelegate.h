@@ -12,5 +12,7 @@
 @property (strong, nonatomic) UINavigationController *navigator;
 @property (strong ,nonatomic) NSString*currencySymbol;
 - (void)resetIdleTimer;
+- (void)resetEventTimer;
+- (void)createCopyOfDatabaseIfNeeded;
 @end
 

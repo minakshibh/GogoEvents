@@ -1009,7 +1009,7 @@
     [defaults removeObjectForKey:@"Service Provider image"];
     [defaults removeObjectForKey:@"Role"];
     
-    [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+    [defaults setObject:@"YES" forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [fetchMsgTimer invalidate];
 

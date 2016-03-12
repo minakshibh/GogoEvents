@@ -12,12 +12,12 @@
     int flag, bulbFlag,webServiceCode;
     UIScrollView *scr;
     UIPageControl *pgCtr;
-    NSMutableArray *eventNameArray,*eventDetailArray,*EventDetailsStartTime,*EventDetailsEndTime,*EventDetailsBy,*EventDocumentUrlsArray,*EventDocumentTitleArray;
+    NSMutableArray *eventNameArray,*eventDetailArray,*EventDetailsStartTime,*EventDetailsEndTime,*EventDetailsBy,*EventDocumentUrlsArray,*eventArray,*EventDocumentTitleArray;
     IBOutlet UILabel *eventDescriptionLbl;
     IBOutlet UIImageView *eventImageView;
     NSTimer *hideTimer;
     NSMutableArray *fontFamilyNames, *appFonts;
-    
+    NSArray *sortedEventArray;
     BOOL isAlreadyInserted;
  
     IBOutlet UILabel *lblTimerbackground;
