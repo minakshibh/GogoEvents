@@ -68,6 +68,7 @@
     
     [super viewDidLoad];
 }
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [fetchMsgTimer invalidate];

@@ -48,7 +48,62 @@
     [self chatTable];
     // Do any additional setup after loading the view from its nib.
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
+    
+//    if ([eventChatSupport isEqualToString:@"False"]) {
+        requestAssistance.hidden = YES;
+        float viewHeight = self.view.frame.size.height;
+        
+        orders.frame = CGRectMake(orders.frame.origin.x, 0, orders.frame.size.width, viewHeight/3);
+        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3);
+        exit.frame = CGRectMake(exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height, exit.frame.size.width,viewHeight/3);
+        
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+        
+        [pingAssistance addSubview:viewliveAssistance];
+        [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
+    
 
+        
+        [exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+   
+        
+        [orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    
+//    }
+    
+    UIButton *viewliveAssistancebutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewliveAssistancebutton addTarget:self
+                                 action:@selector(pingForAssisteance:)
+                       forControlEvents:UIControlEventTouchUpInside];
+    viewliveAssistancebutton.frame = viewliveAssistance.frame;
+    [viewliveAssistance addSubview:viewliveAssistancebutton];
+//    [viewliveAssistance bringSubviewToFront:viewliveAssistancebutton];
+    
+    UIButton *viewexitbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewexitbutton addTarget:self
+                       action:@selector(exitAction:)
+             forControlEvents:UIControlEventTouchUpInside];
+    viewexitbutton.frame = viewliveAssistance.frame;
+    [viewexit addSubview:viewexitbutton];
+//    [viewexit bringSubviewToFront:viewexitbutton];
+
+
+    UIButton *viewordersbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewordersbutton addTarget:self
+                         action:@selector(seeOrderAction:)
+               forControlEvents:UIControlEventTouchUpInside];
+    viewordersbutton.frame = viewliveAssistance.frame;
+    [vieworders addSubview:viewordersbutton];
+//    [vieworders bringSubviewToFront:viewordersbutton];
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

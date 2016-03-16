@@ -126,7 +126,58 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
+    
+//      if ([eventChatSupport isEqualToString:@"False"]) {
+        requestAssistance.hidden = YES;
+        float viewHeight = self.view.frame.size.height;
+        
+        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/3);
+        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3);
+        self.exit.frame = CGRectMake(self.exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height, self.exit.frame.size.width,viewHeight/3);
+    
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+    
+    [pingAssistance addSubview:viewliveAssistance];
+    [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
+    
+    [self.exit addSubview:viewexit];
+    [viewexit setFrame:CGRectMake(25,self.exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+    
+    
+    [self.orders addSubview:vieworders];
+    [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+//      }
+    
+    UIButton *viewliveAssistancebutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewliveAssistancebutton addTarget:self
+                                 action:@selector(pingForAssisteance:)
+                       forControlEvents:UIControlEventTouchUpInside];
+    viewliveAssistancebutton.frame = pingAssistance.frame;
+    [pingAssistance addSubview:viewliveAssistancebutton];
+    
+    UIButton *viewexitbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewexitbutton addTarget:self
+                       action:@selector(exitAction:)
+             forControlEvents:UIControlEventTouchUpInside];
+    viewexitbutton.frame = self.exit.frame;
+    [self.exit addSubview:viewexitbutton];
+    
+    UIButton *viewordersbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [viewordersbutton addTarget:self
+                         action:@selector(seeOrderAction:)
+               forControlEvents:UIControlEventTouchUpInside];
+    viewordersbutton.frame = self.orders.frame;
+    [self.orders addSubview:viewordersbutton];
 
+    
+}
 - (void)viewDidAppear:(BOOL)animated {
     
     // observe keyboard hide and show notifications to resize the text view appropriately
@@ -1189,7 +1240,7 @@
             pendingOrderObj.OrderId = [[pendingOrdersList valueForKey:@"OrderId"]objectAtIndex:i];
             pendingOrderObj.RestaurantId = [[pendingOrdersList valueForKey:@"RestaurantId"] objectAtIndex:i];
             pendingOrderObj.Status = [[pendingOrdersList valueForKey:@"Status"]objectAtIndex:i];
-            pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableId"] objectAtIndex:i];
+            pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableName"] objectAtIndex:i];
             pendingOrderObj.TimeOfDelivery = [[pendingOrdersList valueForKey:@"TimeOfDelivery"]objectAtIndex:i];
             pendingOrderObj.TotalBill = [[pendingOrdersList valueForKey:@"TotalBill"]objectAtIndex:i];
             pendingOrderObj.pendingOrderDetails = [[pendingOrdersList valueForKey:@"ListOrderDetails"] objectAtIndex:i];
