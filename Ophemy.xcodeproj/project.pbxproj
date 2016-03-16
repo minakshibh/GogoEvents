@@ -128,6 +128,12 @@
 		97F52BE61A9C819E0064C783 /* spPingAssistanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97F52BE41A9C819E0064C783 /* spPingAssistanceViewController.xib */; };
 		97F52BEA1A9C82520064C783 /* pingsAssistanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F52BE81A9C82520064C783 /* pingsAssistanceTableViewCell.m */; };
 		97F52BEB1A9C82520064C783 /* pingsAssistanceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97F52BE91A9C82520064C783 /* pingsAssistanceTableViewCell.xib */; };
+		D9352AF11C9955450018E589 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AEF1C9955450018E589 /* checkbox-checked.png */; };
+		D9352AF21C9955450018E589 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AF01C9955450018E589 /* checkbox-unchecked.png */; };
+		D9352AF51C9955920018E589 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AF31C9955920018E589 /* checkbox-checked@2x.png */; };
+		D9352AF61C9955920018E589 /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AF41C9955920018E589 /* checkbox-unchecked@2x.png */; };
+		D9352AF91C9955C70018E589 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AF71C9955C70018E589 /* checkbox-checked@2x.png */; };
+		D9352AFA1C9955C70018E589 /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9352AF81C9955C70018E589 /* checkbox-unchecked@2x.png */; };
 		D959CDDD1BFD89B100CE4BC4 /* cell1TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D959CDDB1BFD89B100CE4BC4 /* cell1TableViewCell.m */; };
 		D959CDDE1BFD89B100CE4BC4 /* cell1TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D959CDDC1BFD89B100CE4BC4 /* cell1TableViewCell.xib */; };
 		D959CDE21BFD89C800CE4BC4 /* cell2TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D959CDE01BFD89C800CE4BC4 /* cell2TableViewCell.m */; };
@@ -545,6 +551,12 @@
 		97F52BE71A9C82520064C783 /* pingsAssistanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pingsAssistanceTableViewCell.h; sourceTree = "<group>"; };
 		97F52BE81A9C82520064C783 /* pingsAssistanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pingsAssistanceTableViewCell.m; sourceTree = "<group>"; };
 		97F52BE91A9C82520064C783 /* pingsAssistanceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pingsAssistanceTableViewCell.xib; sourceTree = "<group>"; };
+		D9352AEF1C9955450018E589 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
+		D9352AF01C9955450018E589 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
+		D9352AF31C9955920018E589 /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
+		D9352AF41C9955920018E589 /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
+		D9352AF71C9955C70018E589 /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
+		D9352AF81C9955C70018E589 /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 		D959CDDA1BFD89B100CE4BC4 /* cell1TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cell1TableViewCell.h; sourceTree = "<group>"; };
 		D959CDDB1BFD89B100CE4BC4 /* cell1TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cell1TableViewCell.m; sourceTree = "<group>"; };
 		D959CDDC1BFD89B100CE4BC4 /* cell1TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cell1TableViewCell.xib; sourceTree = "<group>"; };
@@ -1250,6 +1262,8 @@
 		F979057B1C2295F600546664 /* iPad-Mini */ = {
 			isa = PBXGroup;
 			children = (
+				D9352AEF1C9955450018E589 /* checkbox-checked.png */,
+				D9352AF01C9955450018E589 /* checkbox-unchecked.png */,
 				F9EF7B371C23DF360015858A /* close2.png */,
 				F9EF7B351C23DEE40015858A /* header-contain-box.png */,
 				F9EF7B331C23D09F0015858A /* popup-big-scren-bg_19.png */,
@@ -1314,6 +1328,8 @@
 		F97905B01C2295F600546664 /* iPad-Pro */ = {
 			isa = PBXGroup;
 			children = (
+				D9352AF31C9955920018E589 /* checkbox-checked@2x.png */,
+				D9352AF41C9955920018E589 /* checkbox-unchecked@2x.png */,
 				F979072E1C22B52800546664 /* requestassistanceselect@2x.png */,
 				F97907321C22B59A00546664 /* requestassistance@2x.png */,
 				F97905B11C2295F600546664 /* addtocart@2x.png */,
@@ -1375,6 +1391,8 @@
 		F97906C01C22A0F600546664 /* iPad-Ratina */ = {
 			isa = PBXGroup;
 			children = (
+				D9352AF71C9955C70018E589 /* checkbox-checked@2x.png */,
+				D9352AF81C9955C70018E589 /* checkbox-unchecked@2x.png */,
 				F97906C11C22A0F600546664 /* addtocart@2x.png */,
 				F97906C21C22A0F600546664 /* back@2x.png */,
 				F97906C31C22A0F600546664 /* box_assistance@2x.png */,
@@ -1587,6 +1605,7 @@
 				F97907041C22A0F600546664 /* drink@2x.png in Resources */,
 				F979067B1C2295F600546664 /* startneworder@2x.png in Resources */,
 				F979070E1C22A0F600546664 /* increaseselect@2x.png in Resources */,
+				D9352AF21C9955450018E589 /* checkbox-unchecked.png in Resources */,
 				F979063E1C2295F600546664 /* quantity.png in Resources */,
 				976679AC1A4AD40100759FEE /* screenSaverViewController.xib in Resources */,
 				F97906F81C22A0F600546664 /* bulb-select@2x.png in Resources */,
@@ -1656,6 +1675,7 @@
 				F96A10CC1C1AB193005C58E7 /* dropdown-downWhite@2x.png in Resources */,
 				97D973F31A19FF8F0093056E /* Images.xcassets in Resources */,
 				F97906641C2295F600546664 /* exitselect@2x.png in Resources */,
+				D9352AF91C9955C70018E589 /* checkbox-checked@2x.png in Resources */,
 				97D220851AE8C04200B3477C /* browa_0.ttf in Resources */,
 				F97907121C22A0F600546664 /* menu@2x.png in Resources */,
 				F979063A1C2295F600546664 /* orderhistory.png in Resources */,
@@ -1681,11 +1701,13 @@
 				F979064F1C2295F600546664 /* back@2x.png in Resources */,
 				F97906BC1C229A2F00546664 /* 152@2x.png in Resources */,
 				979D1C8B1A25A8310073E822 /* serviceProviderHomeViewController.xib in Resources */,
+				D9352AFA1C9955C70018E589 /* checkbox-unchecked@2x.png in Resources */,
 				F97906751C2295F600546664 /* right-arrow@2x.png in Resources */,
 				F979064C1C2295F600546664 /* viewdetail.png in Resources */,
 				F97906331C2295F600546664 /* increaseselect.png in Resources */,
 				9783C6A11A89CE7F0030CA45 /* OrderListDetailViewController.xib in Resources */,
 				F97906F51C22A0F600546664 /* addtocart@2x.png in Resources */,
+				D9352AF61C9955920018E589 /* checkbox-unchecked@2x.png in Resources */,
 				F97906661C2295F600546664 /* foodselect@2x.png in Resources */,
 				F97907001C22A0F600546664 /* delete@2x.png in Resources */,
 				9754591E1A5FF45E006C706B /* VIP.png in Resources */,
@@ -1702,6 +1724,7 @@
 				F97906241C2295F600546664 /* decrease.png in Resources */,
 				F97906741C2295F600546664 /* requestassistenceselect@2x.png in Resources */,
 				F979062F1C2295F600546664 /* exit.png in Resources */,
+				D9352AF51C9955920018E589 /* checkbox-checked@2x.png in Resources */,
 				F97906491C2295F600546664 /* stroke_10.png in Resources */,
 				F97906591C2295F600546664 /* delete@2x.png in Resources */,
 				F97907111C22A0F600546664 /* logo@2x.png in Resources */,
@@ -1722,6 +1745,7 @@
 				F97906FB1C22A0F600546664 /* checkoutselect@2x.png in Resources */,
 				F979065D1C2295F600546664 /* drink@2x.png in Resources */,
 				F97907081C22A0F600546664 /* dropdown-right@2x.png in Resources */,
+				D9352AF11C9955450018E589 /* checkbox-checked.png in Resources */,
 				F97906581C2295F600546664 /* decrease@2x.png in Resources */,
 				F93D107E1C8057C900DF4F99 /* Icon-83.5@2x.png in Resources */,
 				F97906511C2295F600546664 /* bulb-select@2x.png in Resources */,
@@ -1966,8 +1990,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
@@ -1979,7 +2003,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Nini Events";
-				PROVISIONING_PROFILE = "b19b5ca0-b72a-4d02-afcd-a30674b6128e";
+				PROVISIONING_PROFILE = "548c7c21-a28d-47d7-8a5f-538e9c4942b9";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nini Events-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

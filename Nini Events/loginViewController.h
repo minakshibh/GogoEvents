@@ -20,8 +20,11 @@
     NSMutableArray *menuDetails, *menuCategoryIdsArray, *menuItemsDetail, *itemsIdsArray, *tablesArray,*imagesUrlArray,*iPadIdsArray;
     IBOutlet UILabel *lblbackground;
     IBOutlet UIActivityIndicatorView *activityIndicator;
+    BOOL checkbox_Value;
+    IBOutlet UIButton *btnRememberMe;
+    UIImage *btnImage;
 }
-
+- (IBAction)btnRememberMe:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTxt;
 @property (weak, nonatomic) IBOutlet UITextField *userPasswordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;

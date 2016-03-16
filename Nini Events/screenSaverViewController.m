@@ -149,7 +149,7 @@
     // set the content size to 10 image width
     [scrMain setContentSize:CGSizeMake(scrMain.frame.size.width * [imageNameStringsArray count], scrMain.frame.size.height)];
     // enable timer after each 2 seconds for scrolling.
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
 }
 
 - (void)scrollingTimer {

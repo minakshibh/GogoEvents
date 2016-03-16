@@ -11,6 +11,7 @@
 #import "menuStateViewController.h"
 
 @interface loginViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *lblSigningIn;
 
 @end
 
@@ -21,6 +22,23 @@
 //    NSString *userID = [NSString stringWithFormat:@"Service@mailinator.com"]; 9882486511
 //    NSString *password = [NSString stringWithFormat:@"123456"];
 //    [self loginWebservice:userID :password];
+    checkbox_Value = false;
+    
+    
+    NSLog(@"---%@",[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status"]]);
+    
+    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"remember_me_status"] != nil) {
+        
+        if([[[NSUserDefaults standardUserDefaults]valueForKey:@"remember_me_status"] isEqualToString:@"yes"])
+        {
+            self.userNameTxt.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status_email"];
+            self.userPasswordTxt.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status_pass"];
+            [btnRememberMe setImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateNormal];
+            checkbox_Value = true;
+        }
+        
+    }
+    
     
      lblbackground.layer.cornerRadius = 4.0;  [lblbackground setClipsToBounds:YES];
     self.loginBtn.layer.cornerRadius = 4.0;  [self.loginBtn setClipsToBounds:YES];
@@ -43,7 +61,19 @@
 
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"remember_me_status"] != nil) {
+        
+        if([[[NSUserDefaults standardUserDefaults]valueForKey:@"remember_me_status"] isEqualToString:@"yes"])
+        {
+            self.userNameTxt.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status_email"];
+            self.userPasswordTxt.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status_pass"];
+            [btnRememberMe setImage:[UIImage imageNamed:@"checkbox-checked.png"] forState:UIControlStateNormal];
+            checkbox_Value = true;
+        }
+        
+    }
+}
 - (void)removeData
 {
     NSString *extension = @"png";
@@ -136,7 +166,7 @@
     NSLog(@"jsonRequest is %@", jsonRequest);
     NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/FetchCategoryItems",Kwebservices]];
    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:50.0];
     
     NSLog(@"Request:%@",urlString);
     
@@ -172,7 +202,19 @@
     
     
 }
-
+- (IBAction)btnRememberMe:(id)sender{
+    if(checkbox_Value == true)
+    {
+        checkbox_Value = false;
+        btnImage = [UIImage imageNamed:@"checkbox-unchecked.png"];
+        [btnRememberMe setImage:btnImage forState:UIControlStateNormal];
+        return;
+    }else{
+        checkbox_Value = true;
+        btnImage = [UIImage imageNamed:@"checkbox-checked.png"];
+        [btnRememberMe setImage:btnImage forState:UIControlStateNormal];
+    }
+}
 
 -(void)loginWebservice:(NSString *) userid :(NSString *) password
 {
@@ -485,6 +527,25 @@
                 
                 
             }
+            
+            //--- change loading message text
+            self.lblSigningIn.text = @"We are loading assets. This may take a while...";
+            activityIndicator.frame = CGRectMake(self.lblSigningIn.frame.origin.x-activityIndicator.frame.size.width-2, activityIndicator.frame.origin.y, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+            
+            //---save remeber me button
+            if(checkbox_Value == true)
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:@"yes" forKey:@"remember_me_status"];
+                [[NSUserDefaults standardUserDefaults] setObject:self.userNameTxt.text forKey:@"remember_me_status_email"];
+                [[NSUserDefaults standardUserDefaults] setObject:self.userPasswordTxt.text forKey:@"remember_me_status_pass"];
+            }else{
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"remember_me_status"];
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"remember_me_status_email"];
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"remember_me_status_pass"];
+            }
+            
+            
+            
             [self fetchBannerImages];
         }else{
             [self enable];

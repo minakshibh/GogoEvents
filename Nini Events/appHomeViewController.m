@@ -333,6 +333,9 @@ NSArray *urlLinks;
     }else{
         [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
     }
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"bulb"] isEqualToString:@"ON"]) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"OFF" forKey:@"bulb"];
+    }
     [self.view addSubview:self.exitPopUpView];
 }
 

@@ -198,7 +198,7 @@
     // set the content size to 10 image width
     [scrMain setContentSize:CGSizeMake(scrMain.frame.size.width * [imageNameStringsArray count], scrMain.frame.size.height)];
     // enable timer after each 2 seconds for scrolling.
-    [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
 }
 
 - (void)scrollingTimer {
@@ -281,6 +281,9 @@
         [self.exitPopUpView setFrame:CGRectMake(0, 0, 1366, 1024)];
     }else{
         [self.exitPopUpView setFrame:CGRectMake(0, 0, self.exitPopUpView.frame.size.width, self.exitPopUpView.frame.size.height)];
+    }
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"bulb"] isEqualToString:@"ON"]) {
+        [[NSUserDefaults standardUserDefaults] setValue:@"OFF" forKey:@"bulb"];
     }
     [self.view addSubview:self.exitPopUpView];
 }
