@@ -226,7 +226,7 @@ NSArray *urlLinks;
     NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
     NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
     [dateFormat1 setLocale:[NSLocale currentLocale]];
-    [dateFormat1 setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
+    [dateFormat1 setDateFormat:@"M/dd/yyyy HH:mm:ss a"];
 //    NSDate *endDate = [dateFormat1 dateFromString:EndTime];
 //    NSString *endDateStr = [dateFormat1 stringFromDate:endDate];
 
@@ -415,7 +415,7 @@ NSArray *urlLinks;
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }
@@ -696,7 +696,7 @@ NSArray *urlLinks;
     [defaults removeObjectForKey:@"Table image"];
     [defaults removeObjectForKey:@"Role"];
     [self removeData];
-    [defaults setObject:@"YES" forKey:@"isLogedOut"];
+    [defaults setObject:@"YES"forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
 }

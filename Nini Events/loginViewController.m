@@ -39,15 +39,7 @@
     appdelegate.navigator.navigationBarHidden = YES;
     [self.userPasswordTxt setDelegate:self];
     [self.userNameTxt setDelegate:self];
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    if (IS_IPAD_Pro) {
-        activityIndicator.center = CGPointMake(1366/2, 1028/2);
-    }else{
-    activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-    }
-    activityIndicator.color=[UIColor whiteColor];
-
-    [self.view addSubview:activityIndicator];
+    
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -270,12 +262,14 @@
         NSLog(@"Dictionary %@",userDetailDict);
         [self enable];
         [activityIndicator stopAnimating];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
         
         if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
             serviceProviderHomeViewController *serviceProviderHomeVC= [[serviceProviderHomeViewController alloc]initWithNibName:@"serviceProviderHomeViewController" bundle:nil];
             [self.navigationController pushViewController:serviceProviderHomeVC animated:YES];
         }else{
+            
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSString *slideShowStatus = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"SlideShow"]];
             if ([slideShowStatus isEqualToString:@"1"]) {
@@ -286,6 +280,7 @@
                 homeVC.isNewOrder = NO;
                 [self.navigationController pushViewController:homeVC animated:NO];
             }
+            [defaults setObject:@"NO"forKey:@"isLogedOut"];
             appdelegate = [[UIApplication sharedApplication] delegate];
             appdelegate.startIdleTimmer = YES;
             [appdelegate resetIdleTimer];
@@ -380,19 +375,7 @@
                 }
                 
             }
-            //
-            //
-            //
-            //            NSString *queryString = [NSString stringWithFormat:@"Select * FROM menu where type = \"%@\"", [NSString stringWithFormat:@"Food"]];
-            //            FMResultSet *results = [database executeQuery:queryString];
-            //
-            //
-            //            while([results next]) {
-            //                menuObj = [[menuOC alloc] init];
-            //                menuObj.categoryID = [results intForColumn:@"categoryID"];
-            //                menuObj.categoryName = [results stringForColumn:@"categoryName"];
-            //                menuObj.type = [results stringForColumn:@"type"];
-            //            }
+            
             
             NSString *itemsQueryString = [NSString stringWithFormat:@"Select * FROM categoryItems "];
             FMResultSet *itemsResults = [database executeQuery:itemsQueryString];
@@ -469,7 +452,7 @@
                 
                 
                 [defaults setValue:[userDetailDict valueForKey:@"eventId"] forKey:@"Event ID"];
-                [self registerDevice];
+              
                 
             }else{
                 tablesArray = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"listTables"]];
@@ -499,12 +482,10 @@
                     [database close];
                 
 //                }
-                [self fetchBannerImages];
+                
                 
             }
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:[NSString stringWithFormat:@"NO"] forKey:@"isLogedOut"];
-            
+            [self fetchBannerImages];
         }else{
             [self enable];
             [activityIndicator stopAnimating];
@@ -564,7 +545,14 @@
           //  [imagesUrlArray addObject:urlStr];
         }
       //  [defaults setObject:imagesUrlArray forKey:@"ImageArray"];
-        [self fetchEventDetails];
+        
+        
+       if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
+            [self registerDevice];
+        }else{
+            [self fetchEventDetails];
+        }
+        
     }else if (webServiceCode == 5) {
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -828,12 +816,12 @@
     self.disabledImgView.hidden = YES;
 }
 - (IBAction)ForgotPassword:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://112.196.24.205:815/ForgotPassword.aspx"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/ForgotPassword.aspx",Kregister]]];
 
 }
 - (IBAction)Register:(id)sender {
     
-         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://112.196.24.205:815/RegisterAdmin.aspx"]];
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/RegisterAdmin.aspx",Kregister]]];
     
 }
 - (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName
@@ -854,9 +842,7 @@
         }];
     [request setDelegate:self];
     [request startSynchronous];
-    
-    
-    
+   
 }
 
 @end

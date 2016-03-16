@@ -160,8 +160,8 @@
 		F979061E1C2295F600546664 /* bulb.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905801C2295F600546664 /* bulb.png */; };
 		F979061F1C2295F600546664 /* cart.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905811C2295F600546664 /* cart.png */; };
 		F97906221C2295F600546664 /* close_13.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905841C2295F600546664 /* close_13.png */; };
-		F97906231C2295F600546664 /* decrease.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905851C2295F600546664 /* decrease.png */; };
-		F97906241C2295F600546664 /* decreaseselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905861C2295F600546664 /* decreaseselect.png */; };
+		F97906231C2295F600546664 /* decreaseselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905851C2295F600546664 /* decreaseselect.png */; };
+		F97906241C2295F600546664 /* decrease.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905861C2295F600546664 /* decrease.png */; };
 		F97906251C2295F600546664 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905871C2295F600546664 /* delete.png */; };
 		F97906261C2295F600546664 /* deleteselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905881C2295F600546664 /* deleteselect.png */; };
 		F97906271C2295F600546664 /* deliveredorderTick.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905891C2295F600546664 /* deliveredorderTick.png */; };
@@ -176,8 +176,8 @@
 		F97906301C2295F600546664 /* exitselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905921C2295F600546664 /* exitselect.png */; };
 		F97906311C2295F600546664 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905931C2295F600546664 /* food.png */; };
 		F97906321C2295F600546664 /* foodselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905941C2295F600546664 /* foodselect.png */; };
-		F97906331C2295F600546664 /* increase.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905951C2295F600546664 /* increase.png */; };
-		F97906341C2295F600546664 /* increaseselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905961C2295F600546664 /* increaseselect.png */; };
+		F97906331C2295F600546664 /* increaseselect.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905951C2295F600546664 /* increaseselect.png */; };
+		F97906341C2295F600546664 /* increase.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905961C2295F600546664 /* increase.png */; };
 		F97906351C2295F600546664 /* login-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905971C2295F600546664 /* login-btn.png */; };
 		F97906361C2295F600546664 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905981C2295F600546664 /* logo.png */; };
 		F97906371C2295F600546664 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905991C2295F600546664 /* menu.png */; };
@@ -213,7 +213,7 @@
 		F97906551C2295F600546664 /* checkout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905B81C2295F600546664 /* checkout@2x.png */; };
 		F97906561C2295F600546664 /* close_13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905B91C2295F600546664 /* close_13@2x.png */; };
 		F97906571C2295F600546664 /* decrease@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BA1C2295F600546664 /* decrease@2x.png */; };
-		F97906581C2295F600546664 /* decreaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BB1C2295F600546664 /* decreaseselect@2x.png */; };
+		F97906581C2295F600546664 /* decrease@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BB1C2295F600546664 /* decrease@2x.png */; };
 		F97906591C2295F600546664 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BC1C2295F600546664 /* delete@2x.png */; };
 		F979065A1C2295F600546664 /* deleteselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BD1C2295F600546664 /* deleteselect@2x.png */; };
 		F979065B1C2295F600546664 /* deliveredorderTick.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905BE1C2295F600546664 /* deliveredorderTick.png */; };
@@ -228,8 +228,8 @@
 		F97906641C2295F600546664 /* exitselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905C71C2295F600546664 /* exitselect@2x.png */; };
 		F97906651C2295F600546664 /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905C81C2295F600546664 /* food@2x.png */; };
 		F97906661C2295F600546664 /* foodselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905C91C2295F600546664 /* foodselect@2x.png */; };
-		F97906671C2295F600546664 /* increase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CA1C2295F600546664 /* increase@2x.png */; };
-		F97906681C2295F600546664 /* increaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CB1C2295F600546664 /* increaseselect@2x.png */; };
+		F97906671C2295F600546664 /* increaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CA1C2295F600546664 /* increaseselect@2x.png */; };
+		F97906681C2295F600546664 /* increase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CB1C2295F600546664 /* increase@2x.png */; };
 		F97906691C2295F600546664 /* login-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CC1C2295F600546664 /* login-btn@2x.png */; };
 		F979066A1C2295F600546664 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CD1C2295F600546664 /* logo@2x.png */; };
 		F979066B1C2295F600546664 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97905CE1C2295F600546664 /* menu@2x.png */; };
@@ -269,8 +269,8 @@
 		F97906FB1C22A0F600546664 /* checkoutselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906C71C22A0F600546664 /* checkoutselect@2x.png */; };
 		F97906FC1C22A0F600546664 /* checkout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906C81C22A0F600546664 /* checkout@2x.png */; };
 		F97906FD1C22A0F600546664 /* close_13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906C91C22A0F600546664 /* close_13@2x.png */; };
-		F97906FE1C22A0F600546664 /* decrease@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CA1C22A0F600546664 /* decrease@2x.png */; };
-		F97906FF1C22A0F600546664 /* decreaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CB1C22A0F600546664 /* decreaseselect@2x.png */; };
+		F97906FE1C22A0F600546664 /* decreaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CA1C22A0F600546664 /* decreaseselect@2x.png */; };
+		F97906FF1C22A0F600546664 /* decrease@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CB1C22A0F600546664 /* decrease@2x.png */; };
 		F97907001C22A0F600546664 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CC1C22A0F600546664 /* delete@2x.png */; };
 		F97907011C22A0F600546664 /* deleteselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CD1C22A0F600546664 /* deleteselect@2x.png */; };
 		F97907021C22A0F600546664 /* deliveredorderTick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906CE1C22A0F600546664 /* deliveredorderTick@2x.png */; };
@@ -285,8 +285,8 @@
 		F979070B1C22A0F600546664 /* exitselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906D71C22A0F600546664 /* exitselect@2x.png */; };
 		F979070C1C22A0F600546664 /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906D81C22A0F600546664 /* food@2x.png */; };
 		F979070D1C22A0F600546664 /* foodselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906D91C22A0F600546664 /* foodselect@2x.png */; };
-		F979070E1C22A0F600546664 /* increase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DA1C22A0F600546664 /* increase@2x.png */; };
-		F979070F1C22A0F600546664 /* increaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DB1C22A0F600546664 /* increaseselect@2x.png */; };
+		F979070E1C22A0F600546664 /* increaseselect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DA1C22A0F600546664 /* increaseselect@2x.png */; };
+		F979070F1C22A0F600546664 /* increase@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DB1C22A0F600546664 /* increase@2x.png */; };
 		F97907101C22A0F600546664 /* login-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DC1C22A0F600546664 /* login-btn@2x.png */; };
 		F97907111C22A0F600546664 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DD1C22A0F600546664 /* logo@2x.png */; };
 		F97907121C22A0F600546664 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F97906DE1C22A0F600546664 /* menu@2x.png */; };
@@ -580,8 +580,8 @@
 		F97905801C2295F600546664 /* bulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bulb.png; sourceTree = "<group>"; };
 		F97905811C2295F600546664 /* cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cart.png; sourceTree = "<group>"; };
 		F97905841C2295F600546664 /* close_13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_13.png; sourceTree = "<group>"; };
-		F97905851C2295F600546664 /* decrease.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decrease.png; sourceTree = "<group>"; };
-		F97905861C2295F600546664 /* decreaseselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decreaseselect.png; sourceTree = "<group>"; };
+		F97905851C2295F600546664 /* decreaseselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decreaseselect.png; sourceTree = "<group>"; };
+		F97905861C2295F600546664 /* decrease.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decrease.png; sourceTree = "<group>"; };
 		F97905871C2295F600546664 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		F97905881C2295F600546664 /* deleteselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteselect.png; sourceTree = "<group>"; };
 		F97905891C2295F600546664 /* deliveredorderTick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deliveredorderTick.png; sourceTree = "<group>"; };
@@ -596,8 +596,8 @@
 		F97905921C2295F600546664 /* exitselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exitselect.png; sourceTree = "<group>"; };
 		F97905931C2295F600546664 /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food.png; sourceTree = "<group>"; };
 		F97905941C2295F600546664 /* foodselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foodselect.png; sourceTree = "<group>"; };
-		F97905951C2295F600546664 /* increase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = increase.png; sourceTree = "<group>"; };
-		F97905961C2295F600546664 /* increaseselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = increaseselect.png; sourceTree = "<group>"; };
+		F97905951C2295F600546664 /* increaseselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = increaseselect.png; sourceTree = "<group>"; };
+		F97905961C2295F600546664 /* increase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = increase.png; sourceTree = "<group>"; };
 		F97905971C2295F600546664 /* login-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn.png"; sourceTree = "<group>"; };
 		F97905981C2295F600546664 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		F97905991C2295F600546664 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -633,7 +633,7 @@
 		F97905B81C2295F600546664 /* checkout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkout@2x.png"; sourceTree = "<group>"; };
 		F97905B91C2295F600546664 /* close_13@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_13@2x.png"; sourceTree = "<group>"; };
 		F97905BA1C2295F600546664 /* decrease@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decrease@2x.png"; sourceTree = "<group>"; };
-		F97905BB1C2295F600546664 /* decreaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decreaseselect@2x.png"; sourceTree = "<group>"; };
+		F97905BB1C2295F600546664 /* decrease@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decrease@2x.png"; sourceTree = "<group>"; };
 		F97905BC1C2295F600546664 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		F97905BD1C2295F600546664 /* deleteselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteselect@2x.png"; sourceTree = "<group>"; };
 		F97905BE1C2295F600546664 /* deliveredorderTick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deliveredorderTick.png; sourceTree = "<group>"; };
@@ -648,8 +648,8 @@
 		F97905C71C2295F600546664 /* exitselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exitselect@2x.png"; sourceTree = "<group>"; };
 		F97905C81C2295F600546664 /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
 		F97905C91C2295F600546664 /* foodselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foodselect@2x.png"; sourceTree = "<group>"; };
-		F97905CA1C2295F600546664 /* increase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increase@2x.png"; sourceTree = "<group>"; };
-		F97905CB1C2295F600546664 /* increaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increaseselect@2x.png"; sourceTree = "<group>"; };
+		F97905CA1C2295F600546664 /* increaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increaseselect@2x.png"; sourceTree = "<group>"; };
+		F97905CB1C2295F600546664 /* increase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increase@2x.png"; sourceTree = "<group>"; };
 		F97905CC1C2295F600546664 /* login-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn@2x.png"; sourceTree = "<group>"; };
 		F97905CD1C2295F600546664 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		F97905CE1C2295F600546664 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -689,8 +689,8 @@
 		F97906C71C22A0F600546664 /* checkoutselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkoutselect@2x.png"; sourceTree = "<group>"; };
 		F97906C81C22A0F600546664 /* checkout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkout@2x.png"; sourceTree = "<group>"; };
 		F97906C91C22A0F600546664 /* close_13@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_13@2x.png"; sourceTree = "<group>"; };
-		F97906CA1C22A0F600546664 /* decrease@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decrease@2x.png"; sourceTree = "<group>"; };
-		F97906CB1C22A0F600546664 /* decreaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decreaseselect@2x.png"; sourceTree = "<group>"; };
+		F97906CA1C22A0F600546664 /* decreaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decreaseselect@2x.png"; sourceTree = "<group>"; };
+		F97906CB1C22A0F600546664 /* decrease@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "decrease@2x.png"; sourceTree = "<group>"; };
 		F97906CC1C22A0F600546664 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		F97906CD1C22A0F600546664 /* deleteselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deleteselect@2x.png"; sourceTree = "<group>"; };
 		F97906CE1C22A0F600546664 /* deliveredorderTick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deliveredorderTick@2x.png"; sourceTree = "<group>"; };
@@ -705,8 +705,8 @@
 		F97906D71C22A0F600546664 /* exitselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exitselect@2x.png"; sourceTree = "<group>"; };
 		F97906D81C22A0F600546664 /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
 		F97906D91C22A0F600546664 /* foodselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foodselect@2x.png"; sourceTree = "<group>"; };
-		F97906DA1C22A0F600546664 /* increase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increase@2x.png"; sourceTree = "<group>"; };
-		F97906DB1C22A0F600546664 /* increaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increaseselect@2x.png"; sourceTree = "<group>"; };
+		F97906DA1C22A0F600546664 /* increaseselect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increaseselect@2x.png"; sourceTree = "<group>"; };
+		F97906DB1C22A0F600546664 /* increase@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "increase@2x.png"; sourceTree = "<group>"; };
 		F97906DC1C22A0F600546664 /* login-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-btn@2x.png"; sourceTree = "<group>"; };
 		F97906DD1C22A0F600546664 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		F97906DE1C22A0F600546664 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -1264,8 +1264,8 @@
 				F97907291C22B15D00546664 /* checkout.png */,
 				F979072A1C22B15D00546664 /* checkoutselect.png */,
 				F97905841C2295F600546664 /* close_13.png */,
-				F97905851C2295F600546664 /* decrease.png */,
-				F97905861C2295F600546664 /* decreaseselect.png */,
+				F97905851C2295F600546664 /* decreaseselect.png */,
+				F97905861C2295F600546664 /* decrease.png */,
 				F97905871C2295F600546664 /* delete.png */,
 				F97905881C2295F600546664 /* deleteselect.png */,
 				F97905891C2295F600546664 /* deliveredorderTick.png */,
@@ -1280,8 +1280,8 @@
 				F97905921C2295F600546664 /* exitselect.png */,
 				F97905931C2295F600546664 /* food.png */,
 				F97905941C2295F600546664 /* foodselect.png */,
-				F97905951C2295F600546664 /* increase.png */,
-				F97905961C2295F600546664 /* increaseselect.png */,
+				F97905951C2295F600546664 /* increaseselect.png */,
+				F97905961C2295F600546664 /* increase.png */,
 				F97905971C2295F600546664 /* login-btn.png */,
 				F97905981C2295F600546664 /* logo.png */,
 				F97905991C2295F600546664 /* menu.png */,
@@ -1326,7 +1326,7 @@
 				F97905B81C2295F600546664 /* checkout@2x.png */,
 				F97905B91C2295F600546664 /* close_13@2x.png */,
 				F97905BA1C2295F600546664 /* decrease@2x.png */,
-				F97905BB1C2295F600546664 /* decreaseselect@2x.png */,
+				F97905BB1C2295F600546664 /* decrease@2x.png */,
 				F97905BC1C2295F600546664 /* delete@2x.png */,
 				F97905BD1C2295F600546664 /* deleteselect@2x.png */,
 				F97905BE1C2295F600546664 /* deliveredorderTick.png */,
@@ -1341,8 +1341,8 @@
 				F97905C71C2295F600546664 /* exitselect@2x.png */,
 				F97905C81C2295F600546664 /* food@2x.png */,
 				F97905C91C2295F600546664 /* foodselect@2x.png */,
-				F97905CA1C2295F600546664 /* increase@2x.png */,
-				F97905CB1C2295F600546664 /* increaseselect@2x.png */,
+				F97905CA1C2295F600546664 /* increaseselect@2x.png */,
+				F97905CB1C2295F600546664 /* increase@2x.png */,
 				F97905CC1C2295F600546664 /* login-btn@2x.png */,
 				F97905CD1C2295F600546664 /* logo@2x.png */,
 				F97905CE1C2295F600546664 /* menu@2x.png */,
@@ -1384,8 +1384,8 @@
 				F97906C71C22A0F600546664 /* checkoutselect@2x.png */,
 				F97906C81C22A0F600546664 /* checkout@2x.png */,
 				F97906C91C22A0F600546664 /* close_13@2x.png */,
-				F97906CA1C22A0F600546664 /* decrease@2x.png */,
-				F97906CB1C22A0F600546664 /* decreaseselect@2x.png */,
+				F97906CA1C22A0F600546664 /* decreaseselect@2x.png */,
+				F97906CB1C22A0F600546664 /* decrease@2x.png */,
 				F97906CC1C22A0F600546664 /* delete@2x.png */,
 				F97906CD1C22A0F600546664 /* deleteselect@2x.png */,
 				F97906CE1C22A0F600546664 /* deliveredorderTick@2x.png */,
@@ -1400,8 +1400,8 @@
 				F97906D71C22A0F600546664 /* exitselect@2x.png */,
 				F97906D81C22A0F600546664 /* food@2x.png */,
 				F97906D91C22A0F600546664 /* foodselect@2x.png */,
-				F97906DA1C22A0F600546664 /* increase@2x.png */,
-				F97906DB1C22A0F600546664 /* increaseselect@2x.png */,
+				F97906DA1C22A0F600546664 /* increaseselect@2x.png */,
+				F97906DB1C22A0F600546664 /* increase@2x.png */,
 				F97906DC1C22A0F600546664 /* login-btn@2x.png */,
 				F97906DD1C22A0F600546664 /* logo@2x.png */,
 				F97906DE1C22A0F600546664 /* menu@2x.png */,
@@ -1542,13 +1542,13 @@
 				F97906311C2295F600546664 /* food.png in Resources */,
 				F97907271C22A0F600546664 /* viewdetail@2x.png in Resources */,
 				F979070C1C22A0F600546664 /* food@2x.png in Resources */,
-				F979070F1C22A0F600546664 /* increaseselect@2x.png in Resources */,
+				F979070F1C22A0F600546664 /* increase@2x.png in Resources */,
 				F979071B1C22A0F600546664 /* requestassistenceselect@2x.png in Resources */,
-				F97906FF1C22A0F600546664 /* decreaseselect@2x.png in Resources */,
+				F97906FF1C22A0F600546664 /* decrease@2x.png in Resources */,
 				9732228E1A78BDED00728CE4 /* homeViewController_1.xib in Resources */,
 				F97906461C2295F600546664 /* spcornerselect.png in Resources */,
 				F96A10C81C1AACE5005C58E7 /* dropdown-right@2x.png in Resources */,
-				F97906681C2295F600546664 /* increaseselect@2x.png in Resources */,
+				F97906681C2295F600546664 /* increase@2x.png in Resources */,
 				F97906391C2295F600546664 /* ophemy-logo.png in Resources */,
 				F96A10CB1C1AB193005C58E7 /* dropdown-downWhite.png in Resources */,
 				F9EF7B361C23DEE40015858A /* header-contain-box.png in Resources */,
@@ -1586,7 +1586,7 @@
 				F97907011C22A0F600546664 /* deleteselect@2x.png in Resources */,
 				F97907041C22A0F600546664 /* drink@2x.png in Resources */,
 				F979067B1C2295F600546664 /* startneworder@2x.png in Resources */,
-				F979070E1C22A0F600546664 /* increase@2x.png in Resources */,
+				F979070E1C22A0F600546664 /* increaseselect@2x.png in Resources */,
 				F979063E1C2295F600546664 /* quantity.png in Resources */,
 				976679AC1A4AD40100759FEE /* screenSaverViewController.xib in Resources */,
 				F97906F81C22A0F600546664 /* bulb-select@2x.png in Resources */,
@@ -1606,12 +1606,12 @@
 				F979064E1C2295F600546664 /* addtocart@2x.png in Resources */,
 				F97906321C2295F600546664 /* foodselect.png in Resources */,
 				F97906721C2295F600546664 /* quantity@2x.png in Resources */,
-				F97906341C2295F600546664 /* increaseselect.png in Resources */,
+				F97906341C2295F600546664 /* increase.png in Resources */,
 				F97907241C22A0F600546664 /* stroke_10@2x.png in Resources */,
 				F979070A1C22A0F600546664 /* exit@2x.png in Resources */,
 				F979062A1C2295F600546664 /* drinkselect.png in Resources */,
 				F96A10C71C1AACE5005C58E7 /* dropdown-right.png in Resources */,
-				F97906FE1C22A0F600546664 /* decrease@2x.png in Resources */,
+				F97906FE1C22A0F600546664 /* decreaseselect@2x.png in Resources */,
 				F97906501C2295F600546664 /* box_assistance@2x.png in Resources */,
 				D959CDEF1BFDB79D00CE4BC4 /* right-arrow.png in Resources */,
 				F979067F1C2295F600546664 /* user-icon@2x.png in Resources */,
@@ -1648,7 +1648,7 @@
 				9783C69D1A89CE7F0030CA45 /* OrdersListViewController.xib in Resources */,
 				97E170B11A8226AF00FC76CA /* helvetica-condensed-bold.ttf in Resources */,
 				F97906691C2295F600546664 /* login-btn@2x.png in Resources */,
-				F97906671C2295F600546664 /* increase@2x.png in Resources */,
+				F97906671C2295F600546664 /* increaseselect@2x.png in Resources */,
 				F97906521C2295F600546664 /* bulb@2x.png in Resources */,
 				F97907021C22A0F600546664 /* deliveredorderTick@2x.png in Resources */,
 				F979070D1C22A0F600546664 /* foodselect@2x.png in Resources */,
@@ -1683,7 +1683,7 @@
 				979D1C8B1A25A8310073E822 /* serviceProviderHomeViewController.xib in Resources */,
 				F97906751C2295F600546664 /* right-arrow@2x.png in Resources */,
 				F979064C1C2295F600546664 /* viewdetail.png in Resources */,
-				F97906331C2295F600546664 /* increase.png in Resources */,
+				F97906331C2295F600546664 /* increaseselect.png in Resources */,
 				9783C6A11A89CE7F0030CA45 /* OrderListDetailViewController.xib in Resources */,
 				F97906F51C22A0F600546664 /* addtocart@2x.png in Resources */,
 				F97906661C2295F600546664 /* foodselect@2x.png in Resources */,
@@ -1697,9 +1697,9 @@
 				F97906261C2295F600546664 /* deleteselect.png in Resources */,
 				F97907161C22A0F600546664 /* orderhistoryselect@2x.png in Resources */,
 				97F189AD1A39C83800A8E5D1 /* avatar1.png in Resources */,
-				F97906231C2295F600546664 /* decrease.png in Resources */,
+				F97906231C2295F600546664 /* decreaseselect.png in Resources */,
 				F97906251C2295F600546664 /* delete.png in Resources */,
-				F97906241C2295F600546664 /* decreaseselect.png in Resources */,
+				F97906241C2295F600546664 /* decrease.png in Resources */,
 				F97906741C2295F600546664 /* requestassistenceselect@2x.png in Resources */,
 				F979062F1C2295F600546664 /* exit.png in Resources */,
 				F97906491C2295F600546664 /* stroke_10.png in Resources */,
@@ -1722,7 +1722,7 @@
 				F97906FB1C22A0F600546664 /* checkoutselect@2x.png in Resources */,
 				F979065D1C2295F600546664 /* drink@2x.png in Resources */,
 				F97907081C22A0F600546664 /* dropdown-right@2x.png in Resources */,
-				F97906581C2295F600546664 /* decreaseselect@2x.png in Resources */,
+				F97906581C2295F600546664 /* decrease@2x.png in Resources */,
 				F93D107E1C8057C900DF4F99 /* Icon-83.5@2x.png in Resources */,
 				F97906511C2295F600546664 /* bulb-select@2x.png in Resources */,
 				F979063D1C2295F600546664 /* popUp-without-text_small.png in Resources */,

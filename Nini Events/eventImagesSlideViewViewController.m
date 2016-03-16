@@ -506,21 +506,21 @@
             
             appdelegate.currencySymbol=substring;
            [defaults setValue:substring forKey:@"Currency Value"];
-            if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
-                
-                NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
-                NSString *eventID = [userDetailDict valueForKey:@"EventName"];
-                
-                [self imageDownloading:eventImageStr :eventID];
-                
-                eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
-                
-                [defaults setValue:eventImageStr forKey:@"EventImage"];
-                
-            }
-            else{
-                [defaults setValue:@"" forKey:@"EventPictureUrl"];
-            }
+//            if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
+//                
+//                NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+//                NSString *eventID = [userDetailDict valueForKey:@"EventName"];
+//                
+//                [self imageDownloading:eventImageStr :eventID];
+//                
+//                eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
+//                
+//                [defaults setValue:eventImageStr forKey:@"EventImage"];
+//                
+//            }
+//            else{
+//                [defaults setValue:@"" forKey:@"EventPictureUrl"];
+//            }
             
             [defaults setValue:[userDetailDict valueForKey:@"EventFontColor"] forKey:@"EventFontColor"];
             [defaults setValue:[userDetailDict valueForKey:@"EventFontName"] forKey:@"EventFontName"];
@@ -803,7 +803,7 @@
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }

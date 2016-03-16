@@ -120,11 +120,13 @@
         headrLbl.text=@"ORDER HISTORY";
         startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         ordrHistryLbl.textColor=[UIColor whiteColor];
+        orderHistoryLbl2.textColor=[UIColor whiteColor];
         exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         requestAssistntLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         spCornerLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         
         ordrhistryImag.image=[UIImage imageNamed:@"orderhistoryselect.png"];
+        orderHistoryImg2.image=[UIImage imageNamed:@"orderhistoryselect.png"];
         [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"open"]];
     }else if (self.flagValue == 2){
         startNewOrdrLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
@@ -132,8 +134,9 @@
         exitLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         requestAssistntLbl.textColor=[UIColor colorWithRed:197.0/255.0  green:95.0/255.0 blue:77.0/255.0 alpha:1.0f];
         spCornerLbl.textColor=[UIColor whiteColor];
-        
+        spCornerlbl2.textColor = [UIColor whiteColor];
         spCornrImag.image=[UIImage imageNamed:@"spcornerselect.png"];
+        spCornerImg2.image=[UIImage imageNamed:@"spcornerselect.png"];
         headrLbl.text=@"SP CORNER";
         [self FetchPendingPlacedOrder:[NSString stringWithFormat:@"delivered"]];
     }
@@ -629,7 +632,7 @@
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }

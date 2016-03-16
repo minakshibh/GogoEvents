@@ -19,10 +19,11 @@
 
 
 #define Kwebservices @"http://ophemy-001-site2.ctempurl.com/ninievents.asmx"
+#define Kregister @"http://www.ophemy.com"
 
 //#define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
 
-#define PdfWebUrl @"http://112.196.24.205:1071/EventPdf"
+
 
 #pragma mark Device frame check
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)

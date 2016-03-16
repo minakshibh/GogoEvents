@@ -36,7 +36,7 @@
     menuItemsOC *menuItemsObj;
     menuOC *menuObj;
     NSIndexPath *menuIndex, *menuItemIndex, *orderIndex, *pendingOrderIndex, *quantityIndex;
-    AsyncImageView *itemImagePage;
+    UIImageView *itemImagePage;
     int webServiceCode, itemID, flag, zeroIndex, maximumQty, chatUsed;
     NSString *categoryID,*timeStampKey,* menuTimeStampKey, *processingOrderID;
     UILabel *subItemsLbl,*itemName, * orderItemsName,* orderItemQuantity, *priceLabel, *placedorderName,* placeOrderquantity, *placedOrderPrice, *pendingOrderIDLbl, * pendingOrderStatusLbl, *pendingorderName,* pendingOrderquantity, *pendingOrderPrice, *pendingOrderTime, *menuItems,*menuHeaders;

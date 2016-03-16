@@ -50,6 +50,10 @@
     IBOutlet UIView *viewmenu1footer;
     IBOutlet UIView *viewvieworderfooter;
 
+    IBOutlet UIImageView *orderHistoryImg2;
+    IBOutlet UIImageView *spCornerImg2;
+    IBOutlet UILabel *spCornerlbl2;
+    IBOutlet UILabel *orderHistoryLbl2;
 }
 @property (strong,nonatomic) NSString* type;
 @property (weak, nonatomic) IBOutlet UITableView *pendingOrdersTableView;

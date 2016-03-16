@@ -10,7 +10,6 @@
     AppDelegate *appdelegate;
     CGPoint svos;
     NSMutableData *webData;
-    UIActivityIndicatorView *activityIndicator;
     NSString *result, *message, *lastUpdatedCities, *supportEmail, *categoryType;
     NSArray *docPaths;
     NSString *documentsDir, *dbPath;
@@ -20,6 +19,7 @@
     FMDatabase *database;
     NSMutableArray *menuDetails, *menuCategoryIdsArray, *menuItemsDetail, *itemsIdsArray, *tablesArray,*imagesUrlArray,*iPadIdsArray;
     IBOutlet UILabel *lblbackground;
+    IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTxt;
@@ -30,6 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *loginScroller;
 - (IBAction)ForgotPassword:(id)sender;
 - (IBAction)Register:(id)sender;
-@property (weak, nonatomic) IBOutlet UIImageView *disabledImgView;
+@property (weak, nonatomic) IBOutlet UIView *disabledImgView;
 -(void)menuItems;
 @end

@@ -34,7 +34,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="RzA-Yz-Bgc">
-                    <rect key="frame" x="0.0" y="0.0" width="1026" height="768"/>
+                    <rect key="frame" x="-1" y="0.0" width="1026" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="AhP-8p-Ckf">
@@ -562,7 +562,7 @@
                     <rect key="frame" x="67" y="66" width="176" height="57"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="21"/>
-                    <color key="textColor" red="0.7725490196" green="0.37254901959999998" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ORDER HISTORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TTf-AL-pE6">
@@ -586,7 +586,7 @@
                     <color key="textColor" red="0.7725490196" green="0.37254901959999998" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startneworder.png" id="F7C-f7-WN4">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startneworderselect.png" id="F7C-f7-WN4">
                     <rect key="frame" x="22" y="81" width="37" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -790,7 +790,6 @@
         <image name="requestassistance.png" width="83" height="74"/>
         <image name="sidebar_02.png" width="245" height="738"/>
         <image name="spcorner.png" width="55" height="57"/>
-        <image name="startneworder.png" width="60" height="49"/>
         <image name="startneworderselect.png" width="60" height="49"/>
         <image name="stroke_10.png" width="512" height="1"/>
         <image name="stroke_13.png" width="2" height="36"/>

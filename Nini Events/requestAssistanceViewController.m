@@ -679,7 +679,7 @@
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [fetchMsgTimer invalidate];
 
@@ -881,7 +881,7 @@
     [fetchMsgTimer invalidate];
     [self removeData];
     
-    [defaults setObject:@"YES" forKey:@"isLogedOut"];
+    [defaults setObject:@"YES"forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
 }

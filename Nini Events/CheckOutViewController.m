@@ -743,7 +743,7 @@
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }else if( alertView.tag == 999 && buttonIndex == 0){
@@ -894,7 +894,7 @@
     [defaults removeObjectForKey:@"Role"];
     [self removeData];
     
-    [defaults setObject:@"YES" forKey:@"isLogedOut"];
+    [defaults setObject:@"YES"forKey:@"isLogedOut"];
     loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
     [self.navigationController pushViewController:loginVC animated:NO];
 }

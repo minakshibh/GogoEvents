@@ -33,6 +33,8 @@ static int curveValues[] = {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createMenu];
+    
+    [self.view addSubview:self.sideScroller];
     NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     if ([[ver objectAtIndex:0] intValue] >= 7) {
         // iOS 7.0 or later
@@ -644,7 +646,7 @@ static int curveValues[] = {
     self.headerView.hidden = NO;
     self.footerView.hidden = NO;
     self.minimizeAnimatedView.hidden = YES;
-    [itemImagePage removeFromSuperview];
+    
     UIView *view = sender.view; //cast pointer to the derived class if needed
     NSLog(@"%ld", (long)view.tag);
     
@@ -658,12 +660,12 @@ static int curveValues[] = {
     self.itemView.hidden = NO;
     [self.itemView setBackgroundColor:[UIColor whiteColor]];
     [self.view bringSubviewToFront:self.itemView];
-    itemImagePage = [[AsyncImageView alloc] init];
+    itemImagePage = [[UIImageView alloc]init];
    
     NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
     
     itemImagePage.image = [UIImage imageNamed:imageName];
-    itemImagePage.showActivityIndicator = YES;
+    
     if (IS_IPAD_Pro) {
         itemImagePage.frame = CGRectMake(1,87,1363,830);
     }else{
@@ -790,6 +792,19 @@ static int curveValues[] = {
     
 }
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"Scroller Height%f",self.sideScroller.frame.size.height);
+    NSLog(@"Image Scroller Height%f",self.scrollerimage.frame.size.height);
+    
+    CGRect sideScrollerFrame = self.sideScroller.frame;
+    sideScrollerFrame.size.height = 748;
+    self.sideScroller.frame = sideScrollerFrame;
+    
+    CGRect scrollerimageFrame = self.scrollerimage.frame;
+    scrollerimageFrame.size.height = 748;
+    self.scrollerimage.frame = scrollerimageFrame;
+    
+    [self.sideScroller setFrame:CGRectMake(self.sideScroller.frame.origin.x,0, self.sideScroller.frame.size.width, self.sideScroller.frame.size.height+20)];
+    [self.view sendSubviewToBack:self.sideScroller];
     [super viewWillAppear:animated];
     //initData
 }
@@ -1894,6 +1909,7 @@ static int curveValues[] = {
 }
 -(void) showSlider
 {
+    
     CGPoint pt;
     CGRect rc = [self.sideScroller bounds];
     rc = [self.sideScroller convertRect:rc toView:self.sideScroller];
@@ -1908,7 +1924,6 @@ static int curveValues[] = {
         pt.x = 0;
     }
     
-    pt.y =0;
     [self.sideScroller setContentOffset:pt animated:YES];
     
 }
@@ -2607,7 +2622,7 @@ static int curveValues[] = {
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
         
-        [defaults setObject:[NSString stringWithFormat:@"YES"] forKey:@"isLogedOut"];
+        [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
     }
@@ -3124,9 +3139,9 @@ static int curveValues[] = {
     
     // Menu Bar...............
     if (IS_IPAD_Pro) {
-        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-19, self.bottomMenuView.frame.size.width, self.bottomMenuView.frame.size.height)];
     }else{
-        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height, self.bottomMenuView.frame.size.width+5, self.bottomMenuView.frame.size.height)];
+        [self.bottomMenuView setFrame:CGRectMake(0, self.sideScroller.frame.size.height - self.bottomMenuView.frame.size.height-19, self.bottomMenuView.frame.size.width+5, self.bottomMenuView.frame.size.height)];
     }
     
     [self.sideScroller addSubview:self.bottomMenuView];

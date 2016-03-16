@@ -88,7 +88,7 @@
         return;
     }
     
-    screenSaverViewController *controller = [[screenSaverViewController alloc] initWithNibName:@"screenSaverViewController" bundle:[NSBundle mainBundle]] ;
+    screenSaverViewController *controller = [[screenSaverViewController alloc] initWithNibName:@"screenSaverViewController" bundle:nil] ;
     
     [self.window.rootViewController presentViewController:controller animated:NO completion:nil];
     
@@ -312,21 +312,21 @@
     
         self.currencySymbol=substring;
         [defaults setValue:substring forKey:@"Currency Value"];
-        if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
-            
-            NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
-            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
-            
-            [self imageDownloading:eventImageStr :eventID];
-            
-            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
-            
-            [defaults setValue:eventImageStr forKey:@"EventImage"];
-            
-        }
-        else{
-            [defaults setValue:@"" forKey:@"EventPictureUrl"];
-        }
+//        if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
+//            
+//            NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+//            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
+//            
+//            [self imageDownloading:eventImageStr :eventID];
+//            
+//            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
+//            
+//            [defaults setValue:eventImageStr forKey:@"EventImage"];
+//            
+//        }
+//        else{
+//            [defaults setValue:@"" forKey:@"EventPictureUrl"];
+//        }
         
         _startIdleTimmer = YES;
         [self resetIdleTimer];
@@ -354,7 +354,7 @@
     
     
     [request setDelegate:self];
-    [request startAsynchronous];
+    [request startSynchronous];
     
 }
 

@@ -6,8 +6,10 @@
 #import "tableAllotedOC.h"
 #import "fetchChatOC.h"
 #import "NIDropDown.h"
+#import "FMDatabase.h"
 @interface serviceProviderHomeViewController : UIViewController<UIBubbleTableViewDataSource, UITextViewDelegate, NIDropDownDelegate>
 {
+    FMDatabase *database;
      NIDropDown *dropDown;
     NSMutableData *webData;
     tableAllotedOC *tableAllotedObj;
