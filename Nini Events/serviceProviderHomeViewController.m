@@ -133,13 +133,13 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
     
-//      if ([eventChatSupport isEqualToString:@"False"]) {
+      if ([eventChatSupport isEqualToString:@"False"]) {
         requestAssistance.hidden = YES;
         float viewHeight = self.view.frame.size.height;
         
-        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/3);
-        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3);
-        self.exit.frame = CGRectMake(self.exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height, self.exit.frame.size.width,viewHeight/3);
+        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/3-2);
+        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3-2);
+        self.exit.frame = CGRectMake(self.exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height+2, self.exit.frame.size.width,viewHeight/3);
     
         lblliveAssistance.hidden = YES;
         imageliveAssistance.hidden = YES;
@@ -153,30 +153,8 @@
     
     [self.orders addSubview:vieworders];
     [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
-//      }
-    
-    UIButton *viewliveAssistancebutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [viewliveAssistancebutton addTarget:self
-                                 action:@selector(pingForAssisteance:)
-                       forControlEvents:UIControlEventTouchUpInside];
-    viewliveAssistancebutton.frame = pingAssistance.frame;
-    [pingAssistance addSubview:viewliveAssistancebutton];
-    
-    UIButton *viewexitbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [viewexitbutton addTarget:self
-                       action:@selector(exitAction:)
-             forControlEvents:UIControlEventTouchUpInside];
-    viewexitbutton.frame = self.exit.frame;
-    [self.exit addSubview:viewexitbutton];
-    
-    UIButton *viewordersbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [viewordersbutton addTarget:self
-                         action:@selector(seeOrderAction:)
-               forControlEvents:UIControlEventTouchUpInside];
-    viewordersbutton.frame = self.orders.frame;
-    [self.orders addSubview:viewordersbutton];
+      }
 
-    
 }
 - (void)viewDidAppear:(BOOL)animated {
     
