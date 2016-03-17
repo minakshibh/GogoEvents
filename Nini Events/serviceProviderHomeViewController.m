@@ -698,7 +698,7 @@
         commentStr = [commentStr stringByReplacingOccurrencesOfString:@" " withString:@""];
         NSLog(@"%@", commentStr);
         timeLbl.text =[NSString stringWithFormat:@"%@",timeStr];
-        tableNoLbl.text =[NSString stringWithFormat:@"%@",pendingOrderObj.TableId];
+        tableNoLbl.text =[NSString stringWithFormat:@"%@",pendingOrderObj.TableName];
         orderIdLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
         if (![commentStr isEqualToString:@"<null>"]) {
             if ([commentStr isEqualToString:@"cancellation"]) {
@@ -1188,6 +1188,7 @@
             pendingOrderObj.LastUpdate = [[pendingOrdersList valueForKey:@"LastUpdate"] objectAtIndex:i];
             pendingOrderObj.OrderId = [[pendingOrdersList valueForKey:@"OrderId"]objectAtIndex:i];
             pendingOrderObj.RestaurantId = [[pendingOrdersList valueForKey:@"RestaurantId"] objectAtIndex:i];
+            pendingOrderObj.TableName = [[pendingOrdersList valueForKey:@"TableName"] objectAtIndex:i];
             pendingOrderObj.Status = [[pendingOrdersList valueForKey:@"Status"]objectAtIndex:i];
             pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableId"] objectAtIndex:i];
             pendingOrderObj.TimeOfDelivery = [[pendingOrdersList valueForKey:@"TimeOfDelivery"]objectAtIndex:i];

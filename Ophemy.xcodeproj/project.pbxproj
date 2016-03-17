@@ -1951,7 +1951,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "b19b5ca0-b72a-4d02-afcd-a30674b6128e";
+				PROVISIONING_PROFILE = "e057a92a-b542-47b0-973a-d01a3f78fa70";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1990,8 +1990,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Olumuyiwa Olorunfemi (9CSTB2VHK9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Crear Management Limited (7HQ9UT23TT)";
 				COMPRESS_PNG_FILES = NO;
 				DEFINES_MODULE = YES;
 				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
@@ -2003,7 +2003,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Nini Events";
-				PROVISIONING_PROFILE = "548c7c21-a28d-47d7-8a5f-538e9c4942b9";
+				PROVISIONING_PROFILE = "e057a92a-b542-47b0-973a-d01a3f78fa70";
 				SWIFT_OBJC_BRIDGING_HEADER = "Nini Events-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
