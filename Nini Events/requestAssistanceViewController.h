@@ -20,7 +20,7 @@
     NSString *chatTrigger;
     NSTimer *hideTimer, *fetchMsgTimer;
     UIActivityIndicatorView *objactivityindicator;
-    
+    IBOutlet UIView *viewNOChat;
     IBOutlet UIView *disableView;
     
     

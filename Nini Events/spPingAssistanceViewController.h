@@ -8,6 +8,7 @@
 @interface spPingAssistanceViewController : UIViewController
 {
     NSMutableArray *pingsList, *tableNameArray, *allChatMessages,*orderIdsArray, *tableAllotedIdsArray, *assignedTablesArray, *assignedTableTimestampsArray,*fetchedChatData, *fetchTableIdsArray,*tablesList,*fetchingChat;
+    UIActivityIndicatorView *activityIndicator;
     IBOutlet UIButton *orders;
     IBOutlet UIButton *requestAssistance;
     IBOutlet UIButton *pingAssistance;
@@ -17,7 +18,9 @@
     IBOutlet UIView *vieworders;
     IBOutlet UIView *viewexit;
     IBOutlet UIView *viewliveAssistance;
-    
+    IBOutlet UIImageView *disabledImgView;
+    IBOutlet UIView *viewNoMessages;
+    IBOutlet UIView *viewRequestAssistance;
     tableAllotedOC *tableAllotedObj;
     NSMutableData *webData;
     NSString *documentsDir, *dbPath,* timeStampKey, *selectedTable;

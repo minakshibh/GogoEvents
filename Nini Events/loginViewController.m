@@ -322,11 +322,11 @@
                 homeVC.isNewOrder = NO;
                 [self.navigationController pushViewController:homeVC animated:NO];
             }
-            [defaults setObject:@"NO"forKey:@"isLogedOut"];
             appdelegate = [[UIApplication sharedApplication] delegate];
             appdelegate.startIdleTimmer = YES;
             [appdelegate resetIdleTimer];
         }
+        [defaults setObject:@"NO"forKey:@"isLogedOut"];
     }
     else if (webServiceCode == 2){
         {
@@ -607,12 +607,7 @@
         }
       //  [defaults setObject:imagesUrlArray forKey:@"ImageArray"];
         
-        
-       if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
-            [self registerDevice];
-        }else{
             [self fetchEventDetails];
-        }
         
     }else if (webServiceCode == 5) {
         
@@ -677,7 +672,11 @@
                 
             }
         }
+        if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
+            [self registerDevice];
+        }else{
         [self menuItems];
+        }
     }
     
     

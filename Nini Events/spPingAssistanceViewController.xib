@@ -10,6 +10,7 @@
                 <outlet property="chatNotificationBadgeImg" destination="Zqq-yR-PoQ" id="AGG-wO-lqU"/>
                 <outlet property="chatNotificationBageLbl" destination="d6q-6D-Ets" id="fAK-aR-Lfk"/>
                 <outlet property="deliveredStatLbl" destination="YYp-9K-Haf" id="YJO-SC-2qt"/>
+                <outlet property="disabledImgView" destination="8bu-xe-SCT" id="2T0-rq-HGq"/>
                 <outlet property="exit" destination="rMT-xE-Ky3" id="V51-2N-ZLM"/>
                 <outlet property="exitPopUpView" destination="0KC-MS-Xl2" id="Ayz-jb-gJp"/>
                 <outlet property="imageliveAssistance" destination="EcN-kw-TPT" id="osc-SK-vhP"/>
@@ -30,6 +31,8 @@
                 <outlet property="sideScroller" destination="WXY-M6-ghk" id="jdV-ie-4UA"/>
                 <outlet property="statsPopUpView" destination="mDh-fq-olv" id="Kvp-R9-YRk"/>
                 <outlet property="view" destination="ZAc-Gi-NjQ" id="5Pp-yc-riW"/>
+                <outlet property="viewNoMessages" destination="WEt-ig-E8G" id="5fe-Pn-cdm"/>
+                <outlet property="viewRequestAssistance" destination="2Rp-vn-Anf" id="X00-XU-ky0"/>
                 <outlet property="viewexit" destination="OPg-Bl-Xuc" id="8HS-GA-2Ff"/>
                 <outlet property="viewliveAssistance" destination="7v3-HT-DZi" id="aOX-wS-VK9"/>
                 <outlet property="vieworders" destination="4Oc-9h-FBb" id="0T5-bw-MiM"/>
@@ -119,17 +122,6 @@
                                         <action selector="exitAction:" destination="-1" eventType="touchUpInside" id="jhm-WT-zb8"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIVE ASSISTANCE" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Dw-L5-a1c">
-                                    <rect key="frame" x="70" y="254" width="176" height="57"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="21"/>
-                                    <color key="textColor" red="0.7725490196" green="0.37254901959999998" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistence.png" id="EcN-kw-TPT">
-                                    <rect key="frame" x="22" y="269" width="37" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stroke_07.png" id="bQW-my-KA9">
                                     <rect key="frame" x="0.0" y="188" width="268" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -363,6 +355,49 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <view contentMode="scaleToFill" id="2Rp-vn-Anf">
+                            <rect key="frame" x="-256" y="254" width="200" height="57"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIVE ASSISTANCE" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Dw-L5-a1c">
+                                    <rect key="frame" x="50" y="0.0" width="176" height="57"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="21"/>
+                                    <color key="textColor" red="0.7725490196" green="0.37254901959999998" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="requestassistence.png" id="EcN-kw-TPT">
+                                    <rect key="frame" x="0.0" y="13" width="37" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="disable568.png" id="8bu-xe-SCT">
+                            <rect key="frame" x="0.0" y="1" width="1024" height="767"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <view hidden="YES" contentMode="scaleToFill" id="WEt-ig-E8G">
+                            <rect key="frame" x="0.0" y="50" width="1017" height="648"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO PING FOR ASSISTANCE!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f9m-ZG-9Bi">
+                                    <rect key="frame" x="236" y="151" width="556" height="108"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="59"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO PINGS TO DISPLAY YET." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0lj-a6-O5l">
+                                    <rect key="frame" x="205" y="267" width="607" height="42"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="17"/>
+                                    <color key="textColor" red="0.48627450979999998" green="0.48627450979999998" blue="0.48627450979999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                 </scrollView>
             </subviews>
@@ -450,6 +485,7 @@
         <image name="box_assistance.png" width="501" height="236"/>
         <image name="bulb-select.png" width="30" height="35"/>
         <image name="close_03.png" width="18" height="18"/>
+        <image name="disable568.png" width="320" height="568"/>
         <image name="exit.png" width="47" height="45"/>
         <image name="menu.png" width="32" height="32"/>
         <image name="notificationcircle.png" width="14" height="15"/>

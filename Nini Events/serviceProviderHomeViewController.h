@@ -58,7 +58,7 @@
     IBOutlet UIView *viewliveAssistance;
     IBOutlet UIView *viewexit;
     IBOutlet UIView *vieworders;
-    
+    IBOutlet UIView *viewRequestAssistance;
 }
 - (IBAction)btnRequest:(id)sender;
 - (IBAction)menuOrdersBtn:(id)sender;
