@@ -5,6 +5,8 @@
 {
     NSMutableData *webData;
     int webServiceCode;
+     NSDateComponents *components;
+     NSTimer *timer;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, assign) bool *startIdleTimmer;

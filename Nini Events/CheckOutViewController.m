@@ -102,9 +102,54 @@
     [self fetchOrders];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    placeholderText = @"Please describe yourself for easy identification by your server example: lady in black dress & pearls. Also include any instructions for your order you’d like us to follow";
+    isPlaceholder = YES;
+    self.notesTextView.text = placeholderText;
+    self.notesTextView.textColor = [UIColor lightGrayColor];
+    [self.notesTextView setSelectedRange:NSMakeRange(0, 0)];
+    
+    // assign UITextViewDelegate
+    self.notesTextView.delegate = self;
 }
-
-
+//- (void) textViewDidChange:(UITextView *)textView{
+//    
+//    if (textView.text.length == 0){
+//        textView.textColor = [UIColor lightGrayColor];
+//        textView.text = placeholderText;
+//        [textView setSelectedRange:NSMakeRange(0, 0)];
+//        isPlaceholder = YES;
+//        
+//    } else if (isPlaceholder && ![textView.text isEqualToString:placeholderText]) {
+//        textView.text = [textView.text substringToIndex:1];
+//        textView.textColor = [UIColor blackColor];
+//        isPlaceholder = NO;
+//    }
+//    
+//}
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    textView.text = [textView.text substringToIndex:0];
+    textView.textColor = [UIColor blackColor];
+    isPlaceholder = NO;
+}
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    
+    if(self.notesTextView.text.length==0){
+        textView.textColor = [UIColor lightGrayColor];
+        textView.text = placeholderText;
+        [textView setSelectedRange:NSMakeRange(0, 0)];
+        isPlaceholder = YES;
+    }
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [self.notesTextView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
 -(void)fetchOrders
 {
     docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -476,6 +521,18 @@
 
 - (IBAction)CheckOutBtn:(id)sender
 {
+    NSString *timerStatus = [[NSUserDefaults standardUserDefaults]valueForKey:@"evenStatus"];
+    if ([timerStatus isEqualToString:@"end"]) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Event Time Out" message:@"Sorry for the inconvenience. We are not able to accept any order now." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+
+        return;
+    }
+    
+    if([self.notesTextView.text isEqualToString:placeholderText]){
+        self.notesTextView.text = @"";
+    }
+    
     [self disabled];
     [activityIndicator startAnimating];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

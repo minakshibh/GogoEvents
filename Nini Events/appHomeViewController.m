@@ -35,7 +35,9 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 NSArray *urlLinks;
 
 - (void)viewDidLoad {
+    [[NSUserDefaults standardUserDefaults]setObject:@"r" forKey:@"evenStatus"];
     [self tick];
+    
     [self createMenu];
     
     tableView.backgroundColor = [UIColor clearColor];
@@ -223,55 +225,63 @@ NSArray *urlLinks;
 
 - (void)tick {
 
+    lbleventtimeout.hidden = YES;
     NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
-    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-    [dateFormat1 setLocale:[NSLocale currentLocale]];
-    [dateFormat1 setDateFormat:@"M/dd/yyyy HH:mm:ss a"];
-//    NSDate *endDate = [dateFormat1 dateFromString:EndTime];
-//    NSString *endDateStr = [dateFormat1 stringFromDate:endDate];
 
+    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
+    
+    [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
+    
     NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
     NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
     NSDate *eDate = [dateFormat1 dateFromString:EndTime];
     
     
     NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
-    int secondsBetween = [eDate timeIntervalSinceDate:sDate];
+   
+    NSInteger hours, minutes, seconds, days;
     
-    if (secondsBetween <= 0) {
+    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
+    days = [components day];
+    hours = [components hour];
+    minutes = [components minute];
+    seconds = [components second];
+    if (seconds <= 0 && hours <= 0 && minutes <= 0) {
         //Checks if the countdown completed
         lblTimerHour.text = [NSString stringWithFormat:@"00"];
         lblTimermin.text = [NSString stringWithFormat:@"00"];
         lblTimerSec.text = [NSString stringWithFormat:@"00"];
         [timer invalidate];
         
+        
+        lbleventtimeout.hidden = NO;
+        self.timerCountDown.hidden = YES;
+        self.daysCountDown.hidden = YES;
+        
+        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
+        
+        
         return;
     }
-    NSString *hoursStr,*minutesStr,*secondsStr;
-    int hours, minutes, seconds, days;
-    days  = secondsBetween / 86400;
-    hours = secondsBetween / 3600;
-    minutes = (secondsBetween % 3600) / 60;
-    seconds = (secondsBetween %3600) % 60;
-    days = hours/24;
-    hours = hours % 24;
-    NSLog(@"%d, %d", hours,days);
+   
+     NSString *hoursStr,*minutesStr,*secondsStr;
+    
     if (hours < 10) {
-        hoursStr =[NSString stringWithFormat:@"0%i", hours];
+        hoursStr =[NSString stringWithFormat:@"0%li", (long)hours];
     }else{
-        hoursStr = [NSString stringWithFormat:@"%i",hours];
+        hoursStr = [NSString stringWithFormat:@"%li",(long)hours];
     }
     
     if (minutes < 10) {
-        minutesStr =[NSString stringWithFormat:@"0%i", minutes];
+        minutesStr =[NSString stringWithFormat:@"0%li", (long)minutes];
     }else{
-        minutesStr = [NSString stringWithFormat:@"%i",minutes];
+        minutesStr = [NSString stringWithFormat:@"%li",(long)minutes];
     }
     
     if (seconds < 10) {
-        secondsStr =[NSString stringWithFormat:@"0%i",seconds];
+        secondsStr =[NSString stringWithFormat:@"0%li",(long)seconds];
     }else{
-        secondsStr = [NSString stringWithFormat:@"%i",seconds];
+        secondsStr = [NSString stringWithFormat:@"%li",(long)seconds];
     }
     
     
@@ -297,7 +307,8 @@ NSArray *urlLinks;
     if (timer == nil) {
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
     }
-    
+    [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
+
 }
 
 - (IBAction)newOrderAction:(id)sender {

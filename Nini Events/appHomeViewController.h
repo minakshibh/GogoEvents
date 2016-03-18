@@ -20,6 +20,7 @@
     NSArray *sortedEventArray;
     BOOL isAlreadyInserted;
  
+    IBOutlet UILabel *lbleventtimeout;
     IBOutlet UILabel *lblTimerbackground;
     IBOutlet UILabel *lblTimerheaderbackground;
     IBOutlet UILabel *lblTimerHour;
@@ -86,7 +87,7 @@
 - (IBAction)eventDetailsAction:(id)sender;
 - (IBAction)ophemyAction:(id)sender;
 - (IBAction)Slideshow:(id)sender;
-
+- (void)tick;
 @property (strong, nonatomic) IBOutlet UILabel *EventNamesLbl;
 @property (strong, nonatomic) IBOutlet UILabel *batchLbl;
 @property (strong, nonatomic) IBOutlet UIView *sideMenuWithoutReqAssistance;

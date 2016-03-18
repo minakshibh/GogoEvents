@@ -88,15 +88,15 @@
     // we will add all images into a scrollView & set the appropriate size.
     
     for (int i=0; i<[imageNameStringsArray count]; i++) {
-        // create image
-       
-        UIImage* img1 = [UIImage imageNamed:[imageNameStringsArray objectAtIndex:i]];
+        
+        NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[imageNameStringsArray objectAtIndex:i]]];
+        
         // create imageView
         UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake((i)*scrMain.frame.size.width, 0, scrMain.frame.size.width, scrMain.frame.size.height)];
         // set scale to fill
         imgV.contentMode=UIViewContentModeScaleToFill;
         // set image
-        imgV.image = img1;
+        [imgV setImage:[UIImage imageNamed:imageName]];
         // apply tag to access in future
         imgV.tag=i+1;
         

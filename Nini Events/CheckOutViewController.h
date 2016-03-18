@@ -5,10 +5,14 @@
 #import "orderOC.h"
 #import "OrderTableViewCell.h"
 #import "PlaceOrderData.h"
-@interface CheckOutViewController : UIViewController
+@interface CheckOutViewController : UIViewController<UITextViewDelegate>
 {
     NSMutableData *webData;
     UIActivityIndicatorView *activityIndicator;
+    
+    
+    NSString * placeholderText;
+    BOOL isPlaceholder;
     
     UILabel*emptyCartLabel;
     
