@@ -81,7 +81,8 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 112;
+//    return 112;
+    return 100;
 }
 
 // Customize the appearance of table view cells.

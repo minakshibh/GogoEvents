@@ -660,11 +660,14 @@ static int curveValues[] = {
     self.itemView.hidden = NO;
     [self.itemView setBackgroundColor:[UIColor whiteColor]];
     [self.view bringSubviewToFront:self.itemView];
+    [itemImagePage removeFromSuperview];
     itemImagePage = [[UIImageView alloc]init];
    
     NSString *imageName = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",menuItemsObj.Image]];
     
     itemImagePage.image = [UIImage imageNamed:imageName];
+    
+    
     
     if (IS_IPAD_Pro) {
         itemImagePage.frame = CGRectMake(1,87,1363,830);
@@ -2859,7 +2862,7 @@ static int curveValues[] = {
         
         //self.itemView.frame = theFrame;
     }];
-    
+
     [UIView animateWithDuration:0.5f animations:^{
         CGRect theFrame = itemImagePage.frame;
         theFrame.size.height -= 800.0;
@@ -2868,7 +2871,10 @@ static int curveValues[] = {
         theFrame.size.width -= 832.0f;
         
         itemImagePage.frame = theFrame;
+    }completion:^(BOOL finished){
+        
     }];
+    
     if (self.minimizeAnimatedView.frame.origin.y != 486) {
         CGRect theFrame = self.minimizeAnimatedView.frame;
         theFrame.origin.y -= 250;
@@ -2909,6 +2915,7 @@ static int curveValues[] = {
     } completion:^(BOOL finished){
         [self.view bringSubviewToFront:self.sideScroller];
         [self.view setUserInteractionEnabled:YES];
+        itemImagePage.image = nil;
     }];
     
     [self.viewOrderBtn setUserInteractionEnabled:YES];

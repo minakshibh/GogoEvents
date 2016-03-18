@@ -126,7 +126,75 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
+     NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
+    
+ if ([eventChatSupport isEqualToString:@"False"]) {
+        float viewHeight = self.view.frame.size.height;
+        
+        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/3-2);
+        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3-2);
+        self.exit.frame = CGRectMake(self.exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height+2, self.exit.frame.size.width,viewHeight/3);
+    
+        requestAssistance.hidden = YES;
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+    
+    [pingAssistance addSubview:viewliveAssistance];
+    [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
+    
+    [self.exit addSubview:viewexit];
+    [viewexit setFrame:CGRectMake(25,self.exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+    
+    
+    [self.orders addSubview:vieworders];
+    [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+      }
+    if ([PingAssistance isEqualToString:@"0"]) {
+        float viewHeight = self.view.frame.size.height;
+        
+        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/3-2);
+        requestAssistance.frame = CGRectMake(requestAssistance.frame.origin.x,viewHeight/3, requestAssistance.frame.size.width, viewHeight/3-2);
+        self.exit.frame = CGRectMake(self.exit.frame.origin.x, requestAssistance.frame.origin.y+requestAssistance.frame.size.height+2, self.exit.frame.size.width,viewHeight/3);
+        
+        pingAssistance.hidden = YES;
+        viewliveAssistance.hidden = YES;
+        
+        [requestAssistance addSubview:viewRequestAssistance];
+        [viewRequestAssistance setFrame:CGRectMake(25,requestAssistance.frame.size.height/2-viewRequestAssistance.frame.size.height/2,viewRequestAssistance.frame.size.width,viewRequestAssistance.frame.size.height)];
+        
+        [self.exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,self.exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+        
+        [self.orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    }
+    if ([eventChatSupport isEqualToString:@"False"] && [PingAssistance isEqualToString:@"0"]){
+        pingAssistance.hidden = YES;
+        viewliveAssistance.hidden = YES;
+        
+        requestAssistance.hidden = YES;
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+        
+        float viewHeight = self.view.frame.size.height;
+        
+        self.orders.frame = CGRectMake(self.orders.frame.origin.x, 0, self.orders.frame.size.width, viewHeight/2-2);
+        self.exit.frame = CGRectMake(self.exit.frame.origin.x, self.orders.frame.origin.y+self.orders.frame.size.height+2, self.exit.frame.size.width,viewHeight/2);
+        
+        [self.exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,self.exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+        
+        [self.orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    }
+    
+}
 - (void)viewDidAppear:(BOOL)animated {
     
     // observe keyboard hide and show notifications to resize the text view appropriately
@@ -1190,7 +1258,7 @@
             pendingOrderObj.RestaurantId = [[pendingOrdersList valueForKey:@"RestaurantId"] objectAtIndex:i];
             pendingOrderObj.TableName = [[pendingOrdersList valueForKey:@"TableName"] objectAtIndex:i];
             pendingOrderObj.Status = [[pendingOrdersList valueForKey:@"Status"]objectAtIndex:i];
-            pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableId"] objectAtIndex:i];
+            pendingOrderObj.TableId = [[pendingOrdersList valueForKey:@"TableName"] objectAtIndex:i];
             pendingOrderObj.TimeOfDelivery = [[pendingOrdersList valueForKey:@"TimeOfDelivery"]objectAtIndex:i];
             pendingOrderObj.TotalBill = [[pendingOrdersList valueForKey:@"TotalBill"]objectAtIndex:i];
             pendingOrderObj.pendingOrderDetails = [[pendingOrdersList valueForKey:@"ListOrderDetails"] objectAtIndex:i];

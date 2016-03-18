@@ -39,16 +39,26 @@
     IBOutlet UILabel *nameLbl;
     IBOutlet UIImageView *providerImageView;
     int isCoutFetched;
+    IBOutlet UIButton *pingAssistance;
     IBOutlet UITextField *searchOrdrTxt;
     //FMDatabase *database;
+    IBOutlet UILabel *lblPingAssistance;
     IBOutlet UILabel *requestLbl;
     
+    IBOutlet UIImageView *bulb;
+    IBOutlet UIButton *requestAssistance;
     
     IBOutlet UIButton *modificationRequestCloseBtn;
     IBOutlet UIImageView *editOrderImage;
     IBOutlet UIButton *btnRequest;
     int flag;
     IBOutlet UILabel *emptyOrderLbl;
+    IBOutlet UILabel *lblliveAssistance;
+    IBOutlet UIImageView *imageliveAssistance;
+    IBOutlet UIView *viewliveAssistance;
+    IBOutlet UIView *viewexit;
+    IBOutlet UIView *vieworders;
+    IBOutlet UIView *viewRequestAssistance;
 }
 - (IBAction)btnRequest:(id)sender;
 - (IBAction)menuOrdersBtn:(id)sender;

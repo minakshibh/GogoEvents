@@ -11,6 +11,7 @@
     UIActivityIndicatorView *activityIndicator;
     NSMutableArray *pendingOrderItemNameArray,*pendingOrderListArray,*pendingOrderTimeOfDeliveryArray,*processingOrderList,*itemNamesArray;
     
+    IBOutlet UIView *viewNoOrders;
     IBOutlet UILabel *headrLbl;
     int webServiceCode;
     pendingOrdersOC *pendingOrderObj;
@@ -20,6 +21,7 @@
     IBOutlet UILabel *startNewOrdrLbl;
     IBOutlet UIImageView *strtNewOrdrImag;
     IBOutlet UILabel *ordrHistryLbl;
+    IBOutlet UIImageView *disabledImgView;
     IBOutlet UIImageView *ordrhistryImag;
     IBOutlet UIImageView *requstAssistImag;
     IBOutlet UIImageView *spCornrImag;
@@ -27,6 +29,8 @@
     IBOutlet UILabel *requestAssistntLbl;
     IBOutlet UILabel *spCornerLbl;
     IBOutlet UILabel *exitLbl;
+     IBOutlet UILabel *lblno1;
+     IBOutlet UILabel *lblno2;
     int bulbFlag;
     NSTimer *hideTimer;
     

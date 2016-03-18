@@ -7,6 +7,17 @@
 #import "FMDatabase.h"
 @interface spRequestAssistanceViewController : UIViewController<UIBubbleTableViewDataSource, UITextViewDelegate>
 {
+    IBOutlet UIButton *requestAssistance;
+    IBOutlet UIButton *pingAssistance;
+    IBOutlet UIButton *exit;
+    IBOutlet UIButton *orders;
+    IBOutlet UILabel *lblliveAssistance;
+    IBOutlet UIImageView *imageliveAssistance;
+    IBOutlet UIView * viewliveAssistance;
+    IBOutlet UIView * viewexit;
+    IBOutlet UIView *vieworders;
+    IBOutlet UIView *viewRequestAssistance;
+    
     NSMutableArray *orderList, *chatArray, *allChatMessages,*orderIdsArray, *tableAllotedIdsArray, *assignedTablesArray, *assignedTableTimestampsArray,*fetchedChatData, *fetchTableIdsArray,*tablesList,*fetchingChat;
     tableAllotedOC *tableAllotedObj;
     NSMutableData *webData;

@@ -394,13 +394,20 @@
          if ([userDetailDict valueForKey:@"MessageList"] !=[NSNull null]) {
              fetchingChat = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"MessageList"]];
          }
-       
+        if (fetchingChat.count == 0) {
+            viewNOChat.hidden = NO;
+        }else{
+            viewNOChat.hidden = YES;
+        }
+
         if ([fetchingChat count] != 0)
         {
             NSLog(@"MAXIMUM TIME STAMP .... %@",newtimestamp);
             [defaults setObject:newtimestamp forKey:@"Customer Incoming Chat Timestamp"];
             
             NSMutableArray *fetchMessages = [NSMutableArray arrayWithArray:[[fetchingChat valueForKey:@"listMessage"]objectAtIndex:0]];
+            
+            
             for (int i = 0; i < [fetchMessages count]; i++)
             {
                 docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -767,6 +774,12 @@
     allChatMessages = [[NSMutableArray alloc]init];
     chatArray=[[NSMutableArray alloc]init];
     chatDictionary = [[NSMutableDictionary alloc]initWithObjectsAndKeys:chatMessages,@"messages",chatTime,@"time",chatSender,@"sender",chatdateChanged,@"isDateChanged",sendername ,@"sendername",senderImagesArray,@"senderImages", nil];
+    
+    if(chatMessages.count == 0){
+        viewNOChat.hidden = NO;
+    }else{
+        viewNOChat.hidden = YES;
+    }
     
     NSLog(@"CHAT OBJECT ... %@",chatDictionary);
     for (int i = 0; i < [chatMessages count]; i++) {

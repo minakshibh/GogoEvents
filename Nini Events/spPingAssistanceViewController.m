@@ -44,11 +44,88 @@
     }
 
     
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    if (IS_IPAD_Pro) {
+        activityIndicator.center = CGPointMake(1366/2, 1028/2);
+    }else{
+        activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    }
+    activityIndicator.hidden = YES;
+    activityIndicator.color=[UIColor whiteColor];
+    [self.view addSubview:activityIndicator];
+    
     [super viewDidLoad];
     [self chatTable];
     // Do any additional setup after loading the view from its nib.
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventChatSupport = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"Event Chat Support"]];
+    NSString *PingAssistance = [NSString stringWithFormat:@"%@",[defaults valueForKey:@"PingAssistance"]];
 
+    
+    if ([eventChatSupport isEqualToString:@"False"]) {
+        requestAssistance.hidden = YES;
+        float viewHeight = self.view.frame.size.height;
+        
+        orders.frame = CGRectMake(orders.frame.origin.x, 0, orders.frame.size.width, viewHeight/3-2);
+        pingAssistance.frame = CGRectMake(pingAssistance.frame.origin.x,viewHeight/3, pingAssistance.frame.size.width, viewHeight/3-2);
+        exit.frame = CGRectMake(exit.frame.origin.x, pingAssistance.frame.origin.y+pingAssistance.frame.size.height+2, exit.frame.size.width,viewHeight/3);
+        
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+        
+        [pingAssistance addSubview:viewliveAssistance];
+        [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
+    
+        [exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+        [orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    
+    }
+    if ([PingAssistance isEqualToString:@"0"]) {
+        float viewHeight = self.view.frame.size.height;
+        
+        orders.frame = CGRectMake(orders.frame.origin.x, 0, orders.frame.size.width, viewHeight/3-2);
+        requestAssistance.frame = CGRectMake(requestAssistance.frame.origin.x,viewHeight/3, requestAssistance.frame.size.width, viewHeight/3-2);
+        exit.frame = CGRectMake(exit.frame.origin.x, requestAssistance.frame.origin.y+requestAssistance.frame.size.height+2, exit.frame.size.width,viewHeight/3);
+        
+        pingAssistance.hidden = YES;
+        viewliveAssistance.hidden = YES;
+        
+        [requestAssistance addSubview:viewRequestAssistance];
+        [viewRequestAssistance setFrame:CGRectMake(25,requestAssistance.frame.size.height/2-viewRequestAssistance.frame.size.height/2,viewRequestAssistance.frame.size.width,viewRequestAssistance.frame.size.height)];
+        
+        [exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+        
+        [orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    }
+    if ([eventChatSupport isEqualToString:@"False"] && [PingAssistance isEqualToString:@"0"]){
+        pingAssistance.hidden = YES;
+        viewliveAssistance.hidden = YES;
+        
+        requestAssistance.hidden = YES;
+        lblliveAssistance.hidden = YES;
+        imageliveAssistance.hidden = YES;
+        
+        float viewHeight = self.view.frame.size.height;
+        
+        orders.frame = CGRectMake(orders.frame.origin.x, 0, orders.frame.size.width, viewHeight/2-2);
+        exit.frame = CGRectMake(exit.frame.origin.x, orders.frame.origin.y+orders.frame.size.height+2, exit.frame.size.width,viewHeight/2);
+        
+        [exit addSubview:viewexit];
+        [viewexit setFrame:CGRectMake(25,exit.frame.size.height/2-viewexit.frame.size.height/2,viewexit.frame.size.width,viewexit.frame.size.height)];
+        
+        [orders addSubview:vieworders];
+        [vieworders setFrame:CGRectMake(25,orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+    }
+    
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -92,8 +169,9 @@
 -(void) fetchHelpMessage: (NSString *)assignedTableListStr
 {
     //    [self disabled];
-    //    [activityIndicator startAnimating];
+        [activityIndicator startAnimating];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [self disabled];
     
     NSString *timeStamp;
     assignedTableTimestampsArray = [[NSMutableArray alloc] init];
@@ -264,6 +342,12 @@
             [database executeUpdate:deleteQuery];
             [database close];
 
+            if (fetchMessages.count == 0){
+                viewNoMessages.hidden = NO;
+                
+            }else{
+                viewNoMessages.hidden = YES;
+            }
             for (int i = 0; i < [fetchMessages count]; i++)
             {
                 
@@ -281,7 +365,7 @@
         
     }
     [self fetchPingDataFromDB];
-    
+    [self enable];
 }
 
 -(void) fetchPingDataFromDB
@@ -580,5 +664,17 @@
 
 - (IBAction)exitNoAction:(id)sender {
     [self.exitPopUpView removeFromSuperview];
+}
+- (void) disabled
+{
+    activityIndicator.hidden = NO;
+    self.view.userInteractionEnabled = NO;
+    disabledImgView.hidden = NO;
+}
+- (void) enable
+{
+    activityIndicator.hidden = YES;
+    self.view.userInteractionEnabled = YES;
+    disabledImgView.hidden = YES;
 }
 @end

@@ -113,7 +113,7 @@
     }else{
         activityIndicator.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
     }
-    
+    activityIndicator.hidden = YES;
     activityIndicator.color=[UIColor whiteColor];
     [self.view addSubview:activityIndicator];
     if (self.flagValue == 1) {
@@ -156,6 +156,7 @@
 -(void)FetchPendingPlacedOrder:(NSString*)passedOrderType
 {
     [activityIndicator startAnimating];
+    [self disabled];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSString *staffId;
@@ -236,6 +237,7 @@
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     [activityIndicator stopAnimating];
+    [self enable];
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Please Check the Internet Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
@@ -266,6 +268,7 @@
         pendingOrderListArray = [[NSMutableArray alloc] init];
         processingOrderList = [[NSMutableArray alloc] init];
         NSMutableArray *pendingOrdersrderList = [[NSMutableArray alloc]initWithArray:[userDetailDict valueForKey:@"ListPendingOrder"]];
+       
         for (int i = 0; i < [pendingOrdersrderList count]; i ++) {
             pendingOrderObj = [[pendingOrdersOC alloc] init];
             pendingOrderObj.DateTimeOfOrder = [[pendingOrdersrderList valueForKey:@"DateTimeOfOrder"] objectAtIndex:i];
@@ -291,6 +294,26 @@
         [self.pendingOrdersTableView reloadData];
         
         
+
+        if (pendingOrderListArray.count == 0) {
+            lblno1.text = @"NO ORDERS!";
+            lblno2.text = @"NO ORDERS TO DISPLAY YET.";
+            viewNoOrders.hidden = NO;
+        }else{
+            viewNoOrders.hidden = YES;
+        }
+        
+        if (self.flagValue == 2){
+            if (processingOrderList.count == 0) {
+                lblno1.text = @"NO ORDERS!";
+                lblno2.text = @"NO ORDERS TO DISPLAY YET.";
+                viewNoOrders.hidden = NO;
+            }else{
+                viewNoOrders.hidden = YES;
+            }
+        }
+
+       
     }else if (webServiceCode == 0) {
         NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
         NSLog(@"responseString:%@",responseString);
@@ -303,8 +326,8 @@
         NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
         NSLog(@"Dictionary %@",userDetailDict);
         
-        [activityIndicator stopAnimating];
-    }
+    }[activityIndicator stopAnimating];
+    [self enable];
 }
 
 
@@ -339,8 +362,6 @@
         cell = [nib objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
     }
-    
-    
     if (self.flagValue == 1)
     {
         pendingOrderObj = [pendingOrderListArray objectAtIndex:indexPath.row];
@@ -969,5 +990,16 @@
         }
     }
 }
-
+- (void) disabled
+{
+    activityIndicator.hidden = NO;
+    self.view.userInteractionEnabled = NO;
+    disabledImgView.hidden = NO;
+}
+- (void) enable
+{
+    activityIndicator.hidden = YES;
+    self.view.userInteractionEnabled = YES;
+    disabledImgView.hidden = YES;
+}
 @end
