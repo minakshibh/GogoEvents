@@ -476,6 +476,7 @@
 
                 
                 [defaults setObject:tablesArray forKey:@"Alloted Tables"];
+                NSLog(@"%@",tablesArray);
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 [defaults setValue:[userDetailDict valueForKey:@"id"] forKey:@"Service Provider ID"];
                 [defaults setValue:[userDetailDict valueForKey:@"name"] forKey:@"Service Provider Name"];

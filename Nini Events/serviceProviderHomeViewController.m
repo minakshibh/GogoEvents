@@ -227,9 +227,10 @@
     NSLog(@"Tables... %lu",(unsigned long)self.tablesAllotedArray.count);
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
-    for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
+    NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[self.tablesAllotedArray objectAtIndex:0]];
+    for (int i =0 ; i <[tempArray count] ; i++) {
         tableAllotedObj = [[tableAllotedOC alloc]init];
-        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"id"] objectAtIndex:i]];
+        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"id"] objectAtIndex:i]];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@")" withString:@""];
@@ -238,7 +239,7 @@
         NSLog(@"Table ID %@",tableIdStr);
         tableAllotedObj.tableId = [tableIdStr intValue];
         NSLog(@"Table ID %d",tableAllotedObj.tableId);
-        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"name"] objectAtIndex:i]];
+        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"name"] objectAtIndex:i]];
         
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -263,9 +264,10 @@
     NSLog(@"Tables... %lu",(unsigned long)self.tablesAllotedArray.count);
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
+    NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[self.tablesAllotedArray objectAtIndex:0]];
     for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
         tableAllotedObj = [[tableAllotedOC alloc]init];
-        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"id"] objectAtIndex:i]];
+        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"id"] objectAtIndex:i]];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@")" withString:@""];
@@ -274,7 +276,7 @@
         NSLog(@"Table ID %@",tableIdStr);
         tableAllotedObj.tableId = [tableIdStr intValue];
         NSLog(@"Table ID %d",tableAllotedObj.tableId);
-        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"name"] objectAtIndex:i]];
+        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"name"] objectAtIndex:i]];
         
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@" " withString:@""];
