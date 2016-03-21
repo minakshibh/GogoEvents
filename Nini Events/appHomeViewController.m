@@ -1,4 +1,4 @@
-
+ads
 #import "appHomeViewController.h"
 #import "OrdersListViewController.h"
 #import "homeViewController.h"
@@ -253,6 +253,13 @@ NSArray *urlLinks;
         lblTimerSec.text = [NSString stringWithFormat:@"00"];
         [timer invalidate];
         
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ophemy"
+                                                         message:@"Event has been finished."
+                                                        delegate:self
+                                               cancelButtonTitle:nil
+                                               otherButtonTitles:@"OK",nil];
+        alert.tag = 1;
+        [alert show];
         
         lbleventtimeout.hidden = NO;
         self.timerCountDown.hidden = YES;
@@ -396,21 +403,12 @@ NSArray *urlLinks;
     eventImagesSlideViewViewController *homeVC = [[eventImagesSlideViewViewController alloc] initWithNibName:@"eventImagesSlideViewViewController" bundle:nil];
     [self.navigationController pushViewController:homeVC animated:NO];
 }
-//- (IBAction)appHomeAction:(id)sender {
-//    if (flag == 0) {
-//        flag = 1;
-//        [self viewDidLoad];
-//    }else{
-//        flag = 0;
-//        [self viewDidLoad];
-//    }
-//}
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    if (alertView.tag == 1 && buttonIndex == 1){
+    if (alertView.tag == 1 && buttonIndex == 0){
         
         docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         documentsDir = [docPaths objectAtIndex:0];
@@ -428,6 +426,7 @@ NSArray *urlLinks;
         [defaults removeObjectForKey:@"Table Name"];
         [defaults removeObjectForKey:@"Table image"];
         [defaults removeObjectForKey:@"Role"];
+        [self removeData];
         
         [defaults setObject:@"YES"forKey:@"isLogedOut"];
         loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];

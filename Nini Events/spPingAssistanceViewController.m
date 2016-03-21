@@ -76,6 +76,9 @@
         lblliveAssistance.hidden = YES;
         imageliveAssistance.hidden = YES;
         
+        self.chatNotificationBadgeImg.hidden = YES;
+        self.chatNotificationBageLbl.hidden = YES;
+        
         [pingAssistance addSubview:viewliveAssistance];
         [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
     
@@ -94,6 +97,9 @@
         
         pingAssistance.hidden = YES;
         viewliveAssistance.hidden = YES;
+        
+        self.pingNotificationBadgeImg.hidden = YES;
+        self.pingNotificationBadgeLbl.hidden = YES;
         
         [requestAssistance addSubview:viewRequestAssistance];
         [viewRequestAssistance setFrame:CGRectMake(25,requestAssistance.frame.size.height/2-viewRequestAssistance.frame.size.height/2,viewRequestAssistance.frame.size.width,viewRequestAssistance.frame.size.height)];
@@ -250,7 +256,8 @@
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    //    [activityIndicator stopAnimating];
+    [activityIndicator stopAnimating];
+    [self enable];
     [self.view setUserInteractionEnabled:YES];
     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"Connection Error" message:@"Please Check the Internet Connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
@@ -264,8 +271,7 @@
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    
-    
+  
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     fetchedChatData = [[NSMutableArray alloc]init];
    

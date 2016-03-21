@@ -394,11 +394,6 @@
          if ([userDetailDict valueForKey:@"MessageList"] !=[NSNull null]) {
              fetchingChat = [NSMutableArray arrayWithArray:[userDetailDict valueForKey:@"MessageList"]];
          }
-        if (fetchingChat.count == 0) {
-            viewNOChat.hidden = NO;
-        }else{
-            viewNOChat.hidden = YES;
-        }
 
         if ([fetchingChat count] != 0)
         {

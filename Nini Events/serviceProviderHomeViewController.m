@@ -145,6 +145,8 @@
         lblliveAssistance.hidden = YES;
         imageliveAssistance.hidden = YES;
     
+     self.chatNotificationBadgeImg.hidden = YES;
+     self.chatNotificationBageLbl.hidden = YES;
     [pingAssistance addSubview:viewliveAssistance];
     [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
     
@@ -154,6 +156,7 @@
     
     [self.orders addSubview:vieworders];
     [vieworders setFrame:CGRectMake(25,self.orders.frame.size.height/2-vieworders.frame.size.height/2,vieworders.frame.size.width,vieworders.frame.size.height)];
+     
       }
     if ([PingAssistance isEqualToString:@"0"]) {
         float viewHeight = self.view.frame.size.height;
@@ -165,6 +168,8 @@
         pingAssistance.hidden = YES;
         viewliveAssistance.hidden = YES;
         
+        self.pingNotificationBadgeImg.hidden = YES;
+        self.pingNotificationBadgeLbl.hidden = YES;
         [requestAssistance addSubview:viewRequestAssistance];
         [viewRequestAssistance setFrame:CGRectMake(25,requestAssistance.frame.size.height/2-viewRequestAssistance.frame.size.height/2,viewRequestAssistance.frame.size.width,viewRequestAssistance.frame.size.height)];
         
@@ -1608,6 +1613,7 @@
             self.orderNotificationBadgeLbl.hidden = YES;
         }
         [self pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+        [self viewWillAppear:YES];
     }
     if (tableSelected != nil) {
         

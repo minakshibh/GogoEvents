@@ -86,6 +86,9 @@
         lblliveAssistance.hidden = YES;
         imageliveAssistance.hidden = YES;
         
+        self.chatNotificationBadgeImg.hidden = YES;
+        self.chatNotificationBageLbl.hidden = YES;
+        
         [pingAssistance addSubview:viewliveAssistance];
         [viewliveAssistance setFrame:CGRectMake(25,pingAssistance.frame.size.height/2-viewliveAssistance.frame.size.height/2,viewliveAssistance.frame.size.width,viewliveAssistance.frame.size.height)];
         
@@ -104,6 +107,9 @@
         
         pingAssistance.hidden = YES;
         viewliveAssistance.hidden = YES;
+        
+        self.pingNotificationBadgeImg.hidden = YES;
+        self.pingNotificationBadgeLbl.hidden = YES;
         
         [requestAssistance addSubview:viewRequestAssistance];
         [viewRequestAssistance setFrame:CGRectMake(25,requestAssistance.frame.size.height/2-viewRequestAssistance.frame.size.height/2,viewRequestAssistance.frame.size.width,viewRequestAssistance.frame.size.height)];
@@ -153,10 +159,10 @@
     self.tablesAllotedArray = [[[[NSMutableArray alloc]initWithObjects:[defaults valueForKey:@"Alloted Tables"], nil]objectAtIndex:0] mutableCopy];
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
-    NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[self.tablesAllotedArray objectAtIndex:0]];
-    for (int i =0 ; i <[tempArray count] ; i++) {
+
+    for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
         tableAllotedObj = [[tableAllotedOC alloc]init];
-        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"id"] objectAtIndex:i]];
+        NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"id"] objectAtIndex:i]];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"(" withString:@""];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@")" withString:@""];
@@ -165,7 +171,7 @@
         NSLog(@"Table ID %@",tableIdStr);
         tableAllotedObj.tableId = [tableIdStr intValue];
         NSLog(@"Table ID %d",tableAllotedObj.tableId);
-        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"name"] objectAtIndex:i]];
+        NSString *tableNameStr = [NSString stringWithFormat:@"%@",[[self.tablesAllotedArray valueForKey:@"name"] objectAtIndex:i]];
         
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         tableNameStr = [tableNameStr stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -494,20 +500,21 @@
         badgeImg.image = [UIImage imageNamed:@"notificationcircle.png"];
         
         
-        UILabel * CountsLbl= [[UILabel alloc]initWithFrame:CGRectMake(177, 20, 27,25)];
+        UILabel * CountsLbl= [[UILabel alloc]initWithFrame:CGRectMake(180, 20, 27,25)];
         CountsLbl.textColor= [UIColor colorWithRed:194/255.0f green:57/255.0f blue:9/255.0f alpha:1.0];
         CountsLbl.font = [UIFont fontWithName:@"Bebas Neue" size:12];
         CountsLbl.lineBreakMode = NSLineBreakByCharWrapping;
         CountsLbl.numberOfLines = 14;
         CountsLbl.textAlignment = NSTextAlignmentCenter;
         
-        NSString*countValue = [NSString stringWithFormat:@"%d_Table",tableAllotedObj.tableId];
+        NSString*countValues = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"SPChat Count"]];
        
+        NSArray *countArray = [countValues componentsSeparatedByString:@","];
             
             NSLog(@"%ld",(long)indexPath.row);
             NSLog(@"chatCountArray%@",chatCountArray);
 
-            countValue = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults ]valueForKey:@"SPChat Count"]];
+        NSString *countValue = [NSString stringWithFormat:@"%@",[countArray objectAtIndex:indexPath.row]];
 
         
         if ([countValue isEqualToString:@"(null)"]) {
