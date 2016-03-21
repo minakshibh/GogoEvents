@@ -29,7 +29,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     currencySymbol=@"";
- 
+    appHomeView = [[appHomeViewController alloc]init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"%@",[defaults valueForKey:@"isLogedOut"]);
     NSString *isLogedOut;
@@ -331,12 +331,10 @@
         
         _startIdleTimmer = YES;
         [self resetIdleTimer];
-       
+        [appHomeView tick];
     }else{
        
     }
-    
-    [self tick];
 }
 
 - (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName
@@ -360,91 +358,91 @@
     
 }
 
-- (void)tick {
-    
-    NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
-    
-    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-    
-    [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
-    
-    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
-    NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
-    NSDate *eDate = [dateFormat1 dateFromString:EndTime];
-    
-    
-    NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
-    
-    NSInteger hours, minutes, seconds, days;
-    
-    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
-    days = [components day];
-    hours = [components hour];
-    minutes = [components minute];
-    seconds = [components second];
-    if (seconds <= 0 && hours <= 0 && minutes <= 0) {
-        //Checks if the countdown completed
-//        lblTimerHour.text = [NSString stringWithFormat:@"00"];
-//        lblTimermin.text = [NSString stringWithFormat:@"00"];
-//        lblTimerSec.text = [NSString stringWithFormat:@"00"];
-        [timer invalidate];
-        
-        
-//        lbleventtimeout.hidden = NO;
-//        self.timerCountDown.hidden = YES;
-//        self.daysCountDown.hidden = YES;
-        
-        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
-        
-        
-        return;
-    }
-    
-    NSString *hoursStr,*minutesStr,*secondsStr;
-    
-    if (hours < 10) {
-        hoursStr =[NSString stringWithFormat:@"0%li", (long)hours];
-    }else{
-        hoursStr = [NSString stringWithFormat:@"%li",(long)hours];
-    }
-    
-    if (minutes < 10) {
-        minutesStr =[NSString stringWithFormat:@"0%li", (long)minutes];
-    }else{
-        minutesStr = [NSString stringWithFormat:@"%li",(long)minutes];
-    }
-    
-    if (seconds < 10) {
-        secondsStr =[NSString stringWithFormat:@"0%li",(long)seconds];
-    }else{
-        secondsStr = [NSString stringWithFormat:@"%li",(long)seconds];
-    }
-    
-    
-    if (days <= 0) {
-//        self.timerCountDown.hidden = NO;
-//        self.daysCountDown.hidden = YES;
-//        lblTimerHour.text = hoursStr;
-//        lblTimermin.text = minutesStr;
-//        lblTimerSec.text = secondsStr;
-    }else{
-//        self.timerCountDown.hidden = YES;
-//        self.daysCountDown.hidden = NO;
-//        if (days > 1) {
-//            lblTimerDays.text = [NSString stringWithFormat:@"%i Days", days];
-//        }else{
-//            lblTimerDays.text = [NSString stringWithFormat:@"%i Day", days];
-//        }
-        
-//        dayCountDownHourLbl.text = hoursStr;
-//        dayCountDownMinLbl.text = minutesStr;
-//        dayCountDownSecLbl.text = secondsStr;
-    }
-    if (timer == nil) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
-    }
-    [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
-    
-}
+//- (void)tick {
+//    
+//    NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
+//    
+//    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
+//    
+//    [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
+//    
+//    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
+//    NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
+//    NSDate *eDate = [dateFormat1 dateFromString:EndTime];
+//    
+//    
+//    NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
+//    
+//    NSInteger hours, minutes, seconds, days;
+//    
+//    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
+//    days = [components day];
+//    hours = [components hour];
+//    minutes = [components minute];
+//    seconds = [components second];
+//    if (seconds <= 0 && hours <= 0 && minutes <= 0) {
+//        //Checks if the countdown completed
+////        lblTimerHour.text = [NSString stringWithFormat:@"00"];
+////        lblTimermin.text = [NSString stringWithFormat:@"00"];
+////        lblTimerSec.text = [NSString stringWithFormat:@"00"];
+//        [timer invalidate];
+//        
+//        
+////        lbleventtimeout.hidden = NO;
+////        self.timerCountDown.hidden = YES;
+////        self.daysCountDown.hidden = YES;
+//        
+//        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
+//        
+//        
+//        return;
+//    }
+//    
+//    NSString *hoursStr,*minutesStr,*secondsStr;
+//    
+//    if (hours < 10) {
+//        hoursStr =[NSString stringWithFormat:@"0%li", (long)hours];
+//    }else{
+//        hoursStr = [NSString stringWithFormat:@"%li",(long)hours];
+//    }
+//    
+//    if (minutes < 10) {
+//        minutesStr =[NSString stringWithFormat:@"0%li", (long)minutes];
+//    }else{
+//        minutesStr = [NSString stringWithFormat:@"%li",(long)minutes];
+//    }
+//    
+//    if (seconds < 10) {
+//        secondsStr =[NSString stringWithFormat:@"0%li",(long)seconds];
+//    }else{
+//        secondsStr = [NSString stringWithFormat:@"%li",(long)seconds];
+//    }
+//    
+//    
+//    if (days <= 0) {
+////        self.timerCountDown.hidden = NO;
+////        self.daysCountDown.hidden = YES;
+////        lblTimerHour.text = hoursStr;
+////        lblTimermin.text = minutesStr;
+////        lblTimerSec.text = secondsStr;
+//    }else{
+////        self.timerCountDown.hidden = YES;
+////        self.daysCountDown.hidden = NO;
+////        if (days > 1) {
+////            lblTimerDays.text = [NSString stringWithFormat:@"%i Days", days];
+////        }else{
+////            lblTimerDays.text = [NSString stringWithFormat:@"%i Day", days];
+////        }
+//        
+////        dayCountDownHourLbl.text = hoursStr;
+////        dayCountDownMinLbl.text = minutesStr;
+////        dayCountDownSecLbl.text = secondsStr;
+//    }
+//    if (timer == nil) {
+//        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+//    }
+//    [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
+//    
+//}
 
 @end

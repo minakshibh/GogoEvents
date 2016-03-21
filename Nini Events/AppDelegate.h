@@ -1,12 +1,15 @@
 
 #import <UIKit/UIKit.h>
 #import "screenSaverViewController.h"
+#import "appHomeViewController.h"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     NSMutableData *webData;
     int webServiceCode;
      NSDateComponents *components;
      NSTimer *timer;
+    appHomeViewController *appHomeView;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, assign) bool *startIdleTimmer;

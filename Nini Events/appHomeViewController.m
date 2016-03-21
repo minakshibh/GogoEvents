@@ -1,4 +1,4 @@
-ads
+
 #import "appHomeViewController.h"
 #import "OrdersListViewController.h"
 #import "homeViewController.h"
@@ -256,8 +256,8 @@ NSArray *urlLinks;
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ophemy"
                                                          message:@"Event has been finished."
                                                         delegate:self
-                                               cancelButtonTitle:nil
-                                               otherButtonTitles:@"OK",nil];
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
         alert.tag = 1;
         [alert show];
         
@@ -410,27 +410,27 @@ NSArray *urlLinks;
     
     if (alertView.tag == 1 && buttonIndex == 0){
         
-        docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        documentsDir = [docPaths objectAtIndex:0];
-        dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-        database = [FMDatabase databaseWithPath:dbPath];
-        [database open];
-        
-        NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
-        [database executeUpdate:queryString1];
-        [database close];
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        [defaults removeObjectForKey:@"Table ID"];
-        [defaults removeObjectForKey:@"Table Name"];
-        [defaults removeObjectForKey:@"Table image"];
-        [defaults removeObjectForKey:@"Role"];
-        [self removeData];
-        
-        [defaults setObject:@"YES"forKey:@"isLogedOut"];
-        loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-        [self.navigationController pushViewController:loginVC animated:YES];
+//        docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        documentsDir = [docPaths objectAtIndex:0];
+//        dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
+//        database = [FMDatabase databaseWithPath:dbPath];
+//        [database open];
+//        
+//        NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
+//        [database executeUpdate:queryString1];
+//        [database close];
+//        
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        
+//        [defaults removeObjectForKey:@"Table ID"];
+//        [defaults removeObjectForKey:@"Table Name"];
+//        [defaults removeObjectForKey:@"Table image"];
+//        [defaults removeObjectForKey:@"Role"];
+//        [self removeData];
+//        
+//        [defaults setObject:@"YES"forKey:@"isLogedOut"];
+//        loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
+//        [self.navigationController pushViewController:loginVC animated:YES];
     }
 }
 -(void)fetchEventDetails

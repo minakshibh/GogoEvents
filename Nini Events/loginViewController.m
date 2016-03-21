@@ -24,7 +24,7 @@
 //    [self loginWebservice:userID :password];
     checkbox_Value = false;
     
-    
+    appHomeView = [[appHomeViewController alloc] init];
     NSLog(@"---%@",[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"remember_me_status"]]);
     
     if ([[NSUserDefaults standardUserDefaults]valueForKey:@"remember_me_status"] != nil) {
@@ -638,12 +638,15 @@
             [defaults setValue:eventStatus forKey:@"Event Status"];
             [defaults setValue:PingAssistance forKey:@"PingAssistance"];
             [defaults setValue:SlideShow forKey:@"SlideShow"];
-            
+            [defaults setValue:[userDetailDict valueForKey:@"EventDocuments"] forKey:@"EventDocuments"];
             [defaults setValue:eventChatSupport forKey:@"Event Chat Support"];
             [defaults setValue:[userDetailDict valueForKey:@"EventName"] forKey:@"EventName"];
             [defaults setValue:[userDetailDict valueForKey:@"ListEventDetails"] forKey:@"ListEventDetails"];
             [defaults setValue:[userDetailDict valueForKey:@"IsfreeEvent"] forKey:@"Is Paid"];
             [defaults setValue:[userDetailDict valueForKey:@"EventCurrencySymbol"] forKey:@"EventCurrencySymbol"];
+            [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
+            [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
+            [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
             appdelegate=[[UIApplication sharedApplication]delegate];
             NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
             NSString *substring;
@@ -673,6 +676,7 @@
                 
             }
         }
+        [appHomeView tick];
         if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
             [self registerDevice];
         }else{

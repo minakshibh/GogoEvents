@@ -23,6 +23,7 @@
     BOOL checkbox_Value;
     IBOutlet UIButton *btnRememberMe;
     UIImage *btnImage;
+    appHomeViewController *appHomeView;
 }
 - (IBAction)btnRememberMe:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTxt;

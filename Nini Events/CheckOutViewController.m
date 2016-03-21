@@ -212,7 +212,7 @@
     self.batchLbl.text = [NSString stringWithFormat:@"%@",orderCount];
     float delievrycharg=0.00;
     float taxes=0.00;
-    AppDelegate*appdelegate=[[UIApplication sharedApplication]delegate];
+    
     
     taxesPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",[defaults valueForKey:@"Currency Value"],taxes];
     deliveryChargPriceLbl.text=[NSString stringWithFormat:@"%@ %.2f",[defaults valueForKey:@"Currency Value"],delievrycharg];
