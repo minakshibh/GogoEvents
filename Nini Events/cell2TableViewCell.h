@@ -9,6 +9,7 @@
     IBOutlet UITextView *lblEventDescription;
     IBOutlet UILabel *lblEventTime;
     
+    IBOutlet UILabel *lblEventDate;
 }
 
 -(void)setLabelText:(NSString*)eventName :(NSString*)eventBy : (NSString*)startDate : (NSString*)endDate :(NSString*)eventDescription;
