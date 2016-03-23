@@ -186,6 +186,7 @@
     messageStr = [NSString stringWithFormat:@"%@",[TimeFromArray objectAtIndex:0]];
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     NSString *isLogedOut;
+    
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"isLogedOut"] == NULL ) {
         isLogedOut =[NSString stringWithFormat:@"YES"];
     }else{
@@ -211,19 +212,23 @@
         }else{
             if ([isLogedOut isEqualToString:@"YES"]){
                 loginViewController *loginVC = [[loginViewController alloc]initWithNibName:@"loginViewController" bundle:nil];
-                [self.navigator pushViewController:loginVC animated:YES];
+                self.navigator = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                self.window.rootViewController = self.navigator;
             }else{
                 if ([messageStr rangeOfString:@"Order with Order Id"].location != NSNotFound) {
                     serviceProviderHomeViewController *spHomeView = [[serviceProviderHomeViewController alloc] init];
-                    [self.navigator pushViewController:spHomeView animated:NO];
+                    self.navigator = [[UINavigationController alloc] initWithRootViewController:spHomeView];
+                    self.window.rootViewController = self.navigator;
                 }
                 else if ([messageStr rangeOfString:@"Assistance"].location != NSNotFound){
                     spPingAssistanceViewController *spPingsView = [[spPingAssistanceViewController alloc] init];
-                    [self.navigator pushViewController:spPingsView animated:NO];
+                    self.navigator = [[UINavigationController alloc] initWithRootViewController:spPingsView];
+                    self.window.rootViewController = self.navigator;
                 }
                 else{
                     spRequestAssistanceViewController *requestVC = [[spRequestAssistanceViewController alloc] initWithNibName:@"spRequestAssistanceViewController" bundle:nil];
-                    [self.navigator pushViewController:requestVC animated:NO];
+                    self.navigator = [[UINavigationController alloc] initWithRootViewController:requestVC];
+                    self.window.rootViewController = self.navigator;
                 }
             }
         }
@@ -241,17 +246,20 @@
         }else{
             if ([isLogedOut isEqualToString:@"YES"]){
                 loginViewController *loginVC = [[loginViewController alloc]initWithNibName:@"loginViewController" bundle:nil];
-                [self.navigator pushViewController:loginVC animated:YES];
+                self.navigator = [[UINavigationController alloc] initWithRootViewController:loginVC];
+                self.window.rootViewController = self.navigator;
                 
             }else{
                 if ([messageStr isEqualToString:@"Order Status"]) {
                     OrdersListViewController*ordrVc=[[OrdersListViewController alloc]initWithNibName:@"OrdersListViewController" bundle:nil];
                     ordrVc.flagValue = 2;
-                    [self.navigator pushViewController:ordrVc animated:YES];
+                    self.navigator = [[UINavigationController alloc] initWithRootViewController:ordrVc];
+                    self.window.rootViewController = self.navigator;
                 }
                 else{
                     requestAssistanceViewController *requestVC = [[requestAssistanceViewController alloc] initWithNibName:@"requestAssistanceViewController" bundle:nil];
-                    [self.navigator pushViewController:requestVC animated:NO];
+                    self.navigator = [[UINavigationController alloc] initWithRootViewController:requestVC];
+                    self.window.rootViewController = self.navigator;
                 }
             }
         }

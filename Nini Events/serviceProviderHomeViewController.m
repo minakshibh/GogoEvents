@@ -19,6 +19,7 @@
 @implementation serviceProviderHomeViewController
 
 - (void)viewDidLoad {
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     flag = 0;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CompareDate"];
     orderIdtempArray=[[NSMutableArray alloc]init];

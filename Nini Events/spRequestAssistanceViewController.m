@@ -17,7 +17,7 @@
 @implementation spRequestAssistanceViewController
 
 - (void)viewDidLoad {
-
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     self.chatMessageTxtView.layer.borderColor = [UIColor grayColor].CGColor;
     self.chatMessageTxtView.layer.borderWidth = 1;
     originalPt.x = self.chatView.frame.origin.x;

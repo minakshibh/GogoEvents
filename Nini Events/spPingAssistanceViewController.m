@@ -13,6 +13,7 @@
 @implementation spPingAssistanceViewController
 
 - (void)viewDidLoad {
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     int updatedChatCount = [[[NSUserDefaults standardUserDefaults ]valueForKey:@"UpdatedChat Count"]intValue];
     if (updatedChatCount != 0) {

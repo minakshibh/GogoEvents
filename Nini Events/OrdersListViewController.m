@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     
     [self createMenu];
-    
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     if ([[ver objectAtIndex:0] intValue] >= 7) {
         // iOS 7.0 or later
