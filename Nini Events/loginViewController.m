@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    NSString *userID = [NSString stringWithFormat:@"Service@mailinator.com"]; 9882486511
+//    NSString *userID = [NSString stringWithFormat:@"nav@ophemy.com"];
 //    NSString *password = [NSString stringWithFormat:@"123456"];
 //    [self loginWebservice:userID :password];
     checkbox_Value = false;

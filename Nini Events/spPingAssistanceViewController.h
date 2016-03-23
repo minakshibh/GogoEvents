@@ -53,7 +53,7 @@
 - (IBAction)requestAssistanceAction:(id)sender;
 - (IBAction)seeOrderAction:(id)sender;
 - (IBAction)pingForAssisteance:(id)sender;
-
+-(void)chatTable;
 -(void) fetchCounts;
 @property (strong, nonatomic) IBOutlet UIImageView *orderNotificationBadgeImg;
 @property (strong, nonatomic) IBOutlet UILabel *orderNotificationBadgeLbl;

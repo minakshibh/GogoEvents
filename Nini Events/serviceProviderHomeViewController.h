@@ -140,5 +140,5 @@
 @property (strong, nonatomic) IBOutlet UIImageView *chatNotificationBadgeImg;
 @property (strong, nonatomic) IBOutlet UILabel *chatNotificationBageLbl;
 @property (weak, nonatomic) IBOutlet UIView *gestureView;
-
+-(void)pendingPlacedOrder: (NSString *)ordertype;
 @end

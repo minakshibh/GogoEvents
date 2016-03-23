@@ -69,6 +69,7 @@
 @property (strong, nonatomic) IBOutlet UIView *exitPopUpView;
 - (IBAction)exitYesAction:(id)sender;
 - (IBAction)exitNoAction:(id)sender;
+-(void)chatTable;
 @property (strong, nonatomic) IBOutlet UIImageView *chatNotificationBadgeImg;
 @property (strong, nonatomic) IBOutlet UILabel *chatNotificationBageLbl;
 @end

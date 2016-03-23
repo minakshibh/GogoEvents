@@ -61,7 +61,7 @@
 - (IBAction)checkOutView:(id)sender;
 - (IBAction)ophemyAction:(id)sender;
 - (IBAction)Slideshow:(id)sender;
-
+-(void) fetchHelpMessage;
 @property (strong, nonatomic) IBOutlet UILabel *batchLbl;
 @property (strong, nonatomic) IBOutlet UIView *sideMenuWithoutReqAssistance;
 @property (strong, nonatomic) IBOutlet UIView *footerWithoutEventsDetail;
