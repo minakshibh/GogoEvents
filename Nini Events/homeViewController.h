@@ -165,6 +165,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *backBtn;
 @property (strong, nonatomic) IBOutlet UILabel *headerTitleLbl;
 @property (strong, nonatomic) IBOutlet UIButton *viewOrder;
+@property (strong, nonatomic) IBOutlet UIImageView *imagepingmessage;
+@property (strong, nonatomic) IBOutlet UIView *viewPOPplaceOrder;
+
+
 - (IBAction)dismissBack:(id)sender;
 - (IBAction)viewOrderBtn:(id)sender;
 - (IBAction)addToOrder:(id)sender;

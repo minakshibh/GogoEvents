@@ -227,6 +227,7 @@ NSArray *urlLinks;
 
     lbleventtimeout.hidden = YES;
     NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
+     NSString *StartTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventStartDate"]];
 
     NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
     
@@ -235,13 +236,51 @@ NSArray *urlLinks;
     NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
     NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
     NSDate *eDate = [dateFormat1 dateFromString:EndTime];
+    NSDate *startDate = [dateFormat1 dateFromString:StartTime];
     
+    if ([startDate compare:sDate] == NSOrderedDescending) {
+        NSLog(@"date1 is later than date2");
+        components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: sDate toDate: startDate options: 0];
+        lblTimerheaderbackground.text = @"Event will start in";
+        [[NSUserDefaults standardUserDefaults]setObject:@"not_started" forKey:@"evenStatus"];
+
+    } else if ([startDate compare:sDate] == NSOrderedAscending) {
+        NSLog(@"date1 is earlier than date2");
+        components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
+          lblTimerheaderbackground.text = @"Event will be over in";
+        [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
+
+    } else {
+        lblTimerheaderbackground.text = @"Event is getting started";
+        NSLog(@"dates are the same");
+        lblTimerHour.text = [NSString stringWithFormat:@"00"];
+        lblTimermin.text = [NSString stringWithFormat:@"00"];
+        lblTimerSec.text = [NSString stringWithFormat:@"00"];
+//        [timer invalidate];
+        
+//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ophemy"
+//                                                         message:@"Event is started"
+//                                                        delegate:self
+//                                               cancelButtonTitle:@"OK"
+//                                               otherButtonTitles:nil];
+//        alert.tag = 1;
+//        [alert show];
+        
+//        lbleventtimeout.hidden = NO;
+//        self.timerCountDown.hidden = YES;
+//        self.daysCountDown.hidden = YES;
+        
+//        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
+        
+        
+        return;
+
+    }
     
     NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
-   
     NSInteger hours, minutes, seconds, days;
     
-    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
+//    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
     days = [components day];
     hours = [components hour];
     minutes = [components minute];
@@ -314,7 +353,6 @@ NSArray *urlLinks;
     if (timer == nil) {
         timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
     }
-    [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
 
 }
 

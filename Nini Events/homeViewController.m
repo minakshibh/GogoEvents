@@ -795,6 +795,8 @@ static int curveValues[] = {
     
 }
 - (void)viewWillAppear:(BOOL)animated {
+    
+    
     NSLog(@"Scroller Height%f",self.sideScroller.frame.size.height);
     NSLog(@"Image Scroller Height%f",self.scrollerimage.frame.size.height);
     
@@ -2838,6 +2840,24 @@ static int curveValues[] = {
 }
 
 - (IBAction)addToOrder:(id)sender {
+    
+    NSString *eventStatus = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"evenStatus"]];
+    if ([eventStatus isEqualToString:@"not_started"]) {
+        if (IS_IPAD_Pro) {
+            [self.viewPOPplaceOrder setFrame:CGRectMake(self.sideScroller.frame.size.width-self.viewPOPplaceOrder.frame.size.width-5, 810, self.viewPOPplaceOrder.frame.size.width, self.viewPOPplaceOrder.frame.size.height)];
+        }else{
+            [self.viewPOPplaceOrder setFrame:CGRectMake(self.sideScroller.frame.size.width-self.viewPOPplaceOrder.frame.size.width-5, 570, self.viewPOPplaceOrder.frame.size.width, self.viewPOPplaceOrder.frame.size.height)];
+        }
+        [self.itemView addSubview:self.viewPOPplaceOrder];
+        [self.itemView bringSubviewToFront:self.viewPOPplaceOrder];
+        
+        self.viewPOPplaceOrder.alpha= 1.0;
+        hideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(FadeViewforPlaceOrder) userInfo:nil repeats:NO];
+        self.viewPOPplaceOrder.hidden = NO;
+        return;
+    }
+
+    
     [self.itemView setBackgroundColor: [UIColor clearColor]];
     NSLog(@"ITEMID.. %d , %d",menuItemsObj.ItemId,[self.quantityLbl.text intValue]);
     [self orderList:[NSString stringWithFormat:@"%d",menuItemsObj.ItemId] :[self.quantityLbl.text intValue]];
@@ -3088,6 +3108,12 @@ static int curveValues[] = {
     [UIView animateWithDuration:0.9
                      animations:^{self.pingMessageView.alpha = 0.0;}
                      completion:^(BOOL finished){self.pingMessageView.hidden = YES;}];
+}
+-(void) FadeViewforPlaceOrder
+{
+    [UIView animateWithDuration:0.9
+                     animations:^{self.viewPOPplaceOrder.alpha = 0.0;}
+                     completion:^(BOOL finished){self.viewPOPplaceOrder.hidden = YES;}];
 }
 - (IBAction)exitYesAction:(id)sender {
     docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
