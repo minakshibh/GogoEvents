@@ -18,10 +18,10 @@
 #endif
 
 
-#define Kwebservices @"http://api.ophemy.com/ninievents.asmx"
+//#define Kwebservices @"http://api.ophemy.com/ninievents.asmx"
 #define Kregister @"http://www.ophemy.com"
 
-//#define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
+#define Kwebservices @"http://112.196.24.205:1071/NiniEvents.asmx"
 
 
 

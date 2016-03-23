@@ -75,7 +75,7 @@
 - (IBAction)checkOutView:(id)sender;
 - (IBAction)ophemyAction:(id)sender;
 - (IBAction)Slideshow:(id)sender;
-
+-(void)FetchPendingPlacedOrder:(NSString*)passedOrderType;
 @property (strong, nonatomic) IBOutlet UILabel *batchLbl;
 @property (strong, nonatomic) IBOutlet UIView *sideMenuWithoutReqAssistance;
 @property (strong, nonatomic) IBOutlet UIView *footerWithoutEventsDetail;
@@ -91,5 +91,5 @@
 @property (strong, nonatomic) IBOutlet UIView *exitPopUpView;
 - (IBAction)exitYesAction:(id)sender;
 - (IBAction)exitNoAction:(id)sender;
-
+-(void)FetchPendingPlacedOrder:(NSString*)passedOrderType;
 @end

@@ -2,6 +2,9 @@
 #import "AppDelegate.h"
 #import "splashScreenViewController.h"
 #import "serviceProviderHomeViewController.h"
+#import "spPingAssistanceViewController.h"
+#import "spRequestAssistanceViewController.h"
+#import "OrdersListViewController.h"
 #import "loginViewController.h"
 #import "homeViewController.h"
 #import "OrdersListViewController.h"
@@ -63,6 +66,10 @@
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     [user setObject:@"yes" forKey:@"statValue"];
+    
+    if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
+    }
     
     return YES;
 }
@@ -173,25 +180,80 @@
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     NSLog(@"Notification Popup Tapped.... %@",userInfo);
+    
     NSString *messageStr = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
     NSArray* TimeFromArray = [messageStr componentsSeparatedByString: @":"];
     messageStr = [NSString stringWithFormat:@"%@",[TimeFromArray objectAtIndex:0]];
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    NSString *isLogedOut;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"isLogedOut"] == NULL ) {
+        isLogedOut =[NSString stringWithFormat:@"YES"];
+    }else{
+        isLogedOut =[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"isLogedOut"]];
+    }
+    
     if ([[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Role"]] isEqualToString:@"ServiceProvider"]) {
-        if ([messageStr isEqualToString:@"Order Status"]) {
-            serviceProviderHomeViewController *spRequestVC = [[serviceProviderHomeViewController alloc] initWithNibName:@"serviceProviderHomeViewController" bundle:nil];
-            [self.navigator pushViewController:spRequestVC animated:NO];
+        
+        if (state == UIApplicationStateActive) {
+            
+            if ([messageStr rangeOfString:@"Order with Order Id"].location != NSNotFound) {
+                serviceProviderHomeViewController *spHomeView = [[serviceProviderHomeViewController alloc] init];
+                [spHomeView pendingPlacedOrder:[NSString stringWithFormat:@"Open"]];
+            }
+            else if ([messageStr rangeOfString:@"Assistance"].location != NSNotFound){
+                spPingAssistanceViewController *spPingsView = [[spPingAssistanceViewController alloc] init];
+                [spPingsView chatTable];
+            }
+            else{
+                spRequestAssistanceViewController *requestVC = [[spRequestAssistanceViewController alloc] initWithNibName:@"spRequestAssistanceViewController" bundle:nil];
+                [requestVC chatTable];
+            }
         }else{
-            spRequestAssistanceViewController *requestVC = [[spRequestAssistanceViewController alloc] initWithNibName:@"spRequestAssistanceViewController" bundle:nil];
-            [self.navigator pushViewController:requestVC animated:NO];
+            if ([isLogedOut isEqualToString:@"YES"]){
+                loginViewController *loginVC = [[loginViewController alloc]initWithNibName:@"loginViewController" bundle:nil];
+                [self.navigator pushViewController:loginVC animated:YES];
+            }else{
+                if ([messageStr rangeOfString:@"Order with Order Id"].location != NSNotFound) {
+                    serviceProviderHomeViewController *spHomeView = [[serviceProviderHomeViewController alloc] init];
+                    [self.navigator pushViewController:spHomeView animated:NO];
+                }
+                else if ([messageStr rangeOfString:@"Assistance"].location != NSNotFound){
+                    spPingAssistanceViewController *spPingsView = [[spPingAssistanceViewController alloc] init];
+                    [self.navigator pushViewController:spPingsView animated:NO];
+                }
+                else{
+                    spRequestAssistanceViewController *requestVC = [[spRequestAssistanceViewController alloc] initWithNibName:@"spRequestAssistanceViewController" bundle:nil];
+                    [self.navigator pushViewController:requestVC animated:NO];
+                }
+            }
         }
     }else{
-        if ([messageStr isEqualToString:@"Order Status"]) {
-            OrdersListViewController*ordrVc=[[OrdersListViewController alloc]initWithNibName:@"OrdersListViewController" bundle:nil];
-            ordrVc.flagValue = 2;
-            [self.navigator pushViewController:ordrVc animated:YES];
+        if (state == UIApplicationStateActive) {
+            if ([messageStr isEqualToString:@"Order Status"]) {
+                OrdersListViewController*ordrVc=[[OrdersListViewController alloc]initWithNibName:@"OrdersListViewController" bundle:nil];
+                [ordrVc FetchPendingPlacedOrder:[NSString stringWithFormat:@"delivered"]];
+            }
+            else{
+                requestAssistanceViewController *requestVC = [[requestAssistanceViewController alloc] initWithNibName:@"requestAssistanceViewController" bundle:nil];
+                [requestVC fetchHelpMessage];
+            }
+            
         }else{
-            requestAssistanceViewController *requestVC = [[requestAssistanceViewController alloc] initWithNibName:@"requestAssistanceViewController" bundle:nil];
-            [self.navigator pushViewController:requestVC animated:NO];
+            if ([isLogedOut isEqualToString:@"YES"]){
+                loginViewController *loginVC = [[loginViewController alloc]initWithNibName:@"loginViewController" bundle:nil];
+                [self.navigator pushViewController:loginVC animated:YES];
+                
+            }else{
+                if ([messageStr isEqualToString:@"Order Status"]) {
+                    OrdersListViewController*ordrVc=[[OrdersListViewController alloc]initWithNibName:@"OrdersListViewController" bundle:nil];
+                    ordrVc.flagValue = 2;
+                    [self.navigator pushViewController:ordrVc animated:YES];
+                }
+                else{
+                    requestAssistanceViewController *requestVC = [[requestAssistanceViewController alloc] initWithNibName:@"requestAssistanceViewController" bundle:nil];
+                    [self.navigator pushViewController:requestVC animated:NO];
+                }
+            }
         }
     }
 }
@@ -222,7 +284,7 @@
     [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-
+    
     if(connection)
     {
         if(webData==nil)
@@ -262,16 +324,16 @@
 #pragma mark Process loan data
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
-        NSLog(@"responseString:%@",responseString);
-        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
-        NSError *error;
-        SBJsonParser *json = [[SBJsonParser alloc] init];
-        
-        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
-        NSLog(@"Dictionary %@",userDetailDict);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+    NSLog(@"responseString:%@",responseString);
+    responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+    NSError *error;
+    SBJsonParser *json = [[SBJsonParser alloc] init];
+    
+    NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+    NSLog(@"Dictionary %@",userDetailDict);
     NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
     if([resultStr isEqualToString:@"0"])
     {
@@ -300,40 +362,40 @@
         [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
         
         NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
-    NSLog(@"%@",currencyStr);
-    NSString *substring;
-    if (![currencyStr isEqualToString:@""]) {
-        NSRange range = [currencyStr rangeOfString:@"("];
-        substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        substring = [substring substringToIndex:1];
-    }else{
-        substring = @"";
-    }
-    
-    
+        NSLog(@"%@",currencyStr);
+        NSString *substring;
+        if (![currencyStr isEqualToString:@""]) {
+            NSRange range = [currencyStr rangeOfString:@"("];
+            substring = [[currencyStr substringFromIndex:NSMaxRange(range)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            substring = [substring substringToIndex:1];
+        }else{
+            substring = @"";
+        }
+        
+        
         self.currencySymbol=substring;
         [defaults setValue:substring forKey:@"Currency Value"];
-//        if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
-//            
-//            NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
-//            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
-//            
-//            [self imageDownloading:eventImageStr :eventID];
-//            
-//            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
-//            
-//            [defaults setValue:eventImageStr forKey:@"EventImage"];
-//            
-//        }
-//        else{
-//            [defaults setValue:@"" forKey:@"EventPictureUrl"];
-//        }
+        //        if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
+        //
+        //            NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
+        //            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
+        //
+        //            [self imageDownloading:eventImageStr :eventID];
+        //
+        //            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
+        //
+        //            [defaults setValue:eventImageStr forKey:@"EventImage"];
+        //
+        //        }
+        //        else{
+        //            [defaults setValue:@"" forKey:@"EventPictureUrl"];
+        //        }
         
         _startIdleTimmer = YES;
         [self resetIdleTimer];
         [appHomeView tick];
     }else{
-       
+        
     }
 }
 
@@ -359,22 +421,22 @@
 }
 
 //- (void)tick {
-//    
+//
 //    NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
-//    
+//
 //    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-//    
+//
 //    [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
-//    
+//
 //    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
 //    NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
 //    NSDate *eDate = [dateFormat1 dateFromString:EndTime];
-//    
-//    
+//
+//
 //    NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
-//    
+//
 //    NSInteger hours, minutes, seconds, days;
-//    
+//
 //    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
 //    days = [components day];
 //    hours = [components hour];
@@ -386,39 +448,39 @@
 ////        lblTimermin.text = [NSString stringWithFormat:@"00"];
 ////        lblTimerSec.text = [NSString stringWithFormat:@"00"];
 //        [timer invalidate];
-//        
-//        
+//
+//
 ////        lbleventtimeout.hidden = NO;
 ////        self.timerCountDown.hidden = YES;
 ////        self.daysCountDown.hidden = YES;
-//        
+//
 //        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
-//        
-//        
+//
+//
 //        return;
 //    }
-//    
+//
 //    NSString *hoursStr,*minutesStr,*secondsStr;
-//    
+//
 //    if (hours < 10) {
 //        hoursStr =[NSString stringWithFormat:@"0%li", (long)hours];
 //    }else{
 //        hoursStr = [NSString stringWithFormat:@"%li",(long)hours];
 //    }
-//    
+//
 //    if (minutes < 10) {
 //        minutesStr =[NSString stringWithFormat:@"0%li", (long)minutes];
 //    }else{
 //        minutesStr = [NSString stringWithFormat:@"%li",(long)minutes];
 //    }
-//    
+//
 //    if (seconds < 10) {
 //        secondsStr =[NSString stringWithFormat:@"0%li",(long)seconds];
 //    }else{
 //        secondsStr = [NSString stringWithFormat:@"%li",(long)seconds];
 //    }
-//    
-//    
+//
+//
 //    if (days <= 0) {
 ////        self.timerCountDown.hidden = NO;
 ////        self.daysCountDown.hidden = YES;
@@ -433,7 +495,7 @@
 ////        }else{
 ////            lblTimerDays.text = [NSString stringWithFormat:@"%i Day", days];
 ////        }
-//        
+//
 ////        dayCountDownHourLbl.text = hoursStr;
 ////        dayCountDownMinLbl.text = minutesStr;
 ////        dayCountDownSecLbl.text = secondsStr;
