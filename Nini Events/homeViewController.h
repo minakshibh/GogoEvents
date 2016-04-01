@@ -88,6 +88,7 @@
     IBOutlet UIView *vieweventdetailfooter;
     IBOutlet UIView *viewmenu1footer;
     IBOutlet UIView *viewvieworderfooter;
+    IBOutlet UILabel *lbleventStatus;
 
 }
 @property (weak, nonatomic) IBOutlet UIImageView *disabledImgView;

@@ -2842,11 +2842,17 @@ static int curveValues[] = {
 - (IBAction)addToOrder:(id)sender {
     
     NSString *eventStatus = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"evenStatus"]];
-    if ([eventStatus isEqualToString:@"not_started"]) {
+    if ([eventStatus isEqualToString:@"not_started"] || [eventStatus isEqualToString:@"end"]) {
         if (IS_IPAD_Pro) {
             [self.viewPOPplaceOrder setFrame:CGRectMake(self.sideScroller.frame.size.width-self.viewPOPplaceOrder.frame.size.width-5, 810, self.viewPOPplaceOrder.frame.size.width, self.viewPOPplaceOrder.frame.size.height)];
         }else{
             [self.viewPOPplaceOrder setFrame:CGRectMake(self.sideScroller.frame.size.width-self.viewPOPplaceOrder.frame.size.width-5, 570, self.viewPOPplaceOrder.frame.size.width, self.viewPOPplaceOrder.frame.size.height)];
+        }
+        if([eventStatus isEqualToString:@"end"]){
+            lbleventStatus.text = @"Event ended. No order will be processed.";
+        }else{
+            lbleventStatus.text = @"Please wait. Event is yet to be started.";
+
         }
         [self.itemView addSubview:self.viewPOPplaceOrder];
         [self.itemView bringSubviewToFront:self.viewPOPplaceOrder];

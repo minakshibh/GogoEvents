@@ -27,6 +27,7 @@
                 <outlet property="increaseBtn" destination="MxF-8s-dVj" id="dFo-bm-3tO"/>
                 <outlet property="itemTypeName" destination="B7g-SO-xgI" id="TAE-6F-fVG"/>
                 <outlet property="itemView" destination="sed-dd-8BT" id="p48-0g-NkW"/>
+                <outlet property="lbleventStatus" destination="XGd-BS-ESg" id="eQG-YM-LzL"/>
                 <outlet property="mainMenuFooter" destination="9yY-up-Y0U" id="hNE-Qc-p8F"/>
                 <outlet property="menuBgView" destination="ZMx-C4-l6S" id="sl6-Yb-kFd"/>
                 <outlet property="minimizeAnimatedView" destination="aMd-0S-OPT" id="jaM-eK-Ok3"/>
