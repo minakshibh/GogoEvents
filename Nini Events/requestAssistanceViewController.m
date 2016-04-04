@@ -872,29 +872,8 @@
     [self.chatTableView reloadData];
 }
 - (IBAction)exitYesAction:(id)sender {
-    docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDir = [docPaths objectAtIndex:0];
-    dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-    database = [FMDatabase databaseWithPath:dbPath];
-    [database open];
-    
-    NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
-    [database executeUpdate:queryString1];
-    
-    [database close];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults removeObjectForKey:@"Table ID"];
-    [defaults removeObjectForKey:@"Table Name"];
-    [defaults removeObjectForKey:@"Table image"];
-    [defaults removeObjectForKey:@"Role"];
-    [fetchMsgTimer invalidate];
-    [self removeData];
-    
-    [defaults setObject:@"YES"forKey:@"isLogedOut"];
-    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-    [self.navigationController pushViewController:loginVC animated:NO];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    [appdelegate logout];
 }
 
 - (IBAction)exitNoAction:(id)sender {

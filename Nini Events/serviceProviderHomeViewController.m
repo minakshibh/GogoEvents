@@ -271,7 +271,7 @@
     tableAllotedIdsArray = [[NSMutableArray alloc] init];
     assignedTablesArray = [[NSMutableArray alloc] init];
     NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[self.tablesAllotedArray objectAtIndex:0]];
-    for (int i =0 ; i <[self.tablesAllotedArray count] ; i++) {
+    for (int i =0 ; i <[tempArray count] ; i++) {
         tableAllotedObj = [[tableAllotedOC alloc]init];
         NSString *tableIdStr = [NSString stringWithFormat:@"%@",[[tempArray valueForKey:@"id"] objectAtIndex:i]];
         tableIdStr = [tableIdStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
@@ -712,55 +712,61 @@
         
         
         NSDate *startTime;
+        NSString *timeZone = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"DaylightName"]];
+        NSString *timeZoneOffset = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"BaseUTcOffset"]];
+        NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
         
         startTime = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:timeZone]];
         [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
         NSString *curruntTime = [ dateFormat stringFromDate:startTime];
-        
         NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+        NSDateComponents *offset = [[NSDateComponents alloc] init];
+        [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+        [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
+        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
+        
         NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+        NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
+        [dateFormat1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormat1 setDateFormat:@"yyyyMMddHHmmss"];
+        NSDate *date = [dateFormat1 dateFromString:time];
+        NSString *dateStr = [dateFormat1 stringFromDate:date];
+        NSDate *date1=[dateFormat1 dateFromString:dateStr];
+        NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+        [offset1 setHour:0];
+        [offset1 setMinute:0];
+        NSDate *newOrderDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset1 toDate:date1 options:0];
         
-        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-        NSDate *date = [dateFormat dateFromString:time];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: newOrderDate toDate: newDate options: 0];
+        NSInteger hours, minutes, seconds, days;
         
-        // Convert date object to desired output format
-        //    [dateFormat setDateFormat:@"HH:mm"];
-        NSString *dateStr = [dateFormat stringFromDate:date];
-        NSDate *date1=[dateFormat dateFromString:dateStr];
-       
-        NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
-        NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
-        timeDelay = [timeDelay
-                     stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        int timeINteger = [timeDelay integerValue];
-        int minutes = timeINteger / 60;
-        int hours = timeINteger / 3600;
-        int days = timeINteger / 86400;
-        NSLog(@"interval %d",minutes);
-        NSLog(@"interval %d",hours);
-        NSLog(@"interval %d",days);
+        days = [components day];
+        hours = [components hour];
+        minutes = [components minute];
+        seconds = [components second];
         
         NSString *timeStr;
         if (days > 0) {
             if (days > 1) {
-                timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+                timeStr =[NSString stringWithFormat:@"%ld DAYS AGO",(long)days];
             }else{
-                timeStr =[NSString stringWithFormat:@"%d DAY AGO",days];
+                timeStr =[NSString stringWithFormat:@"%ld DAY AGO",(long)days];
             }
             
         }else if (hours > 0){
             if (hours > 1) {
-                timeStr =[NSString stringWithFormat:@"%d HOURS AGO",hours];
+                timeStr =[NSString stringWithFormat:@"%ld HOURS AGO",(long)hours];
             }else{
-                timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+                timeStr =[NSString stringWithFormat:@"%ld HOUR AGO",(long)hours];
             }
             
         }else{
             if (minutes > 1) {
-                timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+                timeStr =[NSString stringWithFormat:@"%ld MINS AGO",(long)minutes];
             }else{
-                timeStr =[NSString stringWithFormat:@"%d MIN AGO",minutes];
+                timeStr =[NSString stringWithFormat:@"%ld MIN AGO",(long)minutes];
             }
             
         }
@@ -1350,37 +1356,48 @@
         NSLog(@"Dictionary %@",userDetailDict);
        
         NSDate *startTime;
+        NSString *timeZone = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"DaylightName"]];
+        NSString *timeZoneOffset = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"BaseUTcOffset"]];
+        NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
         
         startTime = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"HH:mm"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:timeZone]];
+        [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
         NSString *curruntTime = [ dateFormat stringFromDate:startTime];
-        
         NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+        NSDateComponents *offset = [[NSDateComponents alloc] init];
+        [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+        [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
+        NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
         
-        NSString *orderTime = [NSString stringWithFormat:@"%@",pendingOrderObj.TimeOfDelivery];
-        NSDate *date1 = [dateFormat dateFromString:orderTime];
-        NSLog(@"date1 : %@", date1);
-        NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
-        NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
-        timeDelay = [timeDelay
-                     stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        int timeINteger = [timeDelay integerValue];
-        int minutes = timeINteger / 60;
-        NSLog(@"interval %d",minutes);
-        int hours = timeINteger / 3600;
-        int days = timeINteger / 86400;
-        NSLog(@"interval %d",minutes);
-        NSLog(@"interval %d",hours);
-        NSLog(@"interval %d",days);
+        NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+        NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
+        [dateFormat1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormat1 setDateFormat:@"yyyyMMddHHmmss"];
+        NSDate *date = [dateFormat1 dateFromString:time];
+        NSString *dateStr = [dateFormat1 stringFromDate:date];
+        NSDate *date1=[dateFormat1 dateFromString:dateStr];
+        NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+        [offset1 setHour:0];
+        [offset1 setMinute:0];
+        NSDate *newOrderDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset1 toDate:date1 options:0];
+        
+        NSDateComponents *components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: newOrderDate toDate: newDate options: 0];
+        NSInteger hours, minutes, seconds, days;
+        
+        days = [components day];
+        hours = [components hour];
+        minutes = [components minute];
+        seconds = [components second];
         
         NSString *timeStr;
         if (days > 0) {
-            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+            timeStr =[NSString stringWithFormat:@"%ld DAYS AGO",(long)days];
         }else if (hours > 0){
-            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+            timeStr =[NSString stringWithFormat:@"%ld HOUR AGO",(long)hours];
         }else{
-            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+            timeStr =[NSString stringWithFormat:@"%ld MINS AGO",(long)minutes];
         }
         
         if ([StatusTag isEqualToString:@"Open"]) {
@@ -1971,55 +1988,61 @@
     self.orderNumberLbl.text = [NSString stringWithFormat:@"%@",pendingOrderObj.OrderId];
     self.spNotesTextView.text = [NSString stringWithFormat:@"%@",pendingOrderObj.note];
     NSDate *startTime;
+    NSString *timeZone = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"DaylightName"]];
+    NSString *timeZoneOffset = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"BaseUTcOffset"]];
+    NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
     
     startTime = [NSDate date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:timeZone]];
     [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
     NSString *curruntTime = [ dateFormat stringFromDate:startTime];
-    
     NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
-    NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
-    NSLog(@"Order time %@",pendingOrderObj.lastUpdatedTime);
-    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-    NSDate *date = [dateFormat dateFromString:time];
+    NSDateComponents *offset = [[NSDateComponents alloc] init];
+    [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+    [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
+    NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
     
-    // Convert date object to desired output format
-    //[dateFormat setDateFormat:@"HH:mm"];
-    NSString *dateStr = [dateFormat stringFromDate:date];
-    NSDate *date1=[dateFormat dateFromString:dateStr];
-    NSTimeInterval secs = [date1 timeIntervalSinceDate:convertedTime];
-    NSString *timeDelay = [NSString stringWithFormat:@"%f",secs];
-    timeDelay = [timeDelay
-                 stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    int timeINteger = [timeDelay integerValue];
-    int minutes = timeINteger / 60;
-    NSLog(@"interval %d",minutes);
-    int hours = timeINteger / 3600;
-    int days = timeINteger / 86400;
-    NSLog(@"interval %d",minutes);
-    NSLog(@"interval %d",hours);
-    NSLog(@"interval %d",days);
+    NSString *time = [NSString stringWithFormat:@"%@",pendingOrderObj.lastUpdatedTime];
+    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
+    [dateFormat1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormat1 setDateFormat:@"yyyyMMddHHmmss"];
+    NSDate *date = [dateFormat1 dateFromString:time];
+    NSString *dateStr = [dateFormat1 stringFromDate:date];
+    NSDate *date1=[dateFormat1 dateFromString:dateStr];
+    NSDateComponents *offset1 = [[NSDateComponents alloc] init];
+    [offset1 setHour:0];
+    [offset1 setMinute:0];
+    NSDate *newOrderDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset1 toDate:date1 options:0];
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: newOrderDate toDate: newDate options: 0];
+    NSInteger hours, minutes, seconds, days;
+    
+    days = [components day];
+    hours = [components hour];
+    minutes = [components minute];
+    seconds = [components second];
     
     NSString *timeStr;
     if (days > 0) {
         if (days > 1) {
-            timeStr =[NSString stringWithFormat:@"%d DAYS AGO",days];
+            timeStr =[NSString stringWithFormat:@"%ld DAYS AGO",(long)days];
         }else{
-            timeStr =[NSString stringWithFormat:@"%d DAY AGO",days];
+            timeStr =[NSString stringWithFormat:@"%ld DAY AGO",(long)days];
         }
         
     }else if (hours > 0){
         if (hours > 1) {
-            timeStr =[NSString stringWithFormat:@"%d HOURS AGO",hours];
+            timeStr =[NSString stringWithFormat:@"%ld HOURS AGO",(long)hours];
         }else{
-            timeStr =[NSString stringWithFormat:@"%d HOUR AGO",hours];
+            timeStr =[NSString stringWithFormat:@"%ld HOUR AGO",(long)hours];
         }
         
     }else{
         if (minutes > 1) {
-            timeStr =[NSString stringWithFormat:@"%d MINS AGO",minutes];
+            timeStr =[NSString stringWithFormat:@"%ld MINS AGO",(long)minutes];
         }else{
-            timeStr =[NSString stringWithFormat:@"%d MIN AGO",minutes];
+            timeStr =[NSString stringWithFormat:@"%ld MIN AGO",(long)minutes];
         }
         
     }
@@ -2192,26 +2215,8 @@
     
 }
 - (IBAction)exitYesAction:(id)sender {
-    docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDir = [docPaths objectAtIndex:0];
-    dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-    database = [FMDatabase databaseWithPath:dbPath];
-    [database open];
-    
-    NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM spPings"];
-    [database executeUpdate:queryString1];
-    
-    [database close];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"Service Provider ID"];
-    [defaults removeObjectForKey:@"Service Provider Name"];
-    [defaults removeObjectForKey:@"Service Provider image"];
-    [defaults removeObjectForKey:@"Role"];
-    
-    [defaults setObject:@"YES"forKey:@"isLogedOut"];
-    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-    [self.navigationController pushViewController:loginVC animated:YES];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    [appdelegate logout];
    
 }
 

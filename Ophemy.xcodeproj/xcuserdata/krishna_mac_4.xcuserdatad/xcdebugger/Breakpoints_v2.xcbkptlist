@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nini Events/serviceProviderHomeViewController.m"
-            timestampString = "480411184.53517"
+            filePath = "Nini Events/requestAssistanceViewController.m"
+            timestampString = "481187050.094402"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1050"
-            endingLineNumber = "1050"
-            landmarkName = "-changeStatus::"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-fetchHelpMessage"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

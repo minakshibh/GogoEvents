@@ -1079,28 +1079,8 @@
     
 }
 - (IBAction)exitYesAction:(id)sender {
-    docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDir = [docPaths objectAtIndex:0];
-    dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-    database = [FMDatabase databaseWithPath:dbPath];
-    [database open];
-    
-    NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM spPings"];
-    [database executeUpdate:queryString1];
-    
-    [database close];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"Service Provider ID"];
-    [defaults removeObjectForKey:@"Service Provider Name"];
-    [defaults removeObjectForKey:@"Service Provider image"];
-    [defaults removeObjectForKey:@"Role"];
-    
-    [defaults setObject:@"YES"forKey:@"isLogedOut"];
-    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-    [fetchMsgTimer invalidate];
-
-    [self.navigationController pushViewController:loginVC animated:YES];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    [appdelegate logout];
     
 }
 

@@ -227,60 +227,55 @@ NSArray *urlLinks;
 
     lbleventtimeout.hidden = YES;
     NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
-     NSString *StartTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventStartDate"]];
+    NSString *StartTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventStartDate"]];
+    NSString *timeZone = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"DaylightName"]];
+    NSString *timeZoneOffset = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"BaseUTcOffset"]];
+    NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
 
     NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-    
+   
     [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
-    
-    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
-    NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
     NSDate *eDate = [dateFormat1 dateFromString:EndTime];
     NSDate *startDate = [dateFormat1 dateFromString:StartTime];
     
+    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
+    NSDate *newDate = [dateFormat1 dateFromString:currentDateStr];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:timeZone]];
+    [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
+    NSString *curruntTime = [ dateFormat stringFromDate:newDate];
+    NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
+    NSDateComponents *offset = [[NSDateComponents alloc] init];
+    [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+    [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
+    NSDate *sDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
+    
+    
     if ([startDate compare:sDate] == NSOrderedDescending) {
-        NSLog(@"date1 is later than date2");
+       
         components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: sDate toDate: startDate options: 0];
         lblTimerheaderbackground.text = @"Event will start in";
         [[NSUserDefaults standardUserDefaults]setObject:@"not_started" forKey:@"evenStatus"];
 
     } else if ([startDate compare:sDate] == NSOrderedAscending) {
-        NSLog(@"date1 is earlier than date2");
+       
         components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
           lblTimerheaderbackground.text = @"Event will be over in";
         [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
 
     } else {
         lblTimerheaderbackground.text = @"Event is getting started";
-        NSLog(@"dates are the same");
+        
         lblTimerHour.text = [NSString stringWithFormat:@"00"];
         lblTimermin.text = [NSString stringWithFormat:@"00"];
         lblTimerSec.text = [NSString stringWithFormat:@"00"];
-//        [timer invalidate];
-        
-//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Ophemy"
-//                                                         message:@"Event is started"
-//                                                        delegate:self
-//                                               cancelButtonTitle:@"OK"
-//                                               otherButtonTitles:nil];
-//        alert.tag = 1;
-//        [alert show];
-        
-//        lbleventtimeout.hidden = NO;
-//        self.timerCountDown.hidden = YES;
-//        self.daysCountDown.hidden = YES;
-        
-//        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
-        
-        
         return;
 
     }
     
-    NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
+   
     NSInteger hours, minutes, seconds, days;
     
-//    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
     days = [components day];
     hours = [components hour];
     minutes = [components minute];
@@ -729,27 +724,8 @@ NSArray *urlLinks;
 }
 
 - (IBAction)exitYesAction:(id)sender {
-    docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDir = [docPaths objectAtIndex:0];
-    dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-    database = [FMDatabase databaseWithPath:dbPath];
-    [database open];
-    
-    NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
-    [database executeUpdate:queryString1];
-    
-    [database close];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults removeObjectForKey:@"Table ID"];
-    [defaults removeObjectForKey:@"Table Name"];
-    [defaults removeObjectForKey:@"Table image"];
-    [defaults removeObjectForKey:@"Role"];
-    [self removeData];
-    [defaults setObject:@"YES"forKey:@"isLogedOut"];
-    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-    [self.navigationController pushViewController:loginVC animated:NO];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    [appdelegate logout];
 }
 
 - (IBAction)exitNoAction:(id)sender {

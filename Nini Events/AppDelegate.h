@@ -10,6 +10,7 @@
      NSDateComponents *components;
      NSTimer *timer;
     appHomeViewController *appHomeView;
+    FMDatabase *database;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, assign) bool *startIdleTimmer;
@@ -19,5 +20,6 @@
 - (void)resetIdleTimer;
 - (void)resetEventTimer;
 - (void)createCopyOfDatabaseIfNeeded;
+- (void)logout;
 @end
 

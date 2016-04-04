@@ -918,40 +918,12 @@
 //    [self fetchCounts];
 }
 - (IBAction)exitYesAction:(id)sender {
-    docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    documentsDir = [docPaths objectAtIndex:0];
-    dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
-    database = [FMDatabase databaseWithPath:dbPath];
-    [database open];
-    
-    NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
-    [database executeUpdate:queryString1];
-    
-    [database close];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults removeObjectForKey:@"Table ID"];
-    [defaults removeObjectForKey:@"Table Name"];
-    [defaults removeObjectForKey:@"Table image"];
-    [defaults removeObjectForKey:@"Role"];
-    [self removeData];
-    
-    [defaults setObject:@"YES"forKey:@"isLogedOut"];
-    loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
-    [self.navigationController pushViewController:loginVC animated:NO];
+    AppDelegate *appdelegate = [[UIApplication sharedApplication]delegate];
+    [appdelegate logout];
+
 }
 -(void)addBannerImages{
-//    imagesUrlArray = [[NSMutableArray alloc]init];
-//    imagesUrlArray = [[NSMutableArray alloc] initWithObjects:[[NSUserDefaults standardUserDefaults] valueForKey:@"ImageArray"], nil];
-//    
-//    
-//    if ([imagesUrlArray count] > 0) {
-//        imageNameStringsArray =[imagesUrlArray objectAtIndex:0];
-//    }
-    
-
-    
+  
     docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     documentsDir = [docPaths objectAtIndex:0];
     dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
@@ -1194,24 +1166,6 @@
         [self.navigationController pushViewController:homeVC animated:NO];
     }
     
-}
-- (void)removeData
-{
-    NSString *extension = @"png";
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
-    NSEnumerator *e = [contents objectEnumerator];
-    NSString *filename;
-    while ((filename = [e nextObject])) {
-        
-        if ([[filename pathExtension] isEqualToString:extension]) {
-            
-            [fileManager removeItemAtPath:[documentsDirectory     stringByAppendingPathComponent:filename] error:NULL];
-        }
-    }
 }
 
 - (void)imageDownloading:(NSString *) imageUrl : (NSString *) imageName

@@ -220,7 +220,7 @@
 {
     [self disabled];
     [activityIndicator startAnimating];
-  
+    [[NSUserDefaults standardUserDefaults] setValue:userid forKey:@"UserId"];
     
     NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:userid,@"UserId",password, @"Password", nil];
     
@@ -647,6 +647,9 @@
             [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
             [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
             [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
+            [defaults setValue:[userDetailDict valueForKey:@"DaylightName"] forKey:@"DaylightName"];
+            [defaults setValue:[userDetailDict valueForKey:@"BaseUTcOffset"] forKey:@"BaseUTcOffset"];
+            
             appdelegate=[[UIApplication sharedApplication]delegate];
             NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
             NSString *substring;

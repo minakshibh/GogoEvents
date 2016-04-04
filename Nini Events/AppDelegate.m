@@ -316,6 +316,53 @@
     
 }
 
+-(void)logout
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *jsonDict=[[NSDictionary alloc]initWithObjectsAndKeys:[defaults valueForKey:@"UserId"],@"UserId", nil];
+    
+    NSString *jsonRequest = [jsonDict JSONRepresentation];
+    
+    NSLog(@"jsonRequest is %@", jsonRequest);
+    NSURL *urlString=[NSURL URLWithString:[NSString stringWithFormat:@"%@/Logout",Kwebservices]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlString cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    
+    NSLog(@"Request:%@",urlString);
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    [request setHTTPBody: [jsonRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    webServiceCode = 2;
+    if(connection)
+    {
+        if(webData==nil)
+        {
+            webData = [NSMutableData data] ;
+            NSLog(@"data");
+        }
+        else
+        {
+            webData=nil;
+            webData = [NSMutableData data] ;
+        }
+        
+        NSLog(@"server connection made");
+    }
+    
+    else
+    {
+        NSLog(@"connection is NULL");
+    }
+    
+}
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [webData setLength:0];
 }
@@ -332,7 +379,52 @@
 #pragma mark Process loan data
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
-    
+    if (webServiceCode == 2) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
+        NSLog(@"responseString:%@",responseString);
+        responseString= [responseString stringByReplacingOccurrencesOfString:@"{\"d\":null}" withString:@""];
+        NSError *error;
+        SBJsonParser *json = [[SBJsonParser alloc] init];
+        
+        NSMutableArray *userDetailDict=[json objectWithString:responseString error:&error];
+        NSLog(@"Dictionary %@",userDetailDict);
+        NSString *resultStr = [NSString stringWithFormat:@"%@",[userDetailDict valueForKey:@"result"]];
+        if([resultStr isEqualToString:@"0"])
+        {
+            NSArray *docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDir = [docPaths objectAtIndex:0];
+            NSString *dbPath = [documentsDir   stringByAppendingPathComponent:@"niniEvents.sqlite"];
+            database = [FMDatabase databaseWithPath:dbPath];
+            [database open];
+            
+            NSString *queryString1 = [NSString stringWithFormat:@"Delete FROM orderHistory"];
+            [database executeUpdate:queryString1];
+            
+            NSString *queryString2 = [NSString stringWithFormat:@"Delete FROM spPings"];
+            [database executeUpdate:queryString2];
+            
+            [database close];
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            
+            [defaults removeObjectForKey:@"Table ID"];
+            [defaults removeObjectForKey:@"Table Name"];
+            [defaults removeObjectForKey:@"Table image"];
+            [defaults removeObjectForKey:@"Role"];
+            [defaults removeObjectForKey:@"Service Provider ID"];
+            [defaults removeObjectForKey:@"Service Provider Name"];
+            [defaults removeObjectForKey:@"Service Provider image"];
+        
+            [self removeData];
+            
+            [defaults setObject:@"YES"forKey:@"isLogedOut"];
+            loginViewController *loginVC = [[loginViewController alloc] initWithNibName:@"loginViewController" bundle:nil];
+            [self.navigator pushViewController:loginVC animated:NO];
+        }
+    }
+    else
+    {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *responseString = [[NSString alloc] initWithData:webData encoding:NSUTF8StringEncoding];
     NSLog(@"responseString:%@",responseString);
@@ -368,7 +460,8 @@
         [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
         [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
         [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
-        
+        [defaults setValue:[userDetailDict valueForKey:@"DaylightName"] forKey:@"DaylightName"];
+        [defaults setValue:[userDetailDict valueForKey:@"BaseUTcOffset"] forKey:@"BaseUTcOffset"];
         NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
         NSLog(@"%@",currencyStr);
         NSString *substring;
@@ -383,27 +476,11 @@
         
         self.currencySymbol=substring;
         [defaults setValue:substring forKey:@"Currency Value"];
-        //        if ([userDetailDict valueForKey:@"EventPictureUrl"] !=[NSNull null]) {
-        //
-        //            NSString *eventImageStr = [userDetailDict valueForKey:@"EventPictureUrl"];
-        //            NSString *eventID = [userDetailDict valueForKey:@"EventName"];
-        //
-        //            [self imageDownloading:eventImageStr :eventID];
-        //
-        //            eventImageStr = [NSString stringWithFormat:@"%@.png",eventID];
-        //
-        //            [defaults setValue:eventImageStr forKey:@"EventImage"];
-        //
-        //        }
-        //        else{
-        //            [defaults setValue:@"" forKey:@"EventPictureUrl"];
-        //        }
         
         _startIdleTimmer = YES;
         [self resetIdleTimer];
         [appHomeView tick];
-    }else{
-        
+    }
     }
 }
 
@@ -428,91 +505,23 @@
     
 }
 
-//- (void)tick {
-//
-//    NSString *EndTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventEndDate"]];
-//
-//    NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-//
-//    [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
-//
-//    NSString *currentDateStr = [dateFormat1 stringFromDate:[NSDate date]];
-//    NSDate *sDate = [dateFormat1 dateFromString:currentDateStr];
-//    NSDate *eDate = [dateFormat1 dateFromString:EndTime];
-//
-//
-//    NSLog(@"End Date = %@, Current Date = %@",eDate , sDate);
-//
-//    NSInteger hours, minutes, seconds, days;
-//
-//    components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
-//    days = [components day];
-//    hours = [components hour];
-//    minutes = [components minute];
-//    seconds = [components second];
-//    if (seconds <= 0 && hours <= 0 && minutes <= 0) {
-//        //Checks if the countdown completed
-////        lblTimerHour.text = [NSString stringWithFormat:@"00"];
-////        lblTimermin.text = [NSString stringWithFormat:@"00"];
-////        lblTimerSec.text = [NSString stringWithFormat:@"00"];
-//        [timer invalidate];
-//
-//
-////        lbleventtimeout.hidden = NO;
-////        self.timerCountDown.hidden = YES;
-////        self.daysCountDown.hidden = YES;
-//
-//        [[NSUserDefaults standardUserDefaults]setObject:@"end" forKey:@"evenStatus"];
-//
-//
-//        return;
-//    }
-//
-//    NSString *hoursStr,*minutesStr,*secondsStr;
-//
-//    if (hours < 10) {
-//        hoursStr =[NSString stringWithFormat:@"0%li", (long)hours];
-//    }else{
-//        hoursStr = [NSString stringWithFormat:@"%li",(long)hours];
-//    }
-//
-//    if (minutes < 10) {
-//        minutesStr =[NSString stringWithFormat:@"0%li", (long)minutes];
-//    }else{
-//        minutesStr = [NSString stringWithFormat:@"%li",(long)minutes];
-//    }
-//
-//    if (seconds < 10) {
-//        secondsStr =[NSString stringWithFormat:@"0%li",(long)seconds];
-//    }else{
-//        secondsStr = [NSString stringWithFormat:@"%li",(long)seconds];
-//    }
-//
-//
-//    if (days <= 0) {
-////        self.timerCountDown.hidden = NO;
-////        self.daysCountDown.hidden = YES;
-////        lblTimerHour.text = hoursStr;
-////        lblTimermin.text = minutesStr;
-////        lblTimerSec.text = secondsStr;
-//    }else{
-////        self.timerCountDown.hidden = YES;
-////        self.daysCountDown.hidden = NO;
-////        if (days > 1) {
-////            lblTimerDays.text = [NSString stringWithFormat:@"%i Days", days];
-////        }else{
-////            lblTimerDays.text = [NSString stringWithFormat:@"%i Day", days];
-////        }
-//
-////        dayCountDownHourLbl.text = hoursStr;
-////        dayCountDownMinLbl.text = minutesStr;
-////        dayCountDownSecLbl.text = secondsStr;
-//    }
-//    if (timer == nil) {
-//        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
-//    }
-//    [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
-//    
-//}
+- (void)removeData
+{
+    NSString *extension = @"png";
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,     NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        if ([[filename pathExtension] isEqualToString:extension]) {
+            
+            [fileManager removeItemAtPath:[documentsDirectory     stringByAppendingPathComponent:filename] error:NULL];
+        }
+    }
+}
 
 @end
