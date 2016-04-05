@@ -233,7 +233,7 @@ NSArray *urlLinks;
     NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
 
     NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
-   
+    [dateFormat1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [dateFormat1 setDateFormat:@"M/dd/yyyy hh:mm:ss a"];
     NSDate *eDate = [dateFormat1 dateFromString:EndTime];
     NSDate *startDate = [dateFormat1 dateFromString:StartTime];
@@ -249,7 +249,10 @@ NSArray *urlLinks;
     [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
     [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
     NSDate *sDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
-    
+//    [offset setHour:-[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+//    [offset setMinute:-[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
+//    startDate =[[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:startDate options:0];
+//    eDate=[[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:eDate options:0];
     
     if ([startDate compare:sDate] == NSOrderedDescending) {
        
@@ -259,7 +262,7 @@ NSArray *urlLinks;
 
     } else if ([startDate compare:sDate] == NSOrderedAscending) {
        
-        components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: [NSDate date] toDate: eDate options: 0];
+        components = [[NSCalendar currentCalendar] components: NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate: sDate toDate: eDate options: 0];
           lblTimerheaderbackground.text = @"Event will be over in";
         [[NSUserDefaults standardUserDefaults]setObject:@"running" forKey:@"evenStatus"];
 
