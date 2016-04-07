@@ -460,7 +460,8 @@
         [defaults setValue:[userDetailDict valueForKey:@"EventStartDate"] forKey:@"EventStartDate"];
         [defaults setValue:[userDetailDict valueForKey:@"EventEndDate"] forKey:@"EventEndDate"];
         [defaults setValue:[userDetailDict valueForKey:@"HoldEvent"] forKey:@"HoldEvent"];
-        [defaults setValue:[userDetailDict valueForKey:@"DaylightName"] forKey:@"DaylightName"];
+        [defaults setValue:[userDetailDict valueForKey:@"StandardName"] forKey:@"DaylightName"];
+        [defaults setValue:[userDetailDict valueForKey:@"DaylightName"] forKey:@"Daylight"];
         [defaults setValue:[userDetailDict valueForKey:@"BaseUTcOffset"] forKey:@"BaseUTcOffset"];
         NSString*currencyStr=[userDetailDict valueForKey:@"EventCurrencySymbol"];
         NSLog(@"%@",currencyStr);

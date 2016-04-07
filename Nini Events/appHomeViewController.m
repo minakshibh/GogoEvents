@@ -230,6 +230,19 @@ NSArray *urlLinks;
     NSString *StartTime = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"EventStartDate"]];
     NSString *timeZone = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"DaylightName"]];
     NSString *timeZoneOffset = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"BaseUTcOffset"]];
+     NSString *Daylight = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"Daylight"]];
+
+//    int offsetValue = [Daylight intValue];
+    BOOL status = false;
+    
+    if([Daylight isEqualToString:@"+1"]){
+        status = true;
+    }else if([Daylight isEqualToString:@"-1"]){
+        status = true;
+    }else if([Daylight isEqualToString:@"0"]){
+        status = false;
+    }
+    
     NSArray *timeZoneOffsetStr = [timeZoneOffset componentsSeparatedByString:@":"];
 
     NSDateFormatter *dateFormat1 = [[NSDateFormatter alloc] init];
@@ -243,10 +256,10 @@ NSArray *urlLinks;
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:timeZone]];
     [dateFormat setDateFormat:@"yyyyMMddHHmmss"];
-    NSString *curruntTime = [ dateFormat stringFromDate:newDate];
+    NSString *curruntTime = [dateFormat stringFromDate:newDate];
     NSDate *convertedTime = [dateFormat dateFromString:curruntTime];
     NSDateComponents *offset = [[NSDateComponents alloc] init];
-    [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
+    [offset setHour:[[timeZoneOffsetStr objectAtIndex:0] integerValue] + 1*status];
     [offset setMinute:[[timeZoneOffsetStr objectAtIndex:1] integerValue]];
     NSDate *sDate = [[NSCalendar currentCalendar] dateByAddingComponents:offset toDate:convertedTime options:0];
 //    [offset setHour:-[[timeZoneOffsetStr objectAtIndex:0] integerValue]];
